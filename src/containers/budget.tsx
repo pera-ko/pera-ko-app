@@ -3,9 +3,6 @@ import { Fragment } from "react"
 import { Link, useHistory, useLocation } from "react-router-dom"
 import { useQuery } from "../hooks";
 
-
-
-
 const Budget: React.FC = () => {
   const location = useLocation();
   const history = useHistory();

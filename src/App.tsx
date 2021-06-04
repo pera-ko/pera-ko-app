@@ -1,11 +1,17 @@
-import { Link, useParams, useRouteMatch } from "react-router-dom";
+import { Link, useHistory, useLocation, useParams, useRouteMatch } from "react-router-dom";
 import { AdjustmentsIcon, ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, HomeIcon, PlusIcon, TrendingDownIcon, TrendingUpIcon } from '@heroicons/react/outline'
 import { stringify } from "querystring";
+import { useQuery } from "./hooks";
+import NewTransaction from "./containers/new-transaction";
 
 const App: React.FC = ({ children }) => {
-  let appPath = useRouteMatch("/:year/:month")
-  let expensesMatch = useRouteMatch(`${appPath?.url}/expenses`);
-  let incomeMatch = useRouteMatch(`${appPath?.url}/income`);
+  const query = useQuery();
+  const appPath = useRouteMatch("/:year/:month")
+  const expensesMatch = useRouteMatch(`${appPath?.url}/expenses`);
+  const incomeMatch = useRouteMatch(`${appPath?.url}/income`);
+
+  const isNewTransactionOpen = query.get('newtran') === 'open';
+
   return (
     <div>
       <div className={`bg-gradient-to-bl from-indigo-100 via-indigo-300 to-indigo-400 transition-all ease-in-out duration-150 ${appPath?.isExact ? 'rounded-b-3xl' : ''} ` }>
@@ -42,6 +48,9 @@ const App: React.FC = ({ children }) => {
         </div>
       </div>
       {children}
+      {isNewTransactionOpen && (
+        <NewTransaction/>
+      )}
     </div>
   );
 }
@@ -118,6 +127,13 @@ function Navbar () {
 }
 
 export function BottomNav() {
+  const location = useLocation();
+  const history = useHistory();
+  const query = useQuery();
+  const handleNewClick = () => {
+    query.set('newtran', 'open')
+    history.push(`${location.pathname}?${query.toString()}`)
+  }
   return (
     <div className='bg-white border-t grid grid-cols-3 px-6 fixed inset-x-0 bottom-0'>
       <Link to='/preferences' className='text-center py-2 w-15'>
@@ -125,7 +141,9 @@ export function BottomNav() {
         <div className='text-xs font-medium'>Home</div>
       </Link>
       <div className='text-center'>
-        <button className='p-4 bg-indigo-500 text-white rounded-full transform -translate-y-1/2'>
+        <button 
+          className='p-4 bg-indigo-500 text-white rounded-full transform -translate-y-1/2'
+          onClick={handleNewClick}>
           <PlusIcon className='h-6 w-6'/>
         </button>
       </div>
