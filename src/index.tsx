@@ -7,6 +7,7 @@ import Transactions from './containers/transactions';
 import Budget from './containers/budget';
 import Income from './containers/income';
 import IncomeAdd from './containers/income-add';
+import Preferences from './containers/preferences';
 
 const DefaultRoute = () => {
   const dateNow = new Date();
@@ -38,6 +39,11 @@ ReactDOM.render(
               <Route path='/:year/:month/expenses' component={Transactions}/>
               <Route path='/:year/:month/expenses' component={BottomNav}/>
             </App>
+          </Route>
+          <Route path="/preferences">
+            <Preferences>
+              
+            </Preferences>
           </Route>
           <NotFound/>
         </Switch>

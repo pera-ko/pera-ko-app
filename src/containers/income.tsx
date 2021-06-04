@@ -3,7 +3,6 @@ import { Fragment } from "react";
 import { Link, useParams } from "react-router-dom";
 
 export default function Income() {
-  
   const { year, month } = useParams<{year: string, month: string}>();
   return (
     <Fragment>
