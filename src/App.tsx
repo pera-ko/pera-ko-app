@@ -127,6 +127,7 @@ function Navbar () {
 }
 
 export function BottomNav() {
+  const { year, month } = useParams<{year: string, month: string}>();
   const location = useLocation();
   const history = useHistory();
   const query = useQuery();
@@ -136,7 +137,7 @@ export function BottomNav() {
   }
   return (
     <div className='bg-white border-t grid grid-cols-3 px-6 fixed inset-x-0 bottom-0'>
-      <Link to='/preferences' className='text-center py-2 w-15'>
+      <Link to='/' className='text-center py-2 w-15'>
         <HomeIcon className='h-6 w-6 inline'/>
         <div className='text-xs font-medium'>Home</div>
       </Link>
@@ -147,7 +148,7 @@ export function BottomNav() {
           <PlusIcon className='h-6 w-6'/>
         </button>
       </div>
-      <Link to='/preferences' className='text-center py-2 w-15'>
+      <Link to={`/${year}/${month}/preferences`} className='text-center py-2 w-15'>
         <AdjustmentsIcon className='h-6 w-6 inline'/>
         <div className='text-xs font-medium'>Preferences</div>
       </Link>

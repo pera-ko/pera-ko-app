@@ -38,13 +38,14 @@ ReactDOM.render(
               <Route path='/:year/:month/income/new' component={IncomeAdd}/>
               <Route path='/:year/:month/expenses' component={Transactions}/>
               <Route path='/:year/:month/expenses' component={BottomNav}/>
+              <Route path="/:year/:month/preferences">
+                <Preferences>
+                  
+                </Preferences>
+              </Route>
             </App>
           </Route>
-          <Route path="/preferences">
-            <Preferences>
-              
-            </Preferences>
-          </Route>
+          
           <NotFound/>
         </Switch>
       </Router>
