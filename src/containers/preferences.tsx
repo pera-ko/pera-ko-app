@@ -3,15 +3,15 @@ import { ArrowLeftIcon, CheckCircleIcon, CheckIcon, ChevronRightIcon, CreditCard
 import React, { Fragment } from "react";
 import { useHistory, useLocation, useParams, useRouteMatch } from "react-router";
 import { Link } from "react-router-dom";
-import usePortal from "react-useportal";
 
 const Preferences: React.FC = () => {
-  const { Portal } = usePortal()
-  const route = useRouteMatch();
+  const route = useRouteMatch('/:year/:month/preferences');
   const history = useHistory();
+  const isOpen =  route !== null && route.isExact
   return (
-    <Dialog open onClose={() => history.goBack()}>
-      <div className='fixed inset-0 bg-white overflow-y-auto'>
+    <Dialog open={isOpen} onClose={() => history.goBack()}
+      as="div"
+      className='fixed inset-0 bg-white overflow-y-auto'>
         <div className='sticky h- top-0 bg-white flex items-center font-medium text-lg'>
           <button
             className='p-5'
@@ -43,7 +43,7 @@ const Preferences: React.FC = () => {
         </div>
         <div className='bg-gray-200 px-5 py-2 text-sm sticky top-16 font-medium flex justify-between'>
           Wallets
-          <Link  to={`${route.url}/newwallet`} className='text-link'>ADD</Link>
+          <Link  to={`${route?.url}/newwallet`} className='text-link'>ADD</Link>
         </div>
         <ul>
           <li>
@@ -73,7 +73,7 @@ const Preferences: React.FC = () => {
         </ul>
         <div className='bg-gray-200 px-5 py-2 text-sm sticky top-16 font-medium flex justify-between'>
           Budget List
-          <Link  to={`${route.url}/newbudget`} className='text-link'>ADD</Link>
+          <Link  to={`${route?.url}/newbudget`} className='text-link'>ADD</Link>
         </div>
         <ul>
           <li className='flex justify-between items-center border-red-300 border-l-4'>
@@ -119,7 +119,6 @@ const Preferences: React.FC = () => {
             </Link>
           </li>
         </ul>
-        </div>
     </Dialog>
   )
 }
