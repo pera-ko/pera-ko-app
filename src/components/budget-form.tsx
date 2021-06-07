@@ -5,23 +5,9 @@ import { HexColorPicker } from "react-colorful";
 import BudgetRadio from "./budget-radio"
 import InputGroup from "./input-group"
 import {default as EmojiPicker, IEmojiData } from "emoji-picker-react";
+import { IBudget, IGoal } from "../@types";
 
-interface Budget {
-  type: "budget";
-  budgetName: string;
-  amount: number;
-  icon: string;
-}
 
-interface Goal {
-  type: "goal";
-  budgetName: string;
-  amount: number;
-  icon: string;
-  startDate: string;
-  endDate?: string | undefined;
-  installmentType: "monthly" | "semi-monthly"
-}
 
 interface Inputs {
   budgetName: string;
@@ -33,8 +19,8 @@ interface Inputs {
 }
 
 interface BudgetFormProps {
-  defaultValue?: Budget | Goal
-  onSubmit?(value: Budget | Goal): void
+  defaultValue?: IBudget | IGoal
+  onSubmit?(value: IBudget | IGoal): void
 }
 
 const BudgetForm: React.FC<BudgetFormProps> = ({ defaultValue, onSubmit }) => {
@@ -45,7 +31,7 @@ const BudgetForm: React.FC<BudgetFormProps> = ({ defaultValue, onSubmit }) => {
   const [color, setColor] = useState("#fff");
 
   const handleFormSubmit:SubmitHandler<Inputs> = (data) => {
-    let returnValue: Budget | Goal;
+    let returnValue: IBudget | IGoal;
     if (type === "budget") {
       returnValue = {
         type,
