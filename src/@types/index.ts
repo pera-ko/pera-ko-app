@@ -3,6 +3,7 @@ export interface IBudget {
   budgetName: string;
   amount: number;
   icon: string;
+  color: string;
 }
 
 export interface IGoal {
@@ -10,6 +11,7 @@ export interface IGoal {
   budgetName: string;
   amount: number;
   icon: string;
+  color: string;
   startDate: string;
   endDate?: string | undefined;
   installmentType: "monthly" | "semi-monthly"
