@@ -37,6 +37,7 @@ const BudgetForm: React.FC<BudgetFormProps> = ({ defaultValue, onSubmit }) => {
         type,
         budgetName: data.budgetName,
         amount: data.amount,
+        color,
         icon: chosenEmoji?.emoji!
       }
     } else {
@@ -44,6 +45,7 @@ const BudgetForm: React.FC<BudgetFormProps> = ({ defaultValue, onSubmit }) => {
         type,
         budgetName: data.budgetName,
         amount: data.amount,
+        color,
         icon: chosenEmoji?.emoji!,
         startDate: data.startDate!,
         endDate: data.endDate,

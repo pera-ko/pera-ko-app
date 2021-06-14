@@ -1,12 +1,18 @@
-import { ClipboardCheckIcon, ViewGridIcon } from "@heroicons/react/outline"
-import { Fragment } from "react"
+import { CheckCircleIcon, CheckIcon, ClipboardCheckIcon, ViewGridIcon } from "@heroicons/react/outline"
+import { Fragment, useState } from "react"
 import { Link, useHistory, useLocation } from "react-router-dom"
+import { IBudget, IGoal } from "../@types";
+import BudgetCheckList from "../components/budget-check-list";
+import BudgetGrid from "../components/budget-grid";
+import BudgetList from "../components/budget-list";
 import { useQuery } from "../hooks";
+import testData from "../_testData";
 
 const Budget: React.FC = () => {
   const location = useLocation();
   const history = useHistory();
   const query = useQuery();
+  const [selectedItems, setSelectedItems] = useState<(IBudget | IGoal)[]>([testData.budgetList[0]])
   const isQuickAdd = query.get('view') === 'quickadd'
 
   const handleViewChange = (mode: 'grid' | 'quickadd') => {
@@ -16,7 +22,7 @@ const Budget: React.FC = () => {
   return (
     <Fragment>
       <div>
-        <div className='px-4 py-5 flex justify-between items-center'>
+        <div className='px-4 py-5 flex justify-between items-center sticky top-0 bg-white z-10'>
           <div className='font-medium'>
             Select a budget
           </div>
@@ -33,8 +39,15 @@ const Budget: React.FC = () => {
             </button>
           </div>
         </div>
-        {isQuickAdd ?
-        (<div>quick add</div>) : (<div>grid</div>)}
+        {isQuickAdd ? (
+          <BudgetCheckList items={testData.budgetList} selectedItems={selectedItems} onSelectedItemsChange={setSelectedItems}/>
+        ) : (
+          <BudgetGrid>
+            {testData.budgetList.map(item => (
+              <BudgetGrid.Item value={item}/>
+            ))}
+          </BudgetGrid>
+        )}
       </div>
     </Fragment>
   )
