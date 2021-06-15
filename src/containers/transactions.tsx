@@ -1,14 +1,14 @@
-import { ArrowLeftIcon } from "@heroicons/react/outline";
-import { Fragment } from "react";
-import { Link, useParams } from "react-router-dom";
+import { ArrowLeftIcon } from '@heroicons/react/outline';
+import { Fragment } from 'react';
+import { Link, useParams } from 'react-router-dom';
 
 export default function Transactions() {
-  const { year, month } = useParams<{year: string, month: string}>();
+  const { year, month } = useParams<{ year: string; month: string }>();
   return (
     <Fragment>
       <div className='sticky top-0 bg-white flex items-center font-medium'>
         <Link to={`/${year}/${month}`} className='p-5'>
-          <ArrowLeftIcon className='h-6 w-6'/>
+          <ArrowLeftIcon className='h-6 w-6' />
         </Link>
         Transactions
       </div>
@@ -18,9 +18,7 @@ export default function Transactions() {
         </li>
         <li className='flex justify-between items-center'>
           <div className='flex items-center'>
-            <div className='px-4 py-3 text-2xl'>
-              🚗
-            </div>
+            <div className='px-4 py-3 text-2xl'>🚗</div>
             <span className='font-medium text-sm'>XL7</span>
           </div>
           <div className='text-right mr-5'>
@@ -30,9 +28,7 @@ export default function Transactions() {
         </li>
         <li className='flex justify-between items-center'>
           <div className='flex items-center'>
-            <div className='px-4 py-3 text-2xl'>
-              💗
-            </div>
+            <div className='px-4 py-3 text-2xl'>💗</div>
             <span className='font-medium text-sm'>Pag-ibig MP2</span>
           </div>
           <div className='text-right mr-5'>
@@ -45,9 +41,7 @@ export default function Transactions() {
         </li>
         <li className='flex justify-between items-center'>
           <div className='flex items-center'>
-            <div className='px-4 py-3 text-2xl'>
-              🚗
-            </div>
+            <div className='px-4 py-3 text-2xl'>🚗</div>
             <span className='font-medium text-sm'>XL7</span>
           </div>
           <div className='text-right mr-5'>
@@ -57,9 +51,7 @@ export default function Transactions() {
         </li>
         <li className='flex justify-between items-center'>
           <div className='flex items-center'>
-            <div className='px-4 py-3 text-2xl'>
-              💗
-            </div>
+            <div className='px-4 py-3 text-2xl'>💗</div>
             <span className='font-medium text-sm'>Pag-ibig MP2</span>
           </div>
           <div className='text-right mr-5'>
@@ -67,15 +59,13 @@ export default function Transactions() {
             <div className='text-xs text-gray-600'>2nd half of month</div>
           </div>
         </li>
-        
+
         <li className='bg-gray-200 px-5 py-2 text-xs sticky top-16'>
           Friday, June 18, 2021
         </li>
         <li className='flex justify-between items-center'>
           <div className='flex items-center'>
-            <div className='px-4 py-3 text-2xl'>
-              🚗
-            </div>
+            <div className='px-4 py-3 text-2xl'>🚗</div>
             <span className='font-medium text-sm'>XL7</span>
           </div>
           <div className='text-right mr-5'>
@@ -85,9 +75,7 @@ export default function Transactions() {
         </li>
         <li className='flex justify-between items-center'>
           <div className='flex items-center'>
-            <div className='px-4 py-3 text-2xl'>
-              💗
-            </div>
+            <div className='px-4 py-3 text-2xl'>💗</div>
             <span className='font-medium text-sm'>Pag-ibig MP2</span>
           </div>
           <div className='text-right mr-5'>
@@ -100,9 +88,7 @@ export default function Transactions() {
         </li>
         <li className='flex justify-between items-center'>
           <div className='flex items-center'>
-            <div className='px-4 py-3 text-2xl'>
-              🚗
-            </div>
+            <div className='px-4 py-3 text-2xl'>🚗</div>
             <span className='font-medium text-sm'>XL7</span>
           </div>
           <div className='text-right mr-5'>
@@ -112,9 +98,7 @@ export default function Transactions() {
         </li>
         <li className='flex justify-between items-center'>
           <div className='flex items-center'>
-            <div className='px-4 py-3 text-2xl'>
-              💗
-            </div>
+            <div className='px-4 py-3 text-2xl'>💗</div>
             <span className='font-medium text-sm'>Pag-ibig MP2</span>
           </div>
           <div className='text-right mr-5'>
@@ -127,9 +111,7 @@ export default function Transactions() {
         </li>
         <li className='flex justify-between items-center'>
           <div className='flex items-center'>
-            <div className='px-4 py-3 text-2xl'>
-              🚗
-            </div>
+            <div className='px-4 py-3 text-2xl'>🚗</div>
             <span className='font-medium text-sm'>XL7</span>
           </div>
           <div className='text-right mr-5'>
@@ -139,9 +121,7 @@ export default function Transactions() {
         </li>
         <li className='flex justify-between items-center'>
           <div className='flex items-center'>
-            <div className='px-4 py-3 text-2xl'>
-              💗
-            </div>
+            <div className='px-4 py-3 text-2xl'>💗</div>
             <span className='font-medium text-sm'>Pag-ibig MP2</span>
           </div>
           <div className='text-right mr-5'>
@@ -154,9 +134,7 @@ export default function Transactions() {
         </li>
         <li className='flex justify-between items-center'>
           <div className='flex items-center'>
-            <div className='px-4 py-3 text-2xl'>
-              🚗
-            </div>
+            <div className='px-4 py-3 text-2xl'>🚗</div>
             <span className='font-medium text-sm'>XL7</span>
           </div>
           <div className='text-right mr-5'>
@@ -166,9 +144,7 @@ export default function Transactions() {
         </li>
         <li className='flex justify-between items-center'>
           <div className='flex items-center'>
-            <div className='px-4 py-3 text-2xl'>
-              💗
-            </div>
+            <div className='px-4 py-3 text-2xl'>💗</div>
             <span className='font-medium text-sm'>Pag-ibig MP2</span>
           </div>
           <div className='text-right mr-5'>
@@ -181,9 +157,7 @@ export default function Transactions() {
         </li>
         <li className='flex justify-between items-center'>
           <div className='flex items-center'>
-            <div className='px-4 py-3 text-2xl'>
-              🚗
-            </div>
+            <div className='px-4 py-3 text-2xl'>🚗</div>
             <span className='font-medium text-sm'>XL7</span>
           </div>
           <div className='text-right mr-5'>
@@ -193,9 +167,7 @@ export default function Transactions() {
         </li>
         <li className='flex justify-between items-center'>
           <div className='flex items-center'>
-            <div className='px-4 py-3 text-2xl'>
-              💗
-            </div>
+            <div className='px-4 py-3 text-2xl'>💗</div>
             <span className='font-medium text-sm'>Pag-ibig MP2</span>
           </div>
           <div className='text-right mr-5'>
@@ -208,9 +180,7 @@ export default function Transactions() {
         </li>
         <li className='flex justify-between items-center'>
           <div className='flex items-center'>
-            <div className='px-4 py-3 text-2xl'>
-              🚗
-            </div>
+            <div className='px-4 py-3 text-2xl'>🚗</div>
             <span className='font-medium text-sm'>XL7</span>
           </div>
           <div className='text-right mr-5'>
@@ -220,9 +190,7 @@ export default function Transactions() {
         </li>
         <li className='flex justify-between items-center'>
           <div className='flex items-center'>
-            <div className='px-4 py-3 text-2xl'>
-              💗
-            </div>
+            <div className='px-4 py-3 text-2xl'>💗</div>
             <span className='font-medium text-sm'>Pag-ibig MP2</span>
           </div>
           <div className='text-right mr-5'>
@@ -232,5 +200,5 @@ export default function Transactions() {
         </li>
       </ul>
     </Fragment>
-  )
+  );
 }
