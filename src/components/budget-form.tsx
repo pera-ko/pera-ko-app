@@ -31,7 +31,9 @@ const BudgetForm: React.FC<BudgetFormProps> = ({ defaultValue, onSubmit }) => {
   const [installmentType, setInstallmentType] =
     useState<'monthly' | 'semi-monthly'>('monthly');
   const [chosenEmoji, setChosenEmoji] = useState<IEmojiData | null>();
-  const [color, setColor] = useState('#fff');
+  const [color, setColor] = useState(
+    defaultValue ? defaultValue.color : '#fff'
+  );
 
   const handleFormSubmit: SubmitHandler<Inputs> = (data) => {
     let returnValue: IBudget | IGoal;
