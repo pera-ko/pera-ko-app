@@ -2,11 +2,9 @@ import { Dialog } from '@headlessui/react';
 import { ArrowLeftIcon } from '@heroicons/react/outline';
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import usePortal from 'react-useportal'
 
 export default function IncomeAdd() {
   const history = useHistory();
-  const { Portal } = usePortal();
   return (
     <Dialog open onClose={() => history.goBack()}
       as="div"

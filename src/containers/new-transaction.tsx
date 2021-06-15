@@ -1,11 +1,9 @@
 import { Dialog } from '@headlessui/react';
 import { ArrowLeftIcon } from '@heroicons/react/outline';
 import { useHistory } from 'react-router-dom';
-import usePortal from 'react-useportal'
 
 export default function NewTransaction() {
   const history = useHistory();
-  const { Portal } = usePortal();
   return (
     <Dialog open onClose={() => history.goBack()}
       as="div"
