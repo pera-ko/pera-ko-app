@@ -88,7 +88,11 @@ const Preferences: React.FC = () => {
       </StickyHeader>
       <BudgetList>
         {budgetList.map((item) => (
-          <BudgetList.Item key={item.id} value={item}>
+          <BudgetList.Item
+            key={item.id}
+            value={item}
+            onClick={() => history.push(`${route?.url}/budget/${item.id}`)}
+          >
             <ChevronRightIcon className='h-6 w-6 mr-5' />
           </BudgetList.Item>
         ))}

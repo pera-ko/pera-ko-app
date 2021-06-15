@@ -9,7 +9,8 @@ export interface WithId {
 interface IStoreState {
   budget: {
     list: (IGoal & WithId | IBudget & WithId) [],
-    createBudget: (value: IGoal | IBudget) => void
+    createBudget: (value: IGoal | IBudget) => void,
+    updateBudget: (id: string, value: IGoal | IBudget) => void
   }
 }
 
@@ -50,7 +51,17 @@ const useStore = create<IStoreState>((set,get) => ({
       set(state => {
         state.budget.list.push(newBudget)
       })
-    }
+    },
+    updateBudget: (id, value) => {
+      var budgetIndex = get().budget.list.findIndex(b => b.id === id)
+      var nextBudget = {
+        id,
+        ...value
+      }
+      set(state => {
+        state.budget.list[budgetIndex] = nextBudget
+      })
+    },
   }
 }))
 

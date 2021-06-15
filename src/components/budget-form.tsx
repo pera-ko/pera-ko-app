@@ -19,9 +19,14 @@ interface Inputs {
 interface BudgetFormProps {
   defaultValue?: IBudget | IGoal;
   onSubmit?(value: IBudget | IGoal): void;
+  submitText?: string;
 }
 
-const BudgetForm: React.FC<BudgetFormProps> = ({ defaultValue, onSubmit }) => {
+const BudgetForm: React.FC<BudgetFormProps> = ({
+  defaultValue,
+  onSubmit,
+  submitText = 'Create Budget'
+}) => {
   const {
     register,
     handleSubmit,
@@ -37,14 +42,15 @@ const BudgetForm: React.FC<BudgetFormProps> = ({ defaultValue, onSubmit }) => {
 
   const handleFormSubmit: SubmitHandler<Inputs> = (data) => {
     let returnValue: IBudget | IGoal;
-    if (!chosenEmoji) return;
+    if (defaultValue && !defaultValue.icon && !chosenEmoji) return;
+    const icon = chosenEmoji ? chosenEmoji!.emoji : defaultValue!.icon;
     if (type === 'budget') {
       returnValue = {
         type,
         budgetName: data.budgetName,
         amount: data.amount,
         color,
-        icon: chosenEmoji?.emoji!
+        icon
       };
     } else {
       returnValue = {
@@ -52,7 +58,7 @@ const BudgetForm: React.FC<BudgetFormProps> = ({ defaultValue, onSubmit }) => {
         budgetName: data.budgetName,
         amount: data.amount,
         color,
-        icon: chosenEmoji?.emoji!,
+        icon,
         startDate: data.startDate!,
         endDate: data.endDate,
         installmentType
@@ -75,7 +81,7 @@ const BudgetForm: React.FC<BudgetFormProps> = ({ defaultValue, onSubmit }) => {
                 type='button'
                 className={`
                 ${
-                  isSubmitted && !chosenEmoji
+                  isSubmitted && !chosenEmoji && !defaultValue?.icon
                     ? 'border-error'
                     : 'border-transparent'
                 }
@@ -184,7 +190,7 @@ const BudgetForm: React.FC<BudgetFormProps> = ({ defaultValue, onSubmit }) => {
           type='submit'
           className=' w-full bg-indigo-600 text-white py-3 rounded-2xl  shadow-md'
         >
-          Create Budget
+          {submitText}
         </button>
       </div>
     </form>
