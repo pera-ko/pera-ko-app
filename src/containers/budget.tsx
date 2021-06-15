@@ -19,19 +19,21 @@ const Budget: React.FC = () => {
     query.set('view', mode);
     history.push(`${location.pathname}?${query.toString()}`);
   };
+  let listItems = testData.budgetList;
 
   const handleQuickAddClick = () => {
     console.log(selectedItems);
   };
-
-  const quickAddItems = testData.budgetList
-    .filter((x) => x.type === 'goal')
-    .map((x) => {
-      return {
-        ...x,
-        amount: x.amount / 2
-      };
-    });
+  if (isQuickAdd) {
+    listItems = listItems
+      .filter((x) => x.type === 'goal')
+      .map((x) => {
+        return {
+          ...x,
+          amount: x.amount / 2
+        };
+      });
+  }
   return (
     <Fragment>
       <div className='sticky top-0 px-4 py-5 flex justify-between items-center bg-white z-auto'>
@@ -59,7 +61,7 @@ const Budget: React.FC = () => {
         <BudgetCheckList
           selectedItems={selectedItems}
           onSelectedItemsChange={setSelectedItems}
-          items={quickAddItems}
+          items={listItems}
         />
       ) : (
         <BudgetGrid>
