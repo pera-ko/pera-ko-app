@@ -56,7 +56,6 @@ const BudgetForm: React.FC<BudgetFormProps> = ({ defaultValue, onSubmit }) => {
         installmentType
       };
     }
-    console.log(returnValue);
     if (onSubmit) onSubmit(returnValue);
   };
 

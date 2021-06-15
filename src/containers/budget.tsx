@@ -6,7 +6,7 @@ import { BottomNav } from '../App';
 import BudgetCheckList from '../components/budget-check-list';
 import BudgetGrid from '../components/budget-grid';
 import { useQuery } from '../hooks';
-import testData from '../_testData';
+import useStore from '../store';
 
 const Budget: React.FC = () => {
   const location = useLocation();
@@ -14,12 +14,13 @@ const Budget: React.FC = () => {
   const query = useQuery();
   const [selectedItems, setSelectedItems] = useState<(IBudget | IGoal)[]>([]);
   const isQuickAdd = query.get('view') === 'quickadd';
+  const budgetList = useStore((state) => state.budget.list);
 
   const handleViewChange = (mode: 'grid' | 'quickadd') => {
     query.set('view', mode);
     history.push(`${location.pathname}?${query.toString()}`);
   };
-  let listItems = testData.budgetList;
+  let listItems = budgetList;
 
   const handleQuickAddClick = () => {
     console.log(selectedItems);
@@ -65,8 +66,8 @@ const Budget: React.FC = () => {
         />
       ) : (
         <BudgetGrid>
-          {testData.budgetList.map((item) => (
-            <BudgetGrid.Item value={item} />
+          {listItems.map((item) => (
+            <BudgetGrid.Item key={item.id} value={item} />
           ))}
         </BudgetGrid>
       )}

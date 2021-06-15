@@ -1,9 +1,10 @@
 import { CheckIcon } from '@heroicons/react/outline';
 import { IBudget, IGoal } from '../@types';
+import { WithId } from '../store';
 import BudgetList from './budget-list';
 
 interface Props {
-  items: (IBudget | IGoal)[];
+  items: ((IBudget & WithId) | (IGoal & WithId))[];
   selectedItems: (IBudget | IGoal)[];
   onSelectedItemsChange(items: (IBudget | IGoal)[]): void;
 }
@@ -20,6 +21,7 @@ export default function BudgetCheckList({
         );
         return (
           <BudgetList.Item
+            key={item.id}
             value={item}
             onClick={() => {
               if (isSelected) {

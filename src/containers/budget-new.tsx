@@ -2,12 +2,20 @@ import { Dialog, RadioGroup } from '@headlessui/react';
 import { ArrowLeftIcon } from '@heroicons/react/outline';
 import React, { Fragment, useState } from 'react';
 import { useHistory, useRouteMatch } from 'react-router';
+import { IBudget, IGoal } from '../@types';
 import BudgetForm from '../components/budget-form';
+import useStore from '../store';
 
 export default function BudgetNew() {
   const route = useRouteMatch('/:year/:month/preferences/newbudget');
   const routeEdit = useRouteMatch('/:year/:month/preferences/budget/:id');
   const history = useHistory();
+  const createBudget = useStore((state) => state.budget.createBudget);
+
+  const handleSubmit = (value: IGoal | IBudget) => {
+    createBudget(value);
+    history.goBack();
+  };
 
   const isOpen = route !== null && route.isExact;
 
@@ -25,7 +33,7 @@ export default function BudgetNew() {
         <Dialog.Title>New Budget</Dialog.Title>
       </div>
       <div className='px-5 py-5'>
-        <BudgetForm />
+        <BudgetForm onSubmit={handleSubmit} />
       </div>
     </Dialog>
   );

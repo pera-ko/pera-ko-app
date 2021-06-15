@@ -1,29 +1,23 @@
-import { Dialog, FocusTrap } from '@headlessui/react';
+import { Dialog } from '@headlessui/react';
 import {
   ArrowLeftIcon,
-  CheckCircleIcon,
-  CheckIcon,
   ChevronRightIcon,
   CreditCardIcon
 } from '@heroicons/react/outline';
-import React, { Fragment, useState } from 'react';
-import {
-  useHistory,
-  useLocation,
-  useParams,
-  useRouteMatch
-} from 'react-router';
+import React, { useState } from 'react';
+import { useHistory, useRouteMatch } from 'react-router';
 import { Link } from 'react-router-dom';
 import BudgetList from '../components/budget-list';
 import OptionSwitch from '../components/option-switch';
 import StickyHeader from '../components/sticky-header';
-import testData from '../_testData';
+import useStore from '../store';
 
 const Preferences: React.FC = () => {
   const route = useRouteMatch('/:year/:month/preferences');
   const history = useHistory();
   const [enableSuggestions, setEnableSuggestions] = useState(true);
   const [maskIncome, setMaskIncome] = useState(false);
+  const budgetList = useStore((state) => state.budget.list);
   const isOpen = route !== null && route.isExact;
   return (
     <Dialog
@@ -93,8 +87,8 @@ const Preferences: React.FC = () => {
         </Link>
       </StickyHeader>
       <BudgetList>
-        {testData.budgetList.map((item) => (
-          <BudgetList.Item value={item}>
+        {budgetList.map((item) => (
+          <BudgetList.Item key={item.id} value={item}>
             <ChevronRightIcon className='h-6 w-6 mr-5' />
           </BudgetList.Item>
         ))}

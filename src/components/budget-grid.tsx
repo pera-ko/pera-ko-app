@@ -32,31 +32,6 @@ const BudgetGridItem: React.FC<ItemProps> = ({ value, children, onClick }) => {
       </button>
     </li>
   );
-  return (
-    <li>
-      <button className='outline-none focus:outline-none'>
-        <div
-          className='flex justify-between items-center border-l-4 text-left'
-          style={{ borderColor: value.color }}
-        >
-          <div className='flex items-center'>
-            <div className='pl-3 pr-4 py-3 text-2xl'>{value.icon}</div>
-            <div>
-              <span className='font-medium text-sm'>{value.budgetName}</span>
-              <div className='text-xs font-medium text-gray-600 leading-3'>
-                PHP{' '}
-                {value.amount.toLocaleString('en-us', {
-                  minimumFractionDigits: 2,
-                  currency: 'PHP'
-                })}
-              </div>
-            </div>
-          </div>
-          {children}
-        </div>
-      </button>
-    </li>
-  );
 };
 
 const BudgetGrid = Object.assign(BudgetGridComponent, { Item: BudgetGridItem });
