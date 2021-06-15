@@ -15,7 +15,6 @@ import {
   TrendingDownIcon,
   TrendingUpIcon
 } from '@heroicons/react/outline';
-import { stringify } from 'querystring';
 import { useQuery } from './hooks';
 import NewTransaction from './containers/new-transaction';
 
@@ -90,21 +89,6 @@ const App: React.FC = ({ children }) => {
     </div>
   );
 };
-
-const months = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December'
-];
 
 const shortMonths = [
   'Jan',

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App, { BottomNav } from './App';
+import App from './App';
 import {
   BrowserRouter as Router,
   Redirect,

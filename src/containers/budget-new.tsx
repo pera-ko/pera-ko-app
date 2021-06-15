@@ -1,7 +1,6 @@
-import { Dialog, RadioGroup } from '@headlessui/react';
+import { Dialog } from '@headlessui/react';
 import { ArrowLeftIcon } from '@heroicons/react/outline';
-import React, { Fragment, useState } from 'react';
-import { useHistory, useParams, useRouteMatch } from 'react-router';
+import { useHistory, useRouteMatch } from 'react-router';
 import { IBudget, IGoal } from '../@types';
 import BudgetForm from '../components/budget-form';
 import useStore from '../store';
@@ -15,7 +14,7 @@ export default function BudgetNew() {
   const createBudget = useStore((state) => state.budget.createBudget);
   const updateBudget = useStore((state) => state.budget.updateBudget);
   const selectedBudget = useStore((state) =>
-    state.budget.list.find((b) => b.id == routeEdit?.params.id)
+    state.budget.list.find((b) => b.id === routeEdit?.params.id)
   );
   const handleSubmit = (value: IGoal | IBudget) => {
     if (!selectedBudget) {

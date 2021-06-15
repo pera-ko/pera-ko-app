@@ -1,6 +1,6 @@
 import { ClipboardCheckIcon, ViewGridIcon } from '@heroicons/react/outline';
-import { Fragment, useEffect, useState } from 'react';
-import { useHistory, useLocation, useRouteMatch } from 'react-router-dom';
+import { Fragment, useState } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import { IBudget, IGoal } from '../@types';
 import { BottomNav } from '../App';
 import BudgetCheckList from '../components/budget-check-list';
