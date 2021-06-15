@@ -10,6 +10,7 @@
     "@testing-library/react": "^11.2.6",
     "@testing-library/user-event": "^12.8.3",
     "emoji-picker-react": "^3.4.4",
+    "nanoid": "^3.1.23",
     "react": "^17.0.2",
     "react-colorful": "^5.2.2",
     "react-dom": "^17.0.2",
@@ -17,7 +18,8 @@
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
-    "web-vitals": "^1.1.1"
+    "web-vitals": "^1.1.1",
+    "zustand": "^3.5.2"
   },
   "scripts": {
     "start": "craco start",
