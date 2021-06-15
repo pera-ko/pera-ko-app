@@ -5,6 +5,8 @@ import { useHistory, useLocation, useParams, useRouteMatch } from "react-router"
 import { Link } from "react-router-dom";
 import BudgetList from "../components/budget-list";
 import OptionSwitch from "../components/option-switch";
+import StickyHeader from "../components/sticky-header";
+import testData from "../_testData";
 
 const Preferences: React.FC = () => {
   const route = useRouteMatch('/:year/:month/preferences');
@@ -34,10 +36,10 @@ const Preferences: React.FC = () => {
           title="Mask Income and Balance"
           description="Hides the amount of income and balance with masking it with '?'"
           onChange={setMaskIncome}/>
-        <div className='bg-gray-200 px-5 py-2 text-sm sticky top-16 font-medium flex justify-between'>
+        <StickyHeader>
           Wallets
           <Link  to={`${route?.url}/newwallet`} className='text-link'>ADD</Link>
-        </div>
+        </StickyHeader>
         <ul>
           <li>
             <Link to='/' className='flex justify-between items-center py-3 px-5'>
@@ -64,20 +66,18 @@ const Preferences: React.FC = () => {
             </Link>
           </li>
         </ul>
-        <div className='bg-gray-200 px-5 py-2 text-sm sticky top-16 font-medium flex justify-between'>
+        <StickyHeader>
           Budget List
           <Link  to={`${route?.url}/newbudget`} className='text-link'>ADD</Link>
-        </div>
+        </StickyHeader>
         <BudgetList>
-          <BudgetList.Item value={{budgetName: "XL7", amount: 799500, icon: "🚗", type: "budget", color: "gray"}}>
-            <ChevronRightIcon className='h-6 w-6 mr-5'/>
-          </BudgetList.Item>
-          <BudgetList.Item value={{budgetName: "Pag-ibig MP2", amount: 3500, icon: "💗", type: "budget", color: "red"}}>
-            <ChevronRightIcon className='h-6 w-6 mr-5'/>
-          </BudgetList.Item>
-          <BudgetList.Item value={{budgetName: "Sunlife", amount: 3000, icon: "🌞", type: "budget", color: "yellow"}}>
-            <ChevronRightIcon className='h-6 w-6 mr-5'/>
-          </BudgetList.Item>
+          {
+            testData.budgetList.map(item => (
+              <BudgetList.Item value={item}>
+                <ChevronRightIcon className='h-6 w-6 mr-5'/>
+              </BudgetList.Item>
+            ))
+          }
         </BudgetList>
     </Dialog>
   )

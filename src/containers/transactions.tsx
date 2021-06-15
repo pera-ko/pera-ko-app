@@ -6,7 +6,7 @@ export default function Transactions() {
   const { year, month } = useParams<{year: string, month: string}>();
   return (
     <Fragment>
-      <div className='sticky h- top-0 bg-white flex items-center font-medium'>
+      <div className='sticky top-0 bg-white flex items-center font-medium'>
         <Link to={`/${year}/${month}`} className='p-5'>
           <ArrowLeftIcon className='h-6 w-6'/>
         </Link>

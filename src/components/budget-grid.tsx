@@ -24,9 +24,9 @@ const BudgetGridItem: React.FC<ItemProps> = ({ value, children, onClick }) => {
         className='text-center w-full'
         onClick={() => handleItemClick(value)}
       >
-        <div className='text-2xl pt-3 pb-1.5 relative'>
+        <div className='text-2xl pt-3 pb-1.5'>
           {value.icon}
-          <div className='rounded-full h-3 w-3 absolute border-2 border-white' style={{backgroundColor: value.color, right: "30%", bottom: "10%"}}></div>
+          {/* <div className='rounded-full h-3 w-3 absolute border-2 border-white' style={{backgroundColor: value.color, right: "30%", bottom: "10%"}}></div> */}
         </div>
         <div className='text-xs'>{value.budgetName}</div>
         

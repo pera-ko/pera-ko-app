@@ -9,7 +9,10 @@ module.exports = {
         'auto-fit-minmax-75px': 'repeat(auto-fit, minmax(75px, 1fr))',
       },
       colors: {
-        'link': 'royalblue'
+        'link': '#008CC8'
+      },
+      borderRadius: {
+        '5xl': '3rem'
       }
     },
   },

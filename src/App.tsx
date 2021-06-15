@@ -14,7 +14,7 @@ const App: React.FC = ({ children }) => {
 
   return (
     <div>
-      <div className={`bg-gradient-to-bl from-indigo-100 via-indigo-300 to-indigo-400 transition-all ease-in-out duration-150 ${appPath?.isExact ? 'rounded-b-3xl' : ''} ` }>
+      <div className={`bg-gradient-to-bl from-indigo-100 via-indigo-300 to-indigo-400 transition-all ease-in-out duration-150 ${appPath?.isExact ? 'rounded-b-5xl' : ''} ` }>
         <Navbar/>
         <div className='flex justify-between px-6'>
           <div className="chart"></div>
