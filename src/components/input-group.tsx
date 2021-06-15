@@ -21,7 +21,7 @@ function InputGroup(
       <div className='font-medium text-sm my-1 text-gray-600'>{label}</div>
       <div
         className={`
-        ${error ? 'border-red-400' : 'focus-within:border-indigo-300'}
+        ${error ? 'border-error' : 'focus-within:border-indigo-300'}
         px-3 font-medium flex items-center bg-indigo-100 rounded-md 
         border-2 border-transparent `}
       >

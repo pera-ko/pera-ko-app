@@ -25,7 +25,7 @@ const BudgetForm: React.FC<BudgetFormProps> = ({ defaultValue, onSubmit }) => {
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors, isSubmitted }
   } = useForm<Inputs>({ defaultValues: defaultValue });
   const [type, setType] = useState<'budget' | 'goal'>('budget');
   const [installmentType, setInstallmentType] =
@@ -35,6 +35,7 @@ const BudgetForm: React.FC<BudgetFormProps> = ({ defaultValue, onSubmit }) => {
 
   const handleFormSubmit: SubmitHandler<Inputs> = (data) => {
     let returnValue: IBudget | IGoal;
+    if (!chosenEmoji) return;
     if (type === 'budget') {
       returnValue = {
         type,
@@ -55,6 +56,7 @@ const BudgetForm: React.FC<BudgetFormProps> = ({ defaultValue, onSubmit }) => {
         installmentType
       };
     }
+    console.log(returnValue);
     if (onSubmit) onSubmit(returnValue);
   };
 
@@ -70,7 +72,13 @@ const BudgetForm: React.FC<BudgetFormProps> = ({ defaultValue, onSubmit }) => {
             <Popover>
               <Popover.Button
                 type='button'
-                className='block h-11 w-11 text-2xl font-medium items-center bg-indigo-100 rounded-md border-2 border-transparent focus:border-indigo-300 outline-none focus:outline-none'
+                className={`
+                ${
+                  isSubmitted && !chosenEmoji
+                    ? 'border-error'
+                    : 'border-transparent'
+                }
+                block h-11 w-11 text-2xl font-medium items-center bg-indigo-100 rounded-md border-2 border-transparent focus:border-indigo-300 outline-none focus:outline-none`}
               >
                 {chosenEmoji
                   ? chosenEmoji.emoji
@@ -91,7 +99,8 @@ const BudgetForm: React.FC<BudgetFormProps> = ({ defaultValue, onSubmit }) => {
             <Popover>
               <Popover.Button
                 type='button'
-                className='block h-11 w-11 px-3 rounded-full border-2 focus:border-indigo-300 focus:outline-none outline-none'
+                className={`
+                block h-11 w-11 px-3 rounded-full border-2 focus:border-indigo-300 focus:outline-none outline-none`}
                 style={{ backgroundColor: color }}
               ></Popover.Button>
               <Popover.Panel className='absolute z-10'>
