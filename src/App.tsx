@@ -29,7 +29,8 @@ const App: React.FC = ({ children }) => {
   return (
     <div>
       <div
-        className={`bg-gradient-to-bl from-indigo-100 via-indigo-300 to-indigo-400 transition-all ease-in-out duration-150 ${
+        style={{ height: '35vh', minHeight: '220px' }}
+        className={`flex flex-col justify-between bg-gradient-to-bl from-indigo-100 via-indigo-300 to-indigo-400 transition-all ease-in-out duration-150 ${
           appPath?.isExact ? 'rounded-b-5xl' : ''
         } `}
       >
@@ -40,48 +41,52 @@ const App: React.FC = ({ children }) => {
             <div className='text-sm font-medium flex items-center justify-end'>
               Cash on Hand <ChevronDownIcon className='h-4 w-4 inline-block' />{' '}
             </div>
-            <div className='text-xl font-medium'>PHP 4,763.12</div>
+            <div className='text-3xl font-medium'>PHP 4,763.12</div>
           </div>
         </div>
         <div className='grid grid-cols-2 gap-4 px-10 mt-5'>
-          <Link to={`${appPath?.url}/income`}>
-            <div className='text-xs font-medium flex items-center  text-link'>
-              <TrendingDownIcon className='h-4 w-4 mr-1 inline-block' />
-              Income
-            </div>
-            <div className='text-xs font-medium pl-5'>PHP 998,380.45</div>
-            <div className='flex justify-center mt-2'>
-              <div
-                className='w-0 h-0'
-                style={{
-                  borderLeft: '.35rem solid transparent',
-                  borderRight: '.35rem solid transparent',
-                  borderBottom: `.5rem solid ${
-                    incomeMatch ? 'white' : 'transparent'
-                  }`
-                }}
-              ></div>
-            </div>
-          </Link>
-          <Link to={`${appPath?.url}/expenses`}>
-            <div className='text-xs font-medium flex items-center text-link'>
-              <TrendingUpIcon className='h-4 w-4 mr-1 inline-block' />
-              Expenses
-            </div>
-            <div className='text-xs font-medium pl-5'>PHP 880.45</div>
-            <div className='flex justify-center mt-2'>
-              <div
-                className='w-0 h-0'
-                style={{
-                  borderLeft: '.35rem solid transparent',
-                  borderRight: '.35rem solid transparent',
-                  borderBottom: `.5rem solid ${
-                    expensesMatch ? 'white' : 'transparent'
-                  }`
-                }}
-              ></div>
-            </div>
-          </Link>
+          <div className='flex justify-center'>
+            <Link to={`${appPath?.url}/income`}>
+              <div className='text-xs font-medium items-center  text-link'>
+                <TrendingDownIcon className='h-4 w-4 mr-1 inline-block' />
+                Income
+              </div>
+              <div className='text-number font-medium'>PHP 98,380.45</div>
+              <div className='flex justify-center mt-2'>
+                <div
+                  className='w-0 h-0'
+                  style={{
+                    borderLeft: '.35rem solid transparent',
+                    borderRight: '.35rem solid transparent',
+                    borderBottom: `.5rem solid ${
+                      incomeMatch ? 'white' : 'transparent'
+                    }`
+                  }}
+                ></div>
+              </div>
+            </Link>
+          </div>
+          <div className='flex justify-center'>
+            <Link to={`${appPath?.url}/expenses`} className='mx-auto inline'>
+              <div className='text-xs font-medium items-center text-link'>
+                <TrendingUpIcon className='h-4 w-4 mr-1 inline-block' />
+                Expenses
+              </div>
+              <div className='text-number font-medium'>PHP 880.45</div>
+              <div className='flex justify-center mt-2'>
+                <div
+                  className='w-0 h-0'
+                  style={{
+                    borderLeft: '.35rem solid transparent',
+                    borderRight: '.35rem solid transparent',
+                    borderBottom: `.5rem solid ${
+                      expensesMatch ? 'white' : 'transparent'
+                    }`
+                  }}
+                ></div>
+              </div>
+            </Link>
+          </div>
         </div>
       </div>
       {children}
