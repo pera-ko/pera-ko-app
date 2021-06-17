@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 import BudgetList from '../components/budget-list';
 import OptionSwitch from '../components/option-switch';
 import StickyHeader from '../components/sticky-header';
-import useStore from '../store';
+import useStore from '../app/store';
 
 const Preferences: React.FC = () => {
   const route = useRouteMatch('/:year/:month/preferences');

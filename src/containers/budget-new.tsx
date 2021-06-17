@@ -3,7 +3,7 @@ import { ArrowLeftIcon } from '@heroicons/react/outline';
 import { useHistory, useRouteMatch } from 'react-router';
 import { IBudget, IGoal } from '../app/@types';
 import BudgetForm from '../components/budget-form';
-import useStore from '../store';
+import useStore from '../app/store';
 
 export default function BudgetNew() {
   const route = useRouteMatch('/:year/:month/preferences/newbudget');

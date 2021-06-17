@@ -1,6 +1,6 @@
 import { CheckIcon } from '@heroicons/react/outline';
 import { IBudget, IGoal } from '../app/@types';
-import { WithId } from '../store';
+import { WithId } from '../app/store';
 import BudgetList from './budget-list';
 
 interface Props {

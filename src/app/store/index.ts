@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid'
 import create from 'zustand'
-import { IBudget, IGoal } from '../app/@types'
+import { IBudget, IGoal } from '../@types'
 
 export interface WithId {
   id: string

@@ -6,7 +6,7 @@ import { BottomNav } from './App';
 import BudgetCheckList from '../components/budget-check-list';
 import BudgetGrid from '../components/budget-grid';
 import { useQuery } from '../app/@types/hooks';
-import useStore from '../store';
+import useStore from '../app/store';
 
 const Budget: React.FC = () => {
   const location = useLocation();
