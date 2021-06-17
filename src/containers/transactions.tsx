@@ -5,7 +5,7 @@ import { useTransactionStore } from '../app/store';
 
 export default function Transactions() {
   const { year, month } = useParams<{ year: string; month: string }>();
-  const { list: transactionList, addTransaction } = useTransactionStore(
+  const { list: transactionList } = useTransactionStore(
     +year,
     +month
   )((state) => state);

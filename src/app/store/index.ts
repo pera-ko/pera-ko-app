@@ -1,4 +1,3 @@
-import { createStore } from 'idb-keyval'
 import { nanoid } from 'nanoid'
 import create, { UseStore } from 'zustand'
 import { persist } from 'zustand/middleware'
@@ -77,7 +76,7 @@ export const useTransactionStore = (year: number, month: number) => {
       (set, get) => ({
         list: [],
         addTransaction: (budgetId, amount, remarks) => {
-          const tranDate = (new Date).toJSON()
+          const tranDate = (new Date()).toJSON()
           set(state => {
             state.list.push({ budgetId, amount, tranDate, remarks })
           })
