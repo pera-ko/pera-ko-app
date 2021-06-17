@@ -30,7 +30,7 @@ const App: React.FC = ({ children }) => {
     <div>
       <div
         style={{ height: '35vh', minHeight: '220px' }}
-        className={`flex flex-col justify-between bg-gradient-to-bl from-indigo-100 via-indigo-300 to-indigo-400 transition-all ease-in-out duration-150 ${
+        className={`flex flex-col justify-between bg-gradient-to-bl from-white  to-indigo-300 transition-all ease-in-out duration-150 ${
           appPath?.isExact ? 'rounded-b-5xl' : ''
         } `}
       >
@@ -51,7 +51,7 @@ const App: React.FC = ({ children }) => {
                 <TrendingDownIcon className='h-4 w-4 mr-1 inline-block' />
                 Income
               </div>
-              <div className='text-number font-medium'>PHP 98,380.45</div>
+              <div className='text-number font-medium ml-5'>PHP 98,380.45</div>
               <div className='flex justify-center mt-2'>
                 <div
                   className='w-0 h-0'
@@ -72,7 +72,7 @@ const App: React.FC = ({ children }) => {
                 <TrendingUpIcon className='h-4 w-4 mr-1 inline-block' />
                 Expenses
               </div>
-              <div className='text-number font-medium'>PHP 880.45</div>
+              <div className='text-number font-medium ml-5'>PHP 880.45</div>
               <div className='flex justify-center mt-2'>
                 <div
                   className='w-0 h-0'
@@ -138,8 +138,10 @@ function Navbar() {
             alt=''
           />
         </Link>
-        <div>
-          <span className='font-medium mr-1'>{shortMonths[+month - 1]}</span>
+        <div className='text-xl ml-1'>
+          <span className='font-medium mr-1 uppercase'>
+            {shortMonths[+month - 1]}
+          </span>
           <span>{year}</span>
         </div>
       </div>
