@@ -5,7 +5,7 @@ import { IBudget, IGoal } from '../app/@types';
 import { BottomNav } from './App';
 import BudgetCheckList from '../components/budget-check-list';
 import BudgetGrid from '../components/budget-grid';
-import { useQuery } from '../hooks';
+import { useQuery } from '../app/@types/hooks';
 import useStore from '../store';
 
 const Budget: React.FC = () => {
