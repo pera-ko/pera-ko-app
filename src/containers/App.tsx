@@ -15,8 +15,8 @@ import {
   TrendingDownIcon,
   TrendingUpIcon
 } from '@heroicons/react/outline';
-import { useQuery } from './hooks';
-import NewTransaction from './containers/new-transaction';
+import { useQuery } from '../hooks';
+import NewTransaction from './new-transaction';
 
 const App: React.FC = ({ children }) => {
   const query = useQuery();

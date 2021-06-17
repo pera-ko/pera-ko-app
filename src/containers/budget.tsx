@@ -2,7 +2,7 @@ import { ClipboardCheckIcon, ViewGridIcon } from '@heroicons/react/outline';
 import { Fragment, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { IBudget, IGoal } from '../@types';
-import { BottomNav } from '../App';
+import { BottomNav } from './App';
 import BudgetCheckList from '../components/budget-check-list';
 import BudgetGrid from '../components/budget-grid';
 import { useQuery } from '../hooks';
