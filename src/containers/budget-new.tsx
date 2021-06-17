@@ -1,7 +1,7 @@
 import { Dialog } from '@headlessui/react';
 import { ArrowLeftIcon } from '@heroicons/react/outline';
 import { useHistory, useRouteMatch } from 'react-router';
-import { IBudget, IGoal } from '../@types';
+import { IBudget, IGoal } from '../app/@types';
 import BudgetForm from '../components/budget-form';
 import useStore from '../store';
 

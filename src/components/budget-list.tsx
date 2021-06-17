@@ -1,5 +1,5 @@
 import React from 'react';
-import { IBudget, IGoal } from '../@types';
+import { IBudget, IGoal } from '../app/@types';
 
 const BudgetListComponent: React.FC = ({ children }) => {
   return <ul>{children}</ul>;

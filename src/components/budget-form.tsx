@@ -5,7 +5,7 @@ import { HexColorPicker } from 'react-colorful';
 import BudgetRadio from './budget-radio';
 import InputGroup from './input-group';
 import { default as EmojiPicker, IEmojiData } from 'emoji-picker-react';
-import { IBudget, IGoal } from '../@types';
+import { IBudget, IGoal } from '../app/@types';
 
 interface Inputs {
   budgetName: string;
