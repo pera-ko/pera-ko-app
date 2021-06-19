@@ -24,13 +24,13 @@ interface ITransactionStore {
 const useStore = create<IStoreState>(persist(
   (set,get) => ({
     budget: {
-      list: [],
-      // [
-      //   {id: "2_fu2yP4SSNCoyI9ezMPz", budgetName: "Food", amount: 4000, icon: "🍔", type: "budget", color: "violet"},
-      //   {id: "h1s4aoJLmaCnm8HkHrVsW", budgetName: "Transpo", amount: 4000, icon: "🚂", type: "budget", color: "green"},
-      //   {id: "eNcsgjDJ1kjme8WFbRowF", budgetName: "Gadgets", amount: 2000, icon: "🎧", type: "budget", color: "blue"},
-      //   {id: "iWVmgsI8yt_yWP-H7VoyQ", budgetName: "House", amount: 3000, icon: "🏠", type: "goal", color: "yellow", installmentType: "semi-monthly", startDate: new Date(2020, 10, 1).toJSON()},
-      // ],
+      // list: [],
+      list: [
+        {id: "2_fu2yP4SSNCoyI9ezMPz", budgetName: "Food", amount: 4000, icon: "🍔", type: "budget", color: "violet"},
+        {id: "h1s4aoJLmaCnm8HkHrVsW", budgetName: "Transpo", amount: 4000, icon: "🚂", type: "budget", color: "green"},
+        {id: "eNcsgjDJ1kjme8WFbRowF", budgetName: "Gadgets", amount: 2000, icon: "🎧", type: "budget", color: "blue"},
+        {id: "iWVmgsI8yt_yWP-H7VoyQ", budgetName: "House", amount: 3000, icon: "🏠", type: "goal", color: "yellow", installmentType: "semi-monthly", startDate: new Date(2020, 10, 1).toJSON()},
+      ],
       createBudget: (value) => {
         const newId = nanoid();
 
@@ -59,6 +59,8 @@ const useStore = create<IStoreState>(persist(
       getStorage: () => IndexedDBStorage
     }
 ))
+
+export const { createBudget, updateBudget } = useStore.getState().budget
 
 const transactionStore: {
   [year: number] : {

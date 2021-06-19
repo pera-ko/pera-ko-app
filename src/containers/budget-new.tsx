@@ -3,7 +3,7 @@ import { ArrowLeftIcon } from '@heroicons/react/outline';
 import { useHistory, useRouteMatch } from 'react-router';
 import { IBudget, IGoal } from '../app/@types';
 import BudgetForm from '../components/budget-form';
-import useStore from '../app/store';
+import useStore, { createBudget, updateBudget } from '../app/store';
 
 export default function BudgetNew() {
   const route = useRouteMatch('/:year/:month/preferences/newbudget');
@@ -11,14 +11,12 @@ export default function BudgetNew() {
     '/:year/:month/preferences/budget/:id'
   );
   const history = useHistory();
-  const createBudget = useStore((state) => state.budget.createBudget);
-  const updateBudget = useStore((state) => state.budget.updateBudget);
   const selectedBudget = useStore((state) =>
     state.budget.list.find((b) => b.id === routeEdit?.params.id)
   );
   const handleSubmit = (value: IGoal | IBudget) => {
     if (!selectedBudget) {
-      createBudget(value);
+      if (createBudget) createBudget(value);
     } else {
       updateBudget(selectedBudget.id, value);
     }
