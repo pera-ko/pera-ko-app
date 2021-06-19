@@ -17,7 +17,7 @@ import {
 } from '@heroicons/react/outline';
 import { useQuery } from '../app/hooks';
 import NewTransaction from './new-transaction';
-import { useTransactionStore } from '../app/store';
+import useStore, { useTransactionStore } from '../app/store';
 import { money } from '../app/utils';
 
 const App: React.FC = ({ children }) => {
@@ -26,13 +26,15 @@ const App: React.FC = ({ children }) => {
   const appPath = useRouteMatch('/:year/:month');
   const expensesMatch = useRouteMatch(`${appPath?.url}/expenses`);
   const incomeMatch = useRouteMatch(`${appPath?.url}/income`);
-  const { getTotalExpenses } = useTransactionStore(
-    +year,
-    +month
-  )((state) => state);
+  const getDefaultWallet = useStore((state) => state.wallet.getDefaultWallet);
+  const { getTotalExpenses, getGrandTotalIncome, getTotalIncomeOfWallet } =
+    useTransactionStore(+year, +month)((state) => state);
   const isNewTransactionOpen = query.get('newtran') === 'open';
 
+  var defaultWallet = getDefaultWallet();
+  var totalIncome = getGrandTotalIncome();
   var totalExpenses = getTotalExpenses();
+  var balance = getTotalIncomeOfWallet(defaultWallet.id) - totalExpenses;
 
   return (
     <div>
@@ -47,9 +49,10 @@ const App: React.FC = ({ children }) => {
           <div className='chart'></div>
           <div className='text-right'>
             <div className='text-sm font-medium flex items-center justify-end'>
-              Cash on Hand <ChevronDownIcon className='h-4 w-4 inline-block' />{' '}
+              {defaultWallet.walletName}{' '}
+              <ChevronDownIcon className='h-4 w-4 inline-block' />{' '}
             </div>
-            <div className='text-3xl font-medium'>PHP 4,763.12</div>
+            <div className='text-3xl font-medium'>{money(balance)}</div>
           </div>
         </div>
         <div className='grid grid-cols-2 gap-4 px-10 mt-5'>
@@ -59,7 +62,9 @@ const App: React.FC = ({ children }) => {
                 <TrendingDownIcon className='h-4 w-4 mr-1 inline-block' />
                 Income
               </div>
-              <div className='text-number font-medium ml-5'>PHP 98,380.45</div>
+              <div className='text-number font-medium ml-5'>
+                {money(totalIncome)}
+              </div>
               <div className='flex justify-center mt-2'>
                 <div
                   className='w-0 h-0'

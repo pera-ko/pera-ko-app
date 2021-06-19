@@ -1,8 +1,5 @@
-import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { IBudgetGoalData } from '../app/@types';
 import InputGroup from './input-group';
-import SelectBudget from './select-budget';
 
 interface Inputs {
   amount: number;
@@ -10,12 +7,10 @@ interface Inputs {
 }
 
 interface Props {
-  budgetList: IBudgetGoalData[];
-  onSubmit?(value: Inputs & { budgetId: string }): void;
+  onSubmit?(value: Inputs): void;
 }
 
-export default function TransactionForm({ budgetList, onSubmit }: Props) {
-  const [budget, setBudget] = useState<IBudgetGoalData>();
+export default function IncomeForm({ onSubmit }: Props) {
   const {
     register,
     handleSubmit,
@@ -23,11 +18,7 @@ export default function TransactionForm({ budgetList, onSubmit }: Props) {
   } = useForm<Inputs>();
 
   const handleFormSubmit: SubmitHandler<Inputs> = (data) => {
-    if (onSubmit && budget)
-      onSubmit({
-        ...data,
-        budgetId: budget.id
-      });
+    if (onSubmit) onSubmit(data);
   };
 
   return (
@@ -35,7 +26,6 @@ export default function TransactionForm({ budgetList, onSubmit }: Props) {
       className='px-5 mb-5 text-gray-800'
       onSubmit={handleSubmit(handleFormSubmit)}
     >
-      <SelectBudget items={budgetList} value={budget} onChange={setBudget} />
       <InputGroup
         inputClassName='text-right'
         label='Amount'
@@ -66,7 +56,7 @@ export default function TransactionForm({ budgetList, onSubmit }: Props) {
         type='submit'
         className='bg-indigo-500 rounded-lg py-3 w-full text-sm font-medium text-white'
       >
-        Add Transaction
+        Add Income
       </button>
     </form>
   );

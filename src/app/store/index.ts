@@ -1,16 +1,19 @@
 import { nanoid } from 'nanoid'
 import create, { UseStore } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { IBudget, IGoal } from '../@types'
+import { IBudget, IBudgetData, IGoal, IGoalData, IIncome, IWalletData } from '../@types'
 import IndexedDBStorage from '../infra/indexedDBPersistence'
 
-export interface WithId {
-  id: string
-}
-
 interface IStoreState {
+  wallet: {
+    list: {
+      [id: string]: IWalletData
+    },
+    selected: string,
+    getDefaultWallet: () => IWalletData
+  },
   budget: {
-    list: (IGoal & WithId | IBudget & WithId) [],
+    list: (IGoalData | IBudgetData) [],
     createBudget: (value: IGoal | IBudget) => void,
     updateBudget: (id: string, value: IGoal | IBudget) => void,
     deleteBudget: (id: string) => void,
@@ -18,13 +21,35 @@ interface IStoreState {
 }
 
 interface ITransactionStore {
+  incomeList: IIncome[],
   list: { budgetId: string, amount: number, tranDate: string, remarks?: string }[],
+  getGrandTotalIncome: () => number;
+  getTotalIncomeOfWallet: (walletId: string) => number;
   getTotalExpenses: () => number;
-  addTransaction: (budgetId: string, amount: number, remarks?: string) => void
+  addTransaction: (budgetId: string, amount: number, remarks?: string) => void,
+  addIncome: (walletId: string, amount: number, remarks?: string) => void
+}
+
+const defaultWalletList: {
+  [id: string]: IWalletData
+} = {
+  "default": {
+    id: "default",
+    walletName: "Cash on Hand"
+  }
 }
 
 const useStore = create<IStoreState>(persist(
   (set,get) => ({
+    wallet: {
+      list: defaultWalletList,
+      selected: "default",
+      getDefaultWallet: () => {
+        var { list, selected } = get().wallet;
+
+        return list[selected]
+      }
+    },
     budget: {
       list: [],
       createBudget: (value) => {
@@ -77,12 +102,28 @@ export const useTransactionStore = (year: number, month: number) => {
     console.log(`creating transaction store for ${year}, ${month}`)
     transactionStore[year][month] = create<ITransactionStore>(persist(
       (set, get) => ({
+        incomeList: [
+
+        ],
         list: [],
+        getGrandTotalIncome: () => get().incomeList.reduce((x, y) => x + y.amount,0),
+        getTotalIncomeOfWallet: (walletId) => get().incomeList.filter(i => i.walletId === walletId).reduce((x, y) => x + y.amount,0),
         getTotalExpenses: () => get().list.reduce((x, y) => Number(x) + Number(y.amount), 0),
         addTransaction: (budgetId, amount, remarks) => {
           const tranDate = (new Date()).toJSON()
           set(state => {
             state.list.push({ budgetId, amount, tranDate, remarks })
+          })
+        },
+        addIncome: (walletId, amount, remarks) => {
+          const tranDate = (new Date()).toJSON()
+          set(state => {
+            state.incomeList.push({
+              amount: amount,
+              remarks,
+              tranDate,
+              walletId
+            })
           })
         }
       }),

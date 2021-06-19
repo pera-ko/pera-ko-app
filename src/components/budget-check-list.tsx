@@ -1,10 +1,9 @@
 import { CheckIcon } from '@heroicons/react/outline';
-import { IBudget, IGoal } from '../app/@types';
-import { WithId } from '../app/store';
+import { IBudget, IBudgetData, IGoal, IGoalData } from '../app/@types';
 import BudgetList from './budget-list';
 
 interface Props {
-  items: ((IBudget & WithId) | (IGoal & WithId))[];
+  items: (IBudgetData | IGoalData)[];
   selectedItems: (IBudget | IGoal)[];
   onSelectedItemsChange(items: (IBudget | IGoal)[]): void;
 }

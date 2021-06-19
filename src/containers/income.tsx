@@ -1,9 +1,19 @@
 import { ArrowCircleDownIcon, ArrowLeftIcon } from '@heroicons/react/outline';
+import dayjs from 'dayjs';
+import calendar from 'dayjs/plugin/calendar';
 import { Fragment } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { useTransactionStore } from '../app/store';
+import { money } from '../app/utils';
+
+dayjs.extend(calendar);
 
 export default function Income() {
   const { year, month } = useParams<{ year: string; month: string }>();
+  const { incomeList } = useTransactionStore(+year, +month)((state) => state);
+
+  let lastDate: string | null = null;
+
   return (
     <Fragment>
       <div className='sticky h- top-0 bg-white flex items-center font-medium'>
@@ -13,27 +23,26 @@ export default function Income() {
         Income
       </div>
       <ul>
-        <IncomeHeader date='Friday, June 30, 2021' />
-        <IncomeItem amount={799500} remarks='napanalunan sa lotto' />
-        <IncomeItem amount={2000} remarks='utang ni babylyn' />
-        <IncomeHeader date='Friday, June 30, 2021' />
-        <IncomeItem amount={799500} remarks='napanalunan sa lotto' />
-        <IncomeItem amount={2000} remarks='utang ni babylyn' />
-        <IncomeHeader date='Friday, June 30, 2021' />
-        <IncomeItem amount={799500} remarks='napanalunan sa lotto' />
-        <IncomeItem amount={2000} remarks='utang ni babylyn' />
-        <IncomeHeader date='Friday, June 30, 2021' />
-        <IncomeItem amount={799500} remarks='napanalunan sa lotto' />
-        <IncomeItem amount={2000} remarks='utang ni babylyn' />
-        <IncomeHeader date='Friday, June 30, 2021' />
-        <IncomeItem amount={799500} remarks='napanalunan sa lotto' />
-        <IncomeItem amount={2000} remarks='utang ni babylyn' />
-        <IncomeHeader date='Friday, June 30, 2021' />
-        <IncomeItem amount={799500} remarks='napanalunan sa lotto' />
-        <IncomeItem amount={2000} remarks='utang ni babylyn' />
-        <IncomeHeader date='Friday, June 30, 2021' />
-        <IncomeItem amount={799500} remarks='napanalunan sa lotto' />
-        <IncomeItem amount={2000} remarks='utang ni babylyn' />
+        {incomeList.map((income) => {
+          var retVal: React.ReactElement[] = [];
+          var currentDate = new Date(income.tranDate).toDateString();
+
+          if (lastDate !== currentDate) {
+            var desc = dayjs(currentDate).calendar(undefined, {
+              sameDay: '[Today]',
+              lastDay: '[Yesterday]'
+            });
+            retVal.push(
+              <IncomeHeader key={desc} date='Friday, June 30, 2021' />
+            );
+            lastDate = currentDate;
+          }
+
+          retVal.push(
+            <IncomeItem amount={income.amount} remarks={income.remarks} />
+          );
+          return <Fragment>{retVal}</Fragment>;
+        })}
       </ul>
       <Link
         to={`/${year}/${month}/income/new`}
@@ -54,20 +63,14 @@ function IncomeHeader({ date }: { date: string }) {
 
 interface IncomeItemProps {
   amount: number;
-  remarks: string;
+  remarks?: string;
 }
 function IncomeItem({ amount, remarks }: IncomeItemProps) {
   return (
     <li className='flex justify-between items-center'>
       <ArrowCircleDownIcon className='h-6 w-6 mx-5 my-3 text-gray-600' />
       <div className='text-right mr-5'>
-        <div className='text-sm font-medium'>
-          PHP{' '}
-          {amount.toLocaleString('en-us', {
-            minimumFractionDigits: 2,
-            currency: 'PHP'
-          })}
-        </div>
+        <div className='text-sm font-medium'>{money(amount)}</div>
         <div className='text-xs text-gray-600'>{remarks}</div>
       </div>
     </li>
