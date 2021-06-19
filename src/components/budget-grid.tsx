@@ -21,7 +21,7 @@ const BudgetGridItem: React.FC<ItemProps> = ({ value, children, onClick }) => {
   return (
     <li className='inline-block'>
       <button
-        className='text-center w-full'
+        className='text-center w-full outline-none focus:outline-none'
         onClick={() => handleItemClick(value)}
       >
         <div className='text-3xl pt-3 pb-1.5'>

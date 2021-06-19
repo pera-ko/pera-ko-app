@@ -25,6 +25,13 @@ const Budget: React.FC = () => {
   const handleQuickAddClick = () => {
     console.log(selectedItems);
   };
+
+  const handleBudgetGridItemClick = (id: string) => {
+    query.set('newtran', 'open');
+    query.set('id', id);
+    history.push(`${location.pathname}?${query.toString()}`);
+  };
+
   if (isQuickAdd) {
     listItems = listItems
       .filter((x) => x.type === 'goal')
@@ -71,7 +78,11 @@ const Budget: React.FC = () => {
       ) : (
         <BudgetGrid>
           {listItems.map((item) => (
-            <BudgetGrid.Item key={item.id} value={item} />
+            <BudgetGrid.Item
+              key={item.id}
+              value={item}
+              onClick={() => handleBudgetGridItemClick(item.id)}
+            />
           ))}
         </BudgetGrid>
       )}
