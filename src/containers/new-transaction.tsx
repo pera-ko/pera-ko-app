@@ -1,12 +1,19 @@
 import { Dialog } from '@headlessui/react';
 import { ArrowLeftIcon } from '@heroicons/react/outline';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import useStore from '../app/store';
 import TransactionForm from '../components/transaction-form';
+import { useTransactionStore } from '../app/store';
 
 export default function NewTransaction() {
+  const { year, month } = useParams<{ year: string; month: string }>();
   const budgetList = useStore((state) => state.budget.list);
   const history = useHistory();
+  const addTransaction = useTransactionStore(
+    +year,
+    +month
+  )((state) => state).addTransaction;
+
   return (
     <Dialog
       open
@@ -22,7 +29,13 @@ export default function NewTransaction() {
           </button>
           <Dialog.Title>New Transaction</Dialog.Title>
         </div>
-        <TransactionForm budgetList={budgetList} />
+        <TransactionForm
+          budgetList={budgetList}
+          onSubmit={(value) => {
+            addTransaction(value.budgetId, value.amount, value.remarks);
+            history.goBack();
+          }}
+        />
       </div>
     </Dialog>
   );

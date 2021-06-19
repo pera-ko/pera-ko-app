@@ -1,7 +1,7 @@
 import { ArrowLeftIcon } from '@heroicons/react/outline';
 import { Fragment } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { useTransactionStore } from '../app/store';
+import useStore, { useTransactionStore } from '../app/store';
 
 export default function Transactions() {
   const { year, month } = useParams<{ year: string; month: string }>();
@@ -9,7 +9,7 @@ export default function Transactions() {
     +year,
     +month
   )((state) => state);
-  console.log(transactionList);
+  const budgetList = useStore((state) => state.budget.list);
   return (
     <Fragment>
       <div className='sticky top-0 bg-white flex items-center font-medium'>
@@ -19,18 +19,23 @@ export default function Transactions() {
         Transactions
       </div>
       <ul>
-        {transactionList.map((t) => (
-          <li className='flex justify-between items-center'>
-            <div className='flex items-center'>
-              <div className='px-4 py-3 text-2xl'>🚗</div>
-              <span className='font-medium text-sm'>XL7</span>
-            </div>
-            <div className='text-right mr-5'>
-              <div className='text-sm font-medium'>PHP {t.amount}</div>
-              <div className='text-xs text-gray-600'>2nd half of month</div>
-            </div>
-          </li>
-        ))}
+        {transactionList.map((t) => {
+          const budget = budgetList.find((b) => b.id === t.budgetId);
+          return (
+            <li key={t.tranDate} className='flex justify-between items-center'>
+              <div className='flex items-center'>
+                <div className='px-4 py-3 text-2xl'>{budget?.icon}</div>
+                <span className='font-medium text-sm'>
+                  {budget?.budgetName}
+                </span>
+              </div>
+              <div className='text-right mr-5'>
+                <div className='text-sm font-medium'>PHP {t.amount}</div>
+                <div className='text-xs text-gray-600'>{t.remarks}</div>
+              </div>
+            </li>
+          );
+        })}
         <li className='bg-gray-200 px-5 py-2 text-xs sticky top-16'>
           Friday, June 30, 2021
         </li>
