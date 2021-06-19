@@ -106,7 +106,7 @@ export const useTransactionStore = (year: number, month: number) => {
 
         ],
         list: [],
-        getGrandTotalIncome: () => get().incomeList.reduce((x, y) => x + y.amount,0),
+        getGrandTotalIncome: () => get().incomeList.reduce((x, y) => Number(x) + Number(y.amount),0),
         getTotalIncomeOfWallet: (walletId) => get().incomeList.filter(i => i.walletId === walletId).reduce((x, y) => x + y.amount,0),
         getTotalExpenses: () => get().list.reduce((x, y) => Number(x) + Number(y.amount), 0),
         addTransaction: (budgetId, amount, remarks) => {
