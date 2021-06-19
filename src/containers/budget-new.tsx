@@ -50,9 +50,11 @@ export default function BudgetNew() {
         <Dialog.Title className='text-left flex-1'>
           {selectedBudget ? 'Update' : 'New'} Budget
         </Dialog.Title>
-        <button className='p-5 text-error' onClick={handleDelete}>
-          <TrashIcon className='h-6 w-6 ' />
-        </button>
+        {selectedBudget && (
+          <button className='p-5 text-error' onClick={handleDelete}>
+            <TrashIcon className='h-6 w-6 ' />
+          </button>
+        )}
       </div>
       <div className='px-5 py-5'>
         <BudgetForm
