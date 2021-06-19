@@ -19,8 +19,10 @@ import { useQuery } from '../app/hooks';
 import NewTransaction from './new-transaction';
 import useStore, { useTransactionStore } from '../app/store';
 import { money } from '../app/utils';
+import { useEffect, useState } from 'react';
 
 const App: React.FC = ({ children }) => {
+  const [loading, setLoading] = useState(true);
   const { year, month } = useParams<{ year: string; month: string }>();
   const query = useQuery();
   const appPath = useRouteMatch('/:year/:month');
@@ -29,6 +31,11 @@ const App: React.FC = ({ children }) => {
   const getDefaultWallet = useStore((state) => state.wallet.getDefaultWallet);
   const { getTotalExpenses, getGrandTotalIncome, getTotalIncomeOfWallet } =
     useTransactionStore(+year, +month)((state) => state);
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
+  });
   const isNewTransactionOpen = query.get('newtran') === 'open';
 
   var defaultWallet = getDefaultWallet();
@@ -36,6 +43,9 @@ const App: React.FC = ({ children }) => {
   var totalExpenses = getTotalExpenses();
   var balance = getTotalIncomeOfWallet(defaultWallet.id) - totalExpenses;
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
   return (
     <div>
       <div
