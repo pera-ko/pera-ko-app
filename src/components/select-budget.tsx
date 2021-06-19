@@ -2,15 +2,12 @@ import { Listbox } from '@headlessui/react';
 import { SelectorIcon } from '@heroicons/react/outline';
 import React, { useState } from 'react';
 import { usePopper } from 'react-popper';
-import { IBudget, IGoal } from '../app/@types';
-import { WithId } from '../app/store';
-
-type BudgetGoalType = (IGoal & WithId) | (IBudget & WithId);
+import { IBudgetGoalData } from '../app/@types';
 
 interface Props {
-  value?: BudgetGoalType;
-  items: BudgetGoalType[];
-  onChange(value: BudgetGoalType): void;
+  value?: IBudgetGoalData;
+  items: IBudgetGoalData[];
+  onChange(value: IBudgetGoalData): void;
 }
 export default function SelectBudget({ value, items, onChange }: Props) {
   const [referenceElement, setReferenceElement] =

@@ -30,7 +30,7 @@ export default function Transactions() {
       <ul>
         {sortedList.map((t, index) => {
           var retVal: React.ReactElement[] = [];
-          var currentDate = new Date(sortedList[0].tranDate).toDateString();
+          var currentDate = new Date(t.tranDate).toDateString();
           const budget = budgetList.find((b) => b.id === t.budgetId);
 
           if (lastDate !== currentDate) {
