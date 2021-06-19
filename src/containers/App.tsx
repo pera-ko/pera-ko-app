@@ -17,7 +17,7 @@ import {
 } from '@heroicons/react/outline';
 import { useQuery } from '../app/hooks';
 import NewTransaction from './new-transaction';
-import useStore, { useTransactionStore } from '../app/store';
+import useStore, { getDefaultWallet, useTransactionStore } from '../app/store';
 import { money } from '../app/utils';
 import { useEffect, useState } from 'react';
 
@@ -28,7 +28,6 @@ const App: React.FC = ({ children }) => {
   const appPath = useRouteMatch('/:year/:month');
   const expensesMatch = useRouteMatch(`${appPath?.url}/expenses`);
   const incomeMatch = useRouteMatch(`${appPath?.url}/income`);
-  const getDefaultWallet = useStore((state) => state.wallet.getDefaultWallet);
   const { getTotalExpenses, getGrandTotalIncome, getTotalIncomeOfWallet } =
     useTransactionStore(+year, +month)((state) => state);
   useEffect(() => {
