@@ -33,7 +33,7 @@ const App: React.FC = ({ children }) => {
   const isNewTransactionOpen = query.get('newtran') === 'open';
 
   var totalExpenses = getTotalExpenses();
-  console.log(totalExpenses);
+
   return (
     <div>
       <div

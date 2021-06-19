@@ -1,8 +1,12 @@
 import { ArrowLeftIcon } from '@heroicons/react/outline';
-import { Fragment } from 'react';
+import React, { Fragment } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import dayjs from 'dayjs';
+import calendar from 'dayjs/plugin/calendar';
 import useStore, { useTransactionStore } from '../app/store';
 import { money } from '../app/utils';
+
+dayjs.extend(calendar);
 
 export default function Transactions() {
   const { year, month } = useParams<{ year: string; month: string }>();
@@ -11,6 +15,10 @@ export default function Transactions() {
     +month
   )((state) => state);
   const budgetList = useStore((state) => state.budget.list);
+
+  let sortedList = [...transactionList];
+  sortedList.reverse();
+  let lastDate: string | null = null;
   return (
     <Fragment>
       <div className='sticky top-0 bg-white flex items-center font-medium'>
@@ -20,9 +28,28 @@ export default function Transactions() {
         Transactions
       </div>
       <ul>
-        {transactionList.map((t) => {
+        {sortedList.map((t, index) => {
+          var retVal: React.ReactElement[] = [];
+          var currentDate = new Date(sortedList[0].tranDate).toDateString();
           const budget = budgetList.find((b) => b.id === t.budgetId);
-          return (
+
+          if (lastDate !== currentDate) {
+            var desc = dayjs(currentDate).calendar(undefined, {
+              sameDay: '[Today]',
+              lastDay: '[Yesterday]'
+            });
+            retVal.push(
+              <li
+                key={desc}
+                className='bg-gray-200 px-5 py-2 text-xs sticky top-16'
+              >
+                {desc}
+              </li>
+            );
+            lastDate = currentDate;
+          }
+
+          retVal.push(
             <li key={t.tranDate} className='flex justify-between items-center'>
               <div className='flex items-center'>
                 <div className='px-4 py-3 text-2xl'>{budget?.icon}</div>
@@ -36,192 +63,9 @@ export default function Transactions() {
               </div>
             </li>
           );
-        })}
-        <li className='bg-gray-200 px-5 py-2 text-xs sticky top-16'>
-          Friday, June 30, 2021
-        </li>
-        <li className='flex justify-between items-center'>
-          <div className='flex items-center'>
-            <div className='px-4 py-3 text-2xl'>🚗</div>
-            <span className='font-medium text-sm'>XL7</span>
-          </div>
-          <div className='text-right mr-5'>
-            <div className='text-sm font-medium'>PHP 799,500.00</div>
-            <div className='text-xs text-gray-600'>2nd half of month</div>
-          </div>
-        </li>
-        <li className='flex justify-between items-center'>
-          <div className='flex items-center'>
-            <div className='px-4 py-3 text-2xl'>💗</div>
-            <span className='font-medium text-sm'>Pag-ibig MP2</span>
-          </div>
-          <div className='text-right mr-5'>
-            <div className='text-sm font-medium'>PHP 799,500.00</div>
-            <div className='text-xs text-gray-600'>2nd half of month</div>
-          </div>
-        </li>
-        <li className='bg-gray-200 px-5 py-2 text-xs sticky top-16'>
-          Friday, June 25, 2021
-        </li>
-        <li className='flex justify-between items-center'>
-          <div className='flex items-center'>
-            <div className='px-4 py-3 text-2xl'>🚗</div>
-            <span className='font-medium text-sm'>XL7</span>
-          </div>
-          <div className='text-right mr-5'>
-            <div className='text-sm font-medium'>PHP 799,500.00</div>
-            <div className='text-xs text-gray-600'>2nd half of month</div>
-          </div>
-        </li>
-        <li className='flex justify-between items-center'>
-          <div className='flex items-center'>
-            <div className='px-4 py-3 text-2xl'>💗</div>
-            <span className='font-medium text-sm'>Pag-ibig MP2</span>
-          </div>
-          <div className='text-right mr-5'>
-            <div className='text-sm font-medium'>PHP 799,500.00</div>
-            <div className='text-xs text-gray-600'>2nd half of month</div>
-          </div>
-        </li>
 
-        <li className='bg-gray-200 px-5 py-2 text-xs sticky top-16'>
-          Friday, June 18, 2021
-        </li>
-        <li className='flex justify-between items-center'>
-          <div className='flex items-center'>
-            <div className='px-4 py-3 text-2xl'>🚗</div>
-            <span className='font-medium text-sm'>XL7</span>
-          </div>
-          <div className='text-right mr-5'>
-            <div className='text-sm font-medium'>PHP 799,500.00</div>
-            <div className='text-xs text-gray-600'>2nd half of month</div>
-          </div>
-        </li>
-        <li className='flex justify-between items-center'>
-          <div className='flex items-center'>
-            <div className='px-4 py-3 text-2xl'>💗</div>
-            <span className='font-medium text-sm'>Pag-ibig MP2</span>
-          </div>
-          <div className='text-right mr-5'>
-            <div className='text-sm font-medium'>PHP 799,500.00</div>
-            <div className='text-xs text-gray-600'>2nd half of month</div>
-          </div>
-        </li>
-        <li className='bg-gray-200 px-5 py-2 text-xs sticky top-16'>
-          Friday, June 15, 2021
-        </li>
-        <li className='flex justify-between items-center'>
-          <div className='flex items-center'>
-            <div className='px-4 py-3 text-2xl'>🚗</div>
-            <span className='font-medium text-sm'>XL7</span>
-          </div>
-          <div className='text-right mr-5'>
-            <div className='text-sm font-medium'>PHP 799,500.00</div>
-            <div className='text-xs text-gray-600'>2nd half of month</div>
-          </div>
-        </li>
-        <li className='flex justify-between items-center'>
-          <div className='flex items-center'>
-            <div className='px-4 py-3 text-2xl'>💗</div>
-            <span className='font-medium text-sm'>Pag-ibig MP2</span>
-          </div>
-          <div className='text-right mr-5'>
-            <div className='text-sm font-medium'>PHP 799,500.00</div>
-            <div className='text-xs text-gray-600'>2nd half of month</div>
-          </div>
-        </li>
-        <li className='bg-gray-200 px-5 py-2 text-xs sticky top-16'>
-          Friday, June 12, 2021
-        </li>
-        <li className='flex justify-between items-center'>
-          <div className='flex items-center'>
-            <div className='px-4 py-3 text-2xl'>🚗</div>
-            <span className='font-medium text-sm'>XL7</span>
-          </div>
-          <div className='text-right mr-5'>
-            <div className='text-sm font-medium'>PHP 799,500.00</div>
-            <div className='text-xs text-gray-600'>2nd half of month</div>
-          </div>
-        </li>
-        <li className='flex justify-between items-center'>
-          <div className='flex items-center'>
-            <div className='px-4 py-3 text-2xl'>💗</div>
-            <span className='font-medium text-sm'>Pag-ibig MP2</span>
-          </div>
-          <div className='text-right mr-5'>
-            <div className='text-sm font-medium'>PHP 799,500.00</div>
-            <div className='text-xs text-gray-600'>2nd half of month</div>
-          </div>
-        </li>
-        <li className='bg-gray-200 px-5 py-2 text-xs sticky top-16'>
-          Friday, June 8, 2021
-        </li>
-        <li className='flex justify-between items-center'>
-          <div className='flex items-center'>
-            <div className='px-4 py-3 text-2xl'>🚗</div>
-            <span className='font-medium text-sm'>XL7</span>
-          </div>
-          <div className='text-right mr-5'>
-            <div className='text-sm font-medium'>PHP 799,500.00</div>
-            <div className='text-xs text-gray-600'>2nd half of month</div>
-          </div>
-        </li>
-        <li className='flex justify-between items-center'>
-          <div className='flex items-center'>
-            <div className='px-4 py-3 text-2xl'>💗</div>
-            <span className='font-medium text-sm'>Pag-ibig MP2</span>
-          </div>
-          <div className='text-right mr-5'>
-            <div className='text-sm font-medium'>PHP 799,500.00</div>
-            <div className='text-xs text-gray-600'>2nd half of month</div>
-          </div>
-        </li>
-        <li className='bg-gray-200 px-5 py-2 text-xs sticky top-16'>
-          Friday, June 5, 2021
-        </li>
-        <li className='flex justify-between items-center'>
-          <div className='flex items-center'>
-            <div className='px-4 py-3 text-2xl'>🚗</div>
-            <span className='font-medium text-sm'>XL7</span>
-          </div>
-          <div className='text-right mr-5'>
-            <div className='text-sm font-medium'>PHP 799,500.00</div>
-            <div className='text-xs text-gray-600'>2nd half of month</div>
-          </div>
-        </li>
-        <li className='flex justify-between items-center'>
-          <div className='flex items-center'>
-            <div className='px-4 py-3 text-2xl'>💗</div>
-            <span className='font-medium text-sm'>Pag-ibig MP2</span>
-          </div>
-          <div className='text-right mr-5'>
-            <div className='text-sm font-medium'>PHP 799,500.00</div>
-            <div className='text-xs text-gray-600'>2nd half of month</div>
-          </div>
-        </li>
-        <li className='bg-gray-200 px-5 py-2 text-xs sticky top-16'>
-          Friday, June 2, 2021
-        </li>
-        <li className='flex justify-between items-center'>
-          <div className='flex items-center'>
-            <div className='px-4 py-3 text-2xl'>🚗</div>
-            <span className='font-medium text-sm'>XL7</span>
-          </div>
-          <div className='text-right mr-5'>
-            <div className='text-sm font-medium'>PHP 799,500.00</div>
-            <div className='text-xs text-gray-600'>2nd half of month</div>
-          </div>
-        </li>
-        <li className='flex justify-between items-center'>
-          <div className='flex items-center'>
-            <div className='px-4 py-3 text-2xl'>💗</div>
-            <span className='font-medium text-sm'>Pag-ibig MP2</span>
-          </div>
-          <div className='text-right mr-5'>
-            <div className='text-sm font-medium'>PHP 799,500.00</div>
-            <div className='text-xs text-gray-600'>2nd half of month</div>
-          </div>
-        </li>
+          return <Fragment key={index}>{retVal}</Fragment>;
+        })}
       </ul>
     </Fragment>
   );
