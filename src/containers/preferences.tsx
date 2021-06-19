@@ -18,6 +18,8 @@ const Preferences: React.FC = () => {
   const [enableSuggestions, setEnableSuggestions] = useState(true);
   const [maskIncome, setMaskIncome] = useState(false);
   const budgetList = useStore((state) => state.budget.list);
+  const walletList = useStore((state) => state.wallet.list);
+
   const isOpen = route !== null && route.isExact;
   return (
     <Dialog
@@ -51,34 +53,26 @@ const Preferences: React.FC = () => {
         </Link>
       </StickyHeader>
       <ul>
-        <li>
-          <Link to='/' className='flex justify-between items-center py-3 px-5'>
-            <div className='pr-5 text-2xl'>
-              <CreditCardIcon className='h-6 w-6' />
-            </div>
-            <div className='flex-1'>
-              <span className='font-medium text-sm'>Cash on hand</span>
-              <div className='text-xs font-medium text-gray-600 leading-3'>
-                PHP 4,763.12
-              </div>
-            </div>
-            <ChevronRightIcon className='h-6 w-6 block' />
-          </Link>
-        </li>
-        <li>
-          <Link to='/' className='flex justify-between items-center py-3 px-5'>
-            <div className='pr-5 text-2xl'>
-              <CreditCardIcon className='h-6 w-6' />
-            </div>
-            <div className='flex-1'>
-              <span className='font-medium text-sm'>Gcash</span>
-              <div className='text-xs font-medium text-gray-600 leading-3'>
-                PHP 799,500.00
-              </div>
-            </div>
-            <ChevronRightIcon className='h-6 w-6 block' />
-          </Link>
-        </li>
+        {Object.values(walletList).map((wallet) => {
+          return (
+            <li key={wallet.id}>
+              <Link
+                to='/'
+                className='flex justify-between items-center py-3 px-5'
+              >
+                <div className='pr-5 text-2xl'>
+                  <CreditCardIcon className='h-6 w-6' />
+                </div>
+                <div className='flex-1'>
+                  <span className='font-medium text-sm'>
+                    {wallet.walletName}
+                  </span>
+                </div>
+                <ChevronRightIcon className='h-6 w-6 block' />
+              </Link>
+            </li>
+          );
+        })}
       </ul>
       <StickyHeader>
         Budget List
