@@ -34,18 +34,19 @@ const App: React.FC = ({ children }) => {
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 500);
+    }, 1000);
   });
   const isNewTransactionOpen = query.get('newtran') === 'open';
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   var defaultWallet = getDefaultWallet();
   var totalIncome = getGrandTotalIncome();
   var totalExpenses = getTotalExpenses();
   var balance = getTotalIncomeOfWallet(defaultWallet.id) - totalExpenses;
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
   return (
     <div>
       <div
