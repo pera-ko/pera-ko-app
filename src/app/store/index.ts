@@ -87,6 +87,7 @@ const useStore = create<IStoreState>(persist(
 ))
 
 export const { createBudget, updateBudget, deleteBudget } = useStore.getState().budget
+export const { getDefaultWallet } = useStore.getState().wallet
 
 const transactionStore: {
   [year: number] : {
