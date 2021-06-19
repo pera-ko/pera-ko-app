@@ -17,7 +17,7 @@ import {
 } from '@heroicons/react/outline';
 import { useQuery } from '../app/hooks';
 import NewTransaction from './new-transaction';
-import useStore, { getDefaultWallet, useTransactionStore } from '../app/store';
+import { getDefaultWallet, useTransactionStore } from '../app/store';
 import { money } from '../app/utils';
 import { useEffect, useState } from 'react';
 
