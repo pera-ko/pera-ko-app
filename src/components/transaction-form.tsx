@@ -1,8 +1,11 @@
 import { Listbox } from '@headlessui/react';
 import { SelectorIcon } from '@heroicons/react/outline';
-import { useForm } from 'react-hook-form';
+import { useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { usePopper } from 'react-popper';
 import { IBudget, IGoal } from '../app/@types';
 import { WithId } from '../app/store';
+import InputGroup from './input-group';
 
 interface Inputs {
   amount: number;
@@ -10,22 +13,45 @@ interface Inputs {
 }
 
 interface Props {
-  onSubmit?(value: Inputs): void;
+  budgetList: ((IGoal & WithId) | (IBudget & WithId))[];
+  onSubmit?(value: Inputs & { budgetId: string }): void;
 }
 
-export default function TransactionForm({}: Props) {
+export default function TransactionForm({ budgetList, onSubmit }: Props) {
+  const [budget, setBudget] = useState<(IGoal & WithId) | (IBudget & WithId)>();
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitted }
   } = useForm<Inputs>();
+  const [referenceElement, setReferenceElement] = useState(null);
+  const [popperElement, setPopperElement] = useState(null);
+  const [arrowElement, setArrowElement] = useState(null);
+  const { styles, attributes } = usePopper(referenceElement, popperElement, {
+    modifiers: [{ name: 'arrow', options: { element: arrowElement } }]
+  });
+  const handleFormSubmit: SubmitHandler<Inputs> = (data) => {
+    if (onSubmit && budget)
+      onSubmit({
+        ...data,
+        budgetId: budget.id
+      });
+  };
 
   return (
-    <form className='px-5 mb-5 text-gray-800'>
-      <Listbox value={''} onChange={() => console.log('')}>
-        <Listbox.Button className='border-2 border-transparent relative w-full py-2 pl-3 pr-10 text-left bg-indigo-100 rounded-lg cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm'>
+    <form
+      className='px-5 mb-5 text-gray-800'
+      onSubmit={handleSubmit(handleFormSubmit)}
+    >
+      <Listbox value={budget} onChange={setBudget}>
+        <Listbox.Button
+          ref={referenceElement}
+          className='border-2 border-transparent relative w-full py-2 pl-3 pr-10 text-left bg-indigo-100 rounded-lg'
+        >
           <span className='block truncate'>
-            <span className='text-sm font-medium'>- Select Budget Type -</span>
+            <span className='text-sm font-medium'>
+              {budget ? budget.budgetName : '- Select Budget Type -'}
+            </span>
           </span>
           <span className='absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none'>
             <SelectorIcon
@@ -34,19 +60,30 @@ export default function TransactionForm({}: Props) {
             />
           </span>
         </Listbox.Button>
+        <Listbox.Options
+          className='bg-white shadow-md absolute'
+          ref={popperElement}
+          style={styles.popper}
+          {...attributes.popper}
+        >
+          {budgetList.map((b) => (
+            <Listbox.Option key={b.id} value={b}>
+              {b.budgetName}
+            </Listbox.Option>
+          ))}
+        </Listbox.Options>
       </Listbox>
-      <label className=''>
-        <div className='font-medium text-sm my-1'>Amount</div>
-        <div className='px-3 font-medium flex items-center bg-indigo-100 rounded-md border-2 border-transparent focus-within:border-indigo-300'>
-          <span className='mr-3'>PHP</span>
-          <input
-            className='font-medium flex-1 outline-none focus:outline-none text-right py-2 bg-transparent'
-            type='number'
-            value={1000.01}
-            step='.01'
-          />
-        </div>
-      </label>
+      <InputGroup
+        inputClassName='text-right'
+        label='Amount'
+        error={errors.amount}
+        type='number'
+        contentLabel={{ type: 'text', content: 'PHP' }}
+        {...register('amount', {
+          required: 'Amount is required.',
+          setValueAs: (v) => new Date(v).toJSON()
+        })}
+      />
       <label>
         <div className='font-medium text-sm my-1'>Remarks</div>
         <div className='px-3 font-medium flex items-center bg-indigo-100 rounded-md border-2 border-transparent focus-within:border-indigo-300'>

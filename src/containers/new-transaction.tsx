@@ -1,9 +1,11 @@
-import { Dialog, Listbox } from '@headlessui/react';
-import { ArrowLeftIcon, SelectorIcon } from '@heroicons/react/outline';
+import { Dialog } from '@headlessui/react';
+import { ArrowLeftIcon } from '@heroicons/react/outline';
 import { useHistory } from 'react-router-dom';
+import useStore from '../app/store';
 import TransactionForm from '../components/transaction-form';
 
 export default function NewTransaction() {
+  const budgetList = useStore((state) => state.budget.list);
   const history = useHistory();
   return (
     <Dialog
@@ -20,7 +22,7 @@ export default function NewTransaction() {
           </button>
           <Dialog.Title>New Transaction</Dialog.Title>
         </div>
-        <TransactionForm />
+        <TransactionForm budgetList={budgetList} />
       </div>
     </Dialog>
   );
