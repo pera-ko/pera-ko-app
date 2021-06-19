@@ -4,15 +4,19 @@ import { useHistory, useParams } from 'react-router-dom';
 import useStore from '../app/store';
 import TransactionForm from '../components/transaction-form';
 import { useTransactionStore } from '../app/store';
+import { useQuery } from '../app/hooks';
 
 export default function NewTransaction() {
   const { year, month } = useParams<{ year: string; month: string }>();
   const budgetList = useStore((state) => state.budget.list);
   const history = useHistory();
+  const query = useQuery();
   const addTransaction = useTransactionStore(
     +year,
     +month
   )((state) => state).addTransaction;
+  const id = query.get('id');
+  const selectedBudget = id ? budgetList.find((b) => b.id === id) : undefined;
 
   return (
     <Dialog
@@ -30,6 +34,7 @@ export default function NewTransaction() {
           <Dialog.Title>New Transaction</Dialog.Title>
         </div>
         <TransactionForm
+          selectedBudget={selectedBudget}
           budgetList={budgetList}
           onSubmit={(value) => {
             addTransaction(value.budgetId, value.amount, value.remarks);

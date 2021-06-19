@@ -10,12 +10,18 @@ interface Inputs {
 }
 
 interface Props {
+  selectedBudget?: IBudgetGoalData;
   budgetList: IBudgetGoalData[];
   onSubmit?(value: Inputs & { budgetId: string }): void;
 }
 
-export default function TransactionForm({ budgetList, onSubmit }: Props) {
-  const [budget, setBudget] = useState<IBudgetGoalData>();
+export default function TransactionForm({
+  selectedBudget,
+  budgetList,
+  onSubmit
+}: Props) {
+  const [budget, setBudget] =
+    useState<IBudgetGoalData | undefined>(selectedBudget);
   const {
     register,
     handleSubmit,
