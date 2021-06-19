@@ -2,6 +2,7 @@ import { ArrowLeftIcon } from '@heroicons/react/outline';
 import { Fragment } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import useStore, { useTransactionStore } from '../app/store';
+import { money } from '../app/utils';
 
 export default function Transactions() {
   const { year, month } = useParams<{ year: string; month: string }>();
@@ -30,7 +31,7 @@ export default function Transactions() {
                 </span>
               </div>
               <div className='text-right mr-5'>
-                <div className='text-sm font-medium'>PHP {t.amount}</div>
+                <div className='text-sm font-medium'>{money(t.amount)}</div>
                 <div className='text-xs text-gray-600'>{t.remarks}</div>
               </div>
             </li>

@@ -42,6 +42,7 @@ export default function TransactionForm({ budgetList, onSubmit }: Props) {
         label='Amount'
         error={errors.amount}
         type='number'
+        step='.01'
         contentLabel={{ type: 'text', content: 'PHP' }}
         {...register('amount', {
           required: 'Amount is required.'

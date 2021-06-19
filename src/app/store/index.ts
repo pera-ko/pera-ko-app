@@ -19,6 +19,7 @@ interface IStoreState {
 
 interface ITransactionStore {
   list: { budgetId: string, amount: number, tranDate: string, remarks?: string }[],
+  getTotalExpenses: () => number;
   addTransaction: (budgetId: string, amount: number, remarks?: string) => void
 }
 
@@ -83,6 +84,7 @@ export const useTransactionStore = (year: number, month: number) => {
     transactionStore[year][month] = create<ITransactionStore>(persist(
       (set, get) => ({
         list: [],
+        getTotalExpenses: () => get().list.reduce((x, y) => Number(x) + Number(y.amount), 0),
         addTransaction: (budgetId, amount, remarks) => {
           const tranDate = (new Date()).toJSON()
           set(state => {

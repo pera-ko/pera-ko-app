@@ -1,5 +1,6 @@
 import React from 'react';
 import { IBudget, IGoal } from '../app/@types';
+import { money } from '../app/utils';
 
 const BudgetListComponent: React.FC = ({ children }) => {
   return <ul>{children}</ul>;
@@ -30,11 +31,7 @@ const BudgetListItem: React.FC<ItemProps> = ({ value, children, onClick }) => {
             <div>
               <span className='font-medium text-sm'>{value.budgetName}</span>
               <div className='text-xs font-medium text-gray-600 leading-3'>
-                PHP{' '}
-                {value.amount.toLocaleString('en-us', {
-                  minimumFractionDigits: 2,
-                  currency: 'PHP'
-                })}
+                {money(value.amount)}
               </div>
             </div>
           </div>

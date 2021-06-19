@@ -17,15 +17,23 @@ import {
 } from '@heroicons/react/outline';
 import { useQuery } from '../app/hooks';
 import NewTransaction from './new-transaction';
+import { useTransactionStore } from '../app/store';
+import { money } from '../app/utils';
 
 const App: React.FC = ({ children }) => {
+  const { year, month } = useParams<{ year: string; month: string }>();
   const query = useQuery();
   const appPath = useRouteMatch('/:year/:month');
   const expensesMatch = useRouteMatch(`${appPath?.url}/expenses`);
   const incomeMatch = useRouteMatch(`${appPath?.url}/income`);
-
+  const { getTotalExpenses } = useTransactionStore(
+    +year,
+    +month
+  )((state) => state);
   const isNewTransactionOpen = query.get('newtran') === 'open';
 
+  var totalExpenses = getTotalExpenses();
+  console.log(totalExpenses);
   return (
     <div>
       <div
@@ -72,7 +80,9 @@ const App: React.FC = ({ children }) => {
                 <TrendingUpIcon className='h-4 w-4 mr-1 inline-block' />
                 Expenses
               </div>
-              <div className='text-number font-medium ml-5'>PHP 880.45</div>
+              <div className='text-number font-medium ml-5'>
+                {money(totalExpenses)}
+              </div>
               <div className='flex justify-center mt-2'>
                 <div
                   className='w-0 h-0'
