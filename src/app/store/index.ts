@@ -12,7 +12,8 @@ interface IStoreState {
   budget: {
     list: (IGoal & WithId | IBudget & WithId) [],
     createBudget: (value: IGoal | IBudget) => void,
-    updateBudget: (id: string, value: IGoal | IBudget) => void
+    updateBudget: (id: string, value: IGoal | IBudget) => void,
+    deleteBudget: (id: string) => void,
   }
 }
 
@@ -53,6 +54,11 @@ const useStore = create<IStoreState>(persist(
           state.budget.list[budgetIndex] = nextBudget
         })
       },
+      deleteBudget: (id) => {
+        set(state => {
+          state.budget.list = get().budget.list.filter(b => b.id !== id)
+        })
+      }
     }}),
     {
       name: "perako-budget",
@@ -60,7 +66,7 @@ const useStore = create<IStoreState>(persist(
     }
 ))
 
-export const { createBudget, updateBudget } = useStore.getState().budget
+export const { createBudget, updateBudget, deleteBudget } = useStore.getState().budget
 
 const transactionStore: {
   [year: number] : {

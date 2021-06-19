@@ -188,7 +188,7 @@ const BudgetForm: React.FC<BudgetFormProps> = ({
       <div className='fixed bottom-4 inset-x-0 px-5'>
         <button
           type='submit'
-          className=' w-full bg-indigo-600 text-white py-3 rounded-2xl  shadow-md'
+          className='font-medium w-full bg-indigo-600 text-white py-3 rounded-2xl shadow-md'
         >
           {submitText}
         </button>
