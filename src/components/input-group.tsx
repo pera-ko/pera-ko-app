@@ -31,6 +31,7 @@ function InputGroup(
           ) : null)}
         <input
           ref={ref}
+          autoComplete='off'
           className={`font-medium flex-1 outline-none focus:outline-none py-2 bg-transparent w-full ${inputClassName}`}
           {...rest}
         />
