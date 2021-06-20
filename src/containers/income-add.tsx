@@ -1,7 +1,7 @@
 import { Dialog } from '@headlessui/react';
 import { ArrowLeftIcon } from '@heroicons/react/outline';
 import { useHistory, useParams } from 'react-router-dom';
-import useStore, { getDefaultWallet, useTransactionStore } from '../app/store';
+import { getDefaultWallet, useTransactionStore } from '../app/store';
 import IncomeForm from '../components/income-form';
 
 export default function IncomeAdd() {

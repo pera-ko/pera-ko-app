@@ -38,7 +38,7 @@ export default function IncomeForm({ onSubmit }: Props) {
         })}
       />
       <InputGroup label='Remarks' {...register('remarks')} />
-      <div className='text-right my-4'>
+      {/* <div className='text-right my-4'>
         <button
           type='button'
           className='border border-indigo-500 py-1 px-2 rounded-full text-sm font-medium mr-2'
@@ -51,7 +51,8 @@ export default function IncomeForm({ onSubmit }: Props) {
         >
           PHP 1,250.00
         </button>
-      </div>
+      </div> */}
+      <div className='h-8'></div>
       <button
         type='submit'
         className='bg-indigo-500 rounded-lg py-3 w-full text-sm font-medium text-white'
