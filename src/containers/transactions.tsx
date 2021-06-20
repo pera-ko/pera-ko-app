@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 import calendar from 'dayjs/plugin/calendar';
 import useStore, { useTransactionStore } from '../app/store';
 import { money } from '../app/utils';
+import BudgetIcon from '../components/budget.icon';
 
 dayjs.extend(calendar);
 
@@ -32,7 +33,7 @@ export default function Transactions() {
           var retVal: React.ReactElement[] = [];
           var currentDate = new Date(t.tranDate).toDateString();
           const budget = budgetList.find((b) => b.id === t.budgetId);
-
+          if (!budget) return null;
           if (lastDate !== currentDate) {
             var desc = dayjs(currentDate).calendar(undefined, {
               sameDay: '[Today]',
@@ -52,7 +53,7 @@ export default function Transactions() {
           retVal.push(
             <li key={t.tranDate} className='flex justify-between items-center'>
               <div className='flex items-center'>
-                <div className='px-4 py-3 text-2xl'>{budget?.icon}</div>
+                <BudgetIcon budget={budget} />
                 <span className='font-medium text-sm'>
                   {budget?.budgetName}
                 </span>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { IBudget, IGoal } from '../app/@types';
 import { money } from '../app/utils';
+import BudgetIcon from './budget.icon';
 
 const BudgetListComponent: React.FC = ({ children }) => {
   return <ul>{children}</ul>;
@@ -22,12 +23,9 @@ const BudgetListItem: React.FC<ItemProps> = ({ value, children, onClick }) => {
         className='w-full outline-none focus:outline-none'
         onClick={() => handleItemClick(value)}
       >
-        <div
-          className='flex justify-between items-center border-l-4 text-left'
-          style={{ borderColor: value.color }}
-        >
+        <div className='flex justify-between items-center text-left'>
           <div className='flex items-center'>
-            <div className='pl-3 pr-4 py-3 text-2xl'>{value.icon}</div>
+            <BudgetIcon budget={value} />
             <div>
               <span className='font-medium text-sm'>{value.budgetName}</span>
               <div className='text-xs font-medium text-gray-600 leading-3'>
