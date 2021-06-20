@@ -1,8 +1,10 @@
 import { Listbox } from '@headlessui/react';
 import { SelectorIcon } from '@heroicons/react/outline';
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { usePopper } from 'react-popper';
 import { IBudgetGoalData } from '../app/@types';
+import { money } from '../app/utils';
+import BudgetIcon from './budget.icon';
 
 interface Props {
   value?: IBudgetGoalData;
@@ -18,12 +20,30 @@ export default function SelectBudget({ value, items, onChange }: Props) {
   return (
     <Listbox value={value} onChange={onChange}>
       <div className='relative mt-1' ref={setReferenceElement}>
-        <Listbox.Button className='border-2 border-transparent relative w-full py-2 pl-3 pr-10 text-left bg-indigo-100 rounded-lg'>
-          <span className='block truncate'>
-            <span className='text-sm font-medium'>
-              {value ? value.budgetName : '- Select Budget Type -'}
-            </span>
-          </span>
+        <Listbox.Button
+          className={`flex items-center ${
+            !value && 'py-2 pl-3 pr-10 bg-indigo-100'
+          } border-2 border-transparent relative w-full text-left  rounded-lg`}
+        >
+          {value ? (
+            <Fragment>
+              <BudgetIcon budget={value} />
+              <div>
+                <span className='font-medium text-sm'>{value.budgetName}</span>
+                <div className='text-xs font-medium text-gray-600'>
+                  {money(value.amount)}
+                </div>
+              </div>
+            </Fragment>
+          ) : (
+            <Fragment>
+              <span className='block truncate'>
+                <span className='text-sm font-medium'>
+                  {value ? value : '- Select Budget Type -'}
+                </span>
+              </span>
+            </Fragment>
+          )}
           <span className='absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none'>
             <SelectorIcon
               className='w-6 h-6 text-gray-400'
@@ -43,10 +63,20 @@ export default function SelectBudget({ value, items, onChange }: Props) {
               key={b.id}
               value={b}
               className={({ active }) =>
-                `${active ? 'py-2 px-4 bg-indigo-50 ' : ' py-2 px-4'}`
+                `${
+                  active
+                    ? 'flex bg-indigo-50 items-center'
+                    : 'flex items-center'
+                }`
               }
             >
-              {b.budgetName}
+              <BudgetIcon budget={b} />
+              <div>
+                <span className='font-medium text-sm'>{b.budgetName}</span>
+                <div className='text-xs font-medium text-gray-600'>
+                  {money(b.amount)}
+                </div>
+              </div>
             </Listbox.Option>
           ))}
         </Listbox.Options>
