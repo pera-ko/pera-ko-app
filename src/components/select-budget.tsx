@@ -53,7 +53,7 @@ export default function SelectBudget({ value, items, onChange }: Props) {
         </Listbox.Button>
 
         <Listbox.Options
-          className='bg-white shadow-md absolute w-full rounded outline-none focus:outline-none'
+          className='bg-white shadow-md absolute w-full rounded outline-none focus:outline-none overflow-y-auto max-h-64'
           ref={setPopperElement}
           style={styles.popper}
           {...attributes.popper}
