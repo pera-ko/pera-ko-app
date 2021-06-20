@@ -36,6 +36,15 @@ export default function TransactionForm({
       });
   };
 
+  let defaultAmount: number | undefined;
+
+  if (selectedBudget && selectedBudget.type === 'goal') {
+    defaultAmount =
+      selectedBudget.installmentType === 'monthly'
+        ? selectedBudget.amount
+        : selectedBudget.amount / 2;
+  }
+
   return (
     <form
       className='px-5 mb-5 text-gray-800'
@@ -45,6 +54,7 @@ export default function TransactionForm({
       <InputGroup
         inputClassName='text-right'
         label='Amount'
+        defaultValue={defaultAmount}
         error={errors.amount}
         type='number'
         step='.01'

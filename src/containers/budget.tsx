@@ -36,9 +36,13 @@ const Budget: React.FC = () => {
     listItems = listItems
       .filter((x) => x.type === 'goal')
       .map((x) => {
+        let amount = x.amount;
+        if (x.type === 'goal' && x.installmentType === 'semi-monthly') {
+          amount = amount / 2;
+        }
         return {
           ...x,
-          amount: x.amount / 2
+          amount
         };
       });
   }
