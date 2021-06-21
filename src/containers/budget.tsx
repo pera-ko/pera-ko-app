@@ -1,26 +1,26 @@
 import { ClipboardCheckIcon, ViewGridIcon } from '@heroicons/react/outline';
 import { Fragment, useState } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { IBudget, IGoal } from '../app/@types';
 import { BottomNav } from './App';
 import BudgetCheckList from '../components/budget-check-list';
 import BudgetGrid from '../components/budget-grid';
 import { useQuery } from '../app/hooks';
-import useStore from '../app/store';
+import { getEffectiveBudget } from '../app/store';
 
 const Budget: React.FC = () => {
+  const { year, month } = useParams<{ year: string; month: string }>();
   const location = useLocation();
   const history = useHistory();
   const query = useQuery();
   const [selectedItems, setSelectedItems] = useState<(IBudget | IGoal)[]>([]);
   const isQuickAdd = query.get('view') === 'quickadd';
-  const budgetList = useStore((state) => state.budget.list);
 
   const handleViewChange = (mode: 'grid' | 'quickadd') => {
     query.set('view', mode);
     history.push(`${location.pathname}?${query.toString()}`);
   };
-  let listItems = budgetList;
+  let listItems = getEffectiveBudget(+year, +month);
 
   const handleQuickAddClick = () => {
     console.log(selectedItems);
