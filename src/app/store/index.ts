@@ -1,8 +1,12 @@
 import { nanoid } from 'nanoid'
 import create, { UseStore } from 'zustand'
 import { persist } from 'zustand/middleware'
+import dayjs from 'dayjs'
+import isBetween from 'dayjs/plugin/isBetween'
 import { IBudget, IBudgetData, IGoal, IGoalData, IIncome, IWalletData } from '../@types'
 import IndexedDBStorage from '../infra/indexedDBPersistence'
+
+dayjs.extend(isBetween)
 
 interface IStoreState {
   wallet: {
@@ -58,25 +62,11 @@ const useStore = create<IStoreState>(persist(
           if (b.type === "budget") {
             return true;
           } else {
-            let retval = false;
-            const startDate = new Date(b.startDate);
-            if (year >= startDate.getFullYear() && month >= (startDate.getMonth() + 1)) {
-              retval = true;
-            }
-
-            if (retval && b.endDate) {
-              if (b.endDate === "1970-01-01T00:00:00.000Z") {
-                retval = true;
-              } else {
-                const endDate = new Date(b.endDate);
-                if (!(year <= endDate.getFullYear() && month <= (endDate.getMonth() + 1))) {
-                  retval = false;
-                } else {
-                  retval = true;
-                }
-              }
-            }
-            return retval
+            const startDate = dayjs(b.startDate)
+            const endDate = !b.endDate ? 
+                                dayjs() : 
+                                (b.endDate === "1970-01-01T00:00:00.000Z" ? dayjs() : dayjs(b.endDate))
+            return dayjs(`${year}-${month}-01`).isBetween(startDate, endDate, 'day', '[]')
           }
         })
       },
