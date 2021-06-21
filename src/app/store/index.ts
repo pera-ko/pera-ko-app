@@ -14,6 +14,7 @@ interface IStoreState {
   },
   budget: {
     list: (IGoalData | IBudgetData) [],
+    getEffectiveBudget: (year: number, month: number) => (IGoalData | IBudgetData) [],
     createBudget: (value: IGoal | IBudget) => void,
     updateBudget: (id: string, value: IGoal | IBudget) => void,
     deleteBudget: (id: string) => void,
@@ -52,6 +53,33 @@ const useStore = create<IStoreState>(persist(
     },
     budget: {
       list: [],
+      getEffectiveBudget: (year, month) => {
+        return get().budget.list.filter(b => {
+          if (b.type === "budget") {
+            return true;
+          } else {
+            let retval = false;
+            const startDate = new Date(b.startDate);
+            if (year >= startDate.getFullYear() && month >= (startDate.getMonth() + 1)) {
+              retval = true;
+            }
+
+            if (retval && b.endDate) {
+              if (b.endDate === "1970-01-01T00:00:00.000Z") {
+                retval = true;
+              } else {
+                const endDate = new Date(b.endDate);
+                if (!(year <= endDate.getFullYear() && month <= (endDate.getMonth() + 1))) {
+                  retval = false;
+                } else {
+                  retval = true;
+                }
+              }
+            }
+            return retval
+          }
+        })
+      },
       createBudget: (value) => {
         const newId = nanoid();
 
@@ -86,7 +114,7 @@ const useStore = create<IStoreState>(persist(
     }
 ))
 
-export const { createBudget, updateBudget, deleteBudget } = useStore.getState().budget
+export const { getEffectiveBudget, createBudget, updateBudget, deleteBudget } = useStore.getState().budget
 export const { getDefaultWallet } = useStore.getState().wallet
 
 const transactionStore: {
