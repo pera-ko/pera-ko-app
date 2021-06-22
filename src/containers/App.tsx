@@ -20,6 +20,8 @@ import NewTransaction from './new-transaction';
 import { getDefaultWallet, useTransactionStore } from '../app/store';
 import { money } from '../app/utils';
 import { useEffect, useState } from 'react';
+import { Fragment } from 'react';
+import { Toaster } from 'react-hot-toast';
 
 const App: React.FC = ({ children }) => {
   const [loading, setLoading] = useState(true);
@@ -192,27 +194,30 @@ export function BottomNav() {
     history.push(`${location.pathname}?${query.toString()}`);
   };
   return (
-    <div className='bg-white border-t grid grid-cols-3 px-6 fixed inset-x-0 bottom-0'>
-      <Link to='/' className='text-center py-2 w-15'>
-        <HomeIcon className='h-6 w-6 inline' />
-        <div className='text-xs font-medium'>Home</div>
-      </Link>
-      <div className='text-center'>
-        <button
-          className='p-4 bg-indigo-500 text-white rounded-full transform -translate-y-1/2'
-          onClick={handleNewClick}
+    <Fragment>
+      <div className='bg-white border-t grid grid-cols-3 px-6 fixed inset-x-0 bottom-0'>
+        <Link to='/' className='text-center py-2 w-15'>
+          <HomeIcon className='h-6 w-6 inline' />
+          <div className='text-xs font-medium'>Home</div>
+        </Link>
+        <div className='text-center'>
+          <button
+            className='p-4 bg-indigo-500 text-white rounded-full transform -translate-y-1/2'
+            onClick={handleNewClick}
+          >
+            <PlusIcon className='h-6 w-6' />
+          </button>
+        </div>
+        <Link
+          to={`/${year}/${month}/preferences`}
+          className='text-center py-2 w-15'
         >
-          <PlusIcon className='h-6 w-6' />
-        </button>
+          <AdjustmentsIcon className='h-6 w-6 inline' />
+          <div className='text-xs font-medium'>Preferences</div>
+        </Link>
       </div>
-      <Link
-        to={`/${year}/${month}/preferences`}
-        className='text-center py-2 w-15'
-      >
-        <AdjustmentsIcon className='h-6 w-6 inline' />
-        <div className='text-xs font-medium'>Preferences</div>
-      </Link>
-    </div>
+      <Toaster position='bottom-center' />
+    </Fragment>
   );
 }
 

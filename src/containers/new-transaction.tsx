@@ -5,6 +5,8 @@ import useStore from '../app/store';
 import TransactionForm from '../components/transaction-form';
 import { useTransactionStore } from '../app/store';
 import { useQuery } from '../app/hooks';
+import toast from 'react-hot-toast';
+import { money } from '../app/utils';
 
 export default function NewTransaction() {
   const { year, month } = useParams<{ year: string; month: string }>();
@@ -42,6 +44,7 @@ export default function NewTransaction() {
           onSubmit={(value) => {
             addTransaction(value.budgetId, value.amount, value.remarks);
             history.goBack();
+            toast.success(`${money(value.amount)} added to transaction`);
           }}
         />
       </div>

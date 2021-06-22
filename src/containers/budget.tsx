@@ -8,6 +8,7 @@ import BudgetGrid from '../components/budget-grid';
 import { useQuery } from '../app/hooks';
 import { getEffectiveBudget, useTransactionStore } from '../app/store';
 import { money } from '../app/utils';
+import toast from 'react-hot-toast';
 
 const Budget: React.FC = () => {
   const { year, month } = useParams<{ year: string; month: string }>();
@@ -28,11 +29,14 @@ const Budget: React.FC = () => {
   let listItems = getEffectiveBudget(+year, +month);
 
   const handleQuickAddClick = () => {
+    var total = 0;
     selectedItems.forEach((item) => {
       addTransaction(item.id, item.amount);
+      total += item.amount;
     });
     setSelectedItems([]);
     handleViewChange('grid');
+    toast.success(`Total of ${money(total)} has been added`);
   };
 
   const handleBudgetGridItemClick = (id: string) => {
