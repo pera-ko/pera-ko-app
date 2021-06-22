@@ -1,23 +1,26 @@
 import { Popover, RadioGroup } from '@headlessui/react';
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { HexColorPicker } from 'react-colorful';
 import BudgetRadio from './budget-radio';
 import InputGroup from './input-group';
 import { default as EmojiPicker, IEmojiData } from 'emoji-picker-react';
 import { IBudget, IGoal } from '../app/@types';
+import dayjs from 'dayjs';
 
 interface Inputs {
+  type: 'goal' | 'budget';
   budgetName: string;
   amount: number;
   icon: string;
+  color: string;
   startDate?: string;
   endDate?: string;
   installmentType?: 'monthly' | 'semi-monthly';
 }
 
 interface BudgetFormProps {
-  defaultValue?: IBudget | IGoal;
+  defaultValue?: Inputs;
   onSubmit?(value: IBudget | IGoal): void;
   submitText?: string;
 }
@@ -30,25 +33,37 @@ const BudgetForm: React.FC<BudgetFormProps> = ({
   const {
     register,
     handleSubmit,
+    setValue,
+    watch,
     formState: { errors, isSubmitted }
   } = useForm<Inputs>({ defaultValues: defaultValue });
   const [type, setType] = useState<'budget' | 'goal'>(
     defaultValue ? defaultValue.type : 'budget'
   );
+  const startDateValue = watch(
+    'startDate',
+    defaultValue?.type === 'goal'
+      ? dayjs(defaultValue.startDate).format('YYYY-MM-DD')
+      : ''
+  );
+  const endDateValue = watch(
+    'endDate',
+    defaultValue?.type === 'goal'
+      ? dayjs(defaultValue.endDate).format('YYYY-MM-DD')
+      : ''
+  );
   const [installmentType, setInstallmentType] = useState<
     'monthly' | 'semi-monthly'
-  >(
-    defaultValue
-      ? defaultValue.type === 'goal'
-        ? defaultValue.installmentType
-        : 'monthly'
-      : 'monthly'
-  );
+  >(defaultValue?.installmentType ? defaultValue.installmentType : 'monthly');
   const [chosenEmoji, setChosenEmoji] = useState<IEmojiData | null>();
   const [color, setColor] = useState(
     defaultValue ? defaultValue.color : '#fff'
   );
-
+  useEffect(() => {
+    register('startDate', { required: 'Start Date is required.' });
+    register('endDate');
+  }, [register]);
+  console.log(startDateValue);
   const handleFormSubmit: SubmitHandler<Inputs> = (data) => {
     let returnValue: IBudget | IGoal;
     if (defaultValue && !defaultValue.icon && !chosenEmoji) return;
@@ -144,18 +159,15 @@ const BudgetForm: React.FC<BudgetFormProps> = ({
                 label='Start Date'
                 error={errors.startDate}
                 type='date'
-                {...register('startDate', {
-                  required: 'Start Date is required.',
-                  setValueAs: (v) => new Date(v).toJSON()
-                })}
+                value={startDateValue}
+                onChange={(e) => setValue('startDate', e.target.value)}
               />
               <InputGroup
                 label='End Date'
                 error={errors.endDate}
                 type='date'
-                {...register('endDate', {
-                  setValueAs: (v) => new Date(v).toJSON()
-                })}
+                value={endDateValue}
+                onChange={(e) => setValue('endDate', e.target.value)}
               />
               <div className='font-medium text-sm my-1 text-gray-600 mt-1'>
                 Installment Type
