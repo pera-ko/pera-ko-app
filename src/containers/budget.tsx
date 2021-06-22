@@ -1,19 +1,25 @@
 import { ClipboardCheckIcon, ViewGridIcon } from '@heroicons/react/outline';
 import { Fragment, useState } from 'react';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
-import { IBudget, IGoal } from '../app/@types';
+import { IBudgetGoalData } from '../app/@types';
 import { BottomNav } from './App';
 import BudgetCheckList from '../components/budget-check-list';
 import BudgetGrid from '../components/budget-grid';
 import { useQuery } from '../app/hooks';
-import { getEffectiveBudget } from '../app/store';
+import { getEffectiveBudget, useTransactionStore } from '../app/store';
+import { money } from '../app/utils';
+import toast from 'react-hot-toast';
 
 const Budget: React.FC = () => {
   const { year, month } = useParams<{ year: string; month: string }>();
   const location = useLocation();
   const history = useHistory();
   const query = useQuery();
-  const [selectedItems, setSelectedItems] = useState<(IBudget | IGoal)[]>([]);
+  const [selectedItems, setSelectedItems] = useState<IBudgetGoalData[]>([]);
+  const addTransaction = useTransactionStore(
+    +year,
+    +month
+  )((state) => state).addTransaction;
   const isQuickAdd = query.get('view') === 'quickadd';
 
   const handleViewChange = (mode: 'grid' | 'quickadd') => {
@@ -23,7 +29,14 @@ const Budget: React.FC = () => {
   let listItems = getEffectiveBudget(+year, +month);
 
   const handleQuickAddClick = () => {
-    console.log(selectedItems);
+    var total = 0;
+    selectedItems.forEach((item) => {
+      addTransaction(item.id, item.amount);
+      total += item.amount;
+    });
+    setSelectedItems([]);
+    handleViewChange('grid');
+    toast.success(`Total of ${money(total)} has been added`);
   };
 
   const handleBudgetGridItemClick = (id: string) => {
@@ -98,13 +111,9 @@ const Budget: React.FC = () => {
           >
             Add&nbsp;
             <span className='font-medium '>
-              PHP{' '}
-              {selectedItems
-                .reduce((total, s) => total + s.amount, 0)
-                .toLocaleString('en-us', {
-                  minimumFractionDigits: 2,
-                  currency: 'PHP'
-                })}
+              {money(
+                selectedItems.reduce((total, s) => total + Number(s.amount), 0)
+              )}
             </span>
             &nbsp;transactions
           </button>

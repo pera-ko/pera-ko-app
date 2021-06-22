@@ -1,11 +1,11 @@
 import { CheckIcon } from '@heroicons/react/outline';
-import { IBudget, IBudgetData, IGoal, IGoalData } from '../app/@types';
+import { IBudgetGoalData } from '../app/@types';
 import BudgetList from './budget-list';
 
 interface Props {
-  items: (IBudgetData | IGoalData)[];
-  selectedItems: (IBudget | IGoal)[];
-  onSelectedItemsChange(items: (IBudget | IGoal)[]): void;
+  items: IBudgetGoalData[];
+  selectedItems: IBudgetGoalData[];
+  onSelectedItemsChange(items: IBudgetGoalData[]): void;
 }
 export default function BudgetCheckList({
   items,
