@@ -1,6 +1,5 @@
 import React from 'react';
 import { IBudget, IGoal } from '../app/@types';
-import { hexToRGB } from '../app/utils';
 import BudgetIcon from './budget-icon';
 
 const BudgetGridComponent: React.FC = ({ children }) => {
