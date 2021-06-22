@@ -41,7 +41,7 @@ ReactDOM.render(
             <Route path='/:year/:month/income/new' component={IncomeAdd} />
             <Route path='/:year/:month/expenses' component={Transactions} />
             {/* <Route path='/:year/:month/expenses' component={BottomNav}/> */}
-            <Preferences />
+            <Route path='/:year/:month/preferences' component={Preferences} />
             <BudgetNew />
           </App>
         </Route>
