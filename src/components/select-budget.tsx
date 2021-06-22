@@ -4,7 +4,7 @@ import React, { Fragment, useState } from 'react';
 import { usePopper } from 'react-popper';
 import { IBudgetGoalData } from '../app/@types';
 import { money } from '../app/utils';
-import BudgetIcon from './budget.icon';
+import BudgetIcon from './budget-icon';
 
 interface Props {
   value?: IBudgetGoalData;
@@ -27,7 +27,7 @@ export default function SelectBudget({ value, items, onChange }: Props) {
         >
           {value ? (
             <Fragment>
-              <BudgetIcon budget={value} />
+              <BudgetIcon budget={value} size='large' />
               <div>
                 <span className='font-medium text-sm'>{value.budgetName}</span>
                 <div className='text-xs font-medium text-gray-600'>

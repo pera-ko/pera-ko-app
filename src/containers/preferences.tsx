@@ -29,7 +29,10 @@ const Preferences: React.FC = () => {
       className='fixed inset-0 bg-white overflow-y-auto'
     >
       <div className='sticky h- top-0 bg-white flex items-center font-medium text-lg'>
-        <button className='p-5' onClick={() => history.goBack()}>
+        <button
+          className='p-5 outline-none focus:outline-none'
+          onClick={() => history.goBack()}
+        >
           <ArrowLeftIcon className='h-6 w-6' />
         </button>
         Preferences
@@ -48,9 +51,9 @@ const Preferences: React.FC = () => {
       />
       <StickyHeader>
         Wallets
-        <Link to={`${route?.url}/newwallet`} className='text-link'>
+        {/* <Link to={`${route?.url}/newwallet`} className='text-link'>
           ADD
-        </Link>
+        </Link> */}
       </StickyHeader>
       <ul>
         {Object.values(walletList).map((wallet) => {
@@ -68,7 +71,7 @@ const Preferences: React.FC = () => {
                     {wallet.walletName}
                   </span>
                 </div>
-                <ChevronRightIcon className='h-6 w-6 block' />
+                {/* <ChevronRightIcon className='h-6 w-6 block' /> */}
               </Link>
             </li>
           );
