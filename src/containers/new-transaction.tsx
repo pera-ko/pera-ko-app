@@ -23,12 +23,15 @@ export default function NewTransaction() {
       open
       onClose={() => history.goBack()}
       as='div'
-      className='fixed inset-0  overflow-y-auto'
+      className='fixed inset-0 overflow-y-auto'
     >
       <Dialog.Overlay className='bg-black bg-opacity-75 inset-0 fixed' />
-      <div className='bg-white fixed inset-x-0 bottom-0 rounded-t-5xl'>
+      <div className='bg-white fixed inset-x-0 bottom-0 rounded-t-5xl pt-1'>
         <div className='sticky h- top-0 bg-white flex items-center font-medium rounded-t-5xl'>
-          <button className='p-5' onClick={() => history.goBack()}>
+          <button
+            className='p-5 outline-none focus:outline-none'
+            onClick={() => history.goBack()}
+          >
             <ArrowLeftIcon className='h-6 w-6' />
           </button>
           <Dialog.Title>New Transaction</Dialog.Title>

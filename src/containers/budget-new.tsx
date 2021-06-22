@@ -44,7 +44,10 @@ export default function BudgetNew() {
       className='fixed inset-0 bg-white overflow-y-auto text-gray-800 pb-20'
     >
       <div className='sticky top-0 bg-white flex justify-between items-center font-medium text-lg'>
-        <button className='p-5' onClick={() => history.goBack()}>
+        <button
+          className='p-5 outline-none focus:outline-none'
+          onClick={() => history.goBack()}
+        >
           <ArrowLeftIcon className='h-6 w-6' />
         </button>
         <Dialog.Title className='text-left flex-1'>

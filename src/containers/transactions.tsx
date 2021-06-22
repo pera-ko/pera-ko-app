@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 import calendar from 'dayjs/plugin/calendar';
 import useStore, { useTransactionStore } from '../app/store';
 import { money } from '../app/utils';
-import BudgetIcon from '../components/budget.icon';
+import BudgetIcon from '../components/budget-icon';
 
 dayjs.extend(calendar);
 

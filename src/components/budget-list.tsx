@@ -1,7 +1,7 @@
 import React from 'react';
 import { IBudget, IGoal } from '../app/@types';
 import { money } from '../app/utils';
-import BudgetIcon from './budget.icon';
+import BudgetIcon from './budget-icon';
 
 const BudgetListComponent: React.FC = ({ children }) => {
   return <ul>{children}</ul>;
