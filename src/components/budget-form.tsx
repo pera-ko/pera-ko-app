@@ -64,7 +64,7 @@ const BudgetForm: React.FC<BudgetFormProps> = ({
       required: type === 'goal' ? 'Start Date is required.' : false
     });
     register('endDate');
-  }, [register]);
+  }, [register, type]);
   console.log(startDateValue);
   const handleFormSubmit: SubmitHandler<Inputs> = (data) => {
     let returnValue: IBudget | IGoal;
