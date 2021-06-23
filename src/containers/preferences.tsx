@@ -24,17 +24,17 @@ const Preferences: React.FC = () => {
 
   return (
     <Transition appear show as={Fragment}>
-      <div className='fixed inset-0 bg-white overflow-y-auto'>
+      <div className='fixed inset-0 overflow-y-auto'>
         <Transition.Child
           as={Fragment}
           enter='ease-out duration-300'
-          enterFrom='opacity-0 top-52'
-          enterTo='opacity-100 top-0'
+          enterFrom='opacity-0 transform translate-y-full'
+          enterTo='opacity-100 transform translate-y-0'
           // leave='ease-in duration-75'
           // leaveFrom='opacity-100 transform translate-x-0'
           // leaveTo='opacity-0 transform translate-x-10'
         >
-          <div className='bg-white top-0 fixed'>
+          <div className='bg-white top-0 '>
             <div className='sticky top-0 bg-white flex items-center font-medium text-lg'>
               <button
                 className='p-5 outline-none focus:outline-none'

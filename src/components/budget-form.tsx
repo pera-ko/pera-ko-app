@@ -60,7 +60,9 @@ const BudgetForm: React.FC<BudgetFormProps> = ({
     defaultValue ? defaultValue.color : '#fff'
   );
   useEffect(() => {
-    register('startDate', { required: 'Start Date is required.' });
+    register('startDate', {
+      required: type === 'goal' ? 'Start Date is required.' : false
+    });
     register('endDate');
   }, [register]);
   console.log(startDateValue);
