@@ -67,15 +67,14 @@ const App: React.FC = ({ children }) => {
         <Navbar />
         <div className='flex justify-between px-6 items-center'>
           <div className='flex-1 text-center'>
-            <PieChart className='inline-block' width={200} height={100}>
+            <PieChart className='inline-block' width={150} height={100}>
               <Pie
                 data={chartData}
-                cx={100}
                 cy={85}
                 startAngle={180}
                 endAngle={0}
-                innerRadius={60}
-                outerRadius={80}
+                innerRadius={50}
+                outerRadius={70}
                 fill='#8884d8'
                 paddingAngle={5}
                 dataKey='value'
@@ -94,7 +93,9 @@ const App: React.FC = ({ children }) => {
               {defaultWallet.walletName}{' '}
               <ChevronDownIcon className='h-4 w-4 inline-block' />{' '}
             </div>
-            <div className='text-3xl font-medium'>{money(balance)}</div>
+            <div className='text-3xl font-medium whitespace-nowrap'>
+              {money(balance)}
+            </div>
           </div>
         </div>
         <div className='grid grid-cols-2 gap-4 px-10 mt-5'>
