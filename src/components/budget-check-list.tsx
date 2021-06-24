@@ -20,8 +20,10 @@ export default function BudgetCheckList({
         );
         return (
           <BudgetList.Item
-            className={`mx-2 my-1 py-1 rounded transition-all duration-200 ${
-              isSelected ? 'shadow' : 'shadow-md'
+            className={`mx-2 my-1 py-1 rounded transition-all border duration-100 ${
+              isSelected
+                ? 'shadow border-indigo-400'
+                : 'shadow-md border-transparent'
             }`}
             key={item.id}
             value={item}
