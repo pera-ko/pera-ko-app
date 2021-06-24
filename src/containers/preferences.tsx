@@ -20,19 +20,19 @@ const Preferences: React.FC = () => {
   const budgetList = useStore((state) => state.budget.list);
   const walletList = useStore((state) => state.wallet.list);
 
-  // const isOpen = route !== null && route.isExact;
+  const isOpen = route ? true : false;
 
   return (
-    <Transition appear show as={Fragment}>
+    <Transition appear show={isOpen} as={Fragment}>
       <div className='fixed inset-0 overflow-y-auto'>
         <Transition.Child
           as={Fragment}
           enter='ease-out duration-300'
           enterFrom='opacity-0 transform translate-y-full'
           enterTo='opacity-100 transform translate-y-0'
-          // leave='ease-in duration-75'
-          // leaveFrom='opacity-100 transform translate-x-0'
-          // leaveTo='opacity-0 transform translate-x-10'
+          leave='ease-in duration-200'
+          leaveFrom='opacity-100 transform translate-x-0'
+          leaveTo='opacity-0 transform translate-x-full'
         >
           <div className='bg-white top-0 '>
             <div className='sticky top-0 bg-white flex items-center font-medium text-lg'>

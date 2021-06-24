@@ -20,9 +20,9 @@ export default function NewTransaction() {
   )((state) => state).addTransaction;
   const id = query.get('id');
   const selectedBudget = id ? budgetList.find((b) => b.id === id) : undefined;
-
+  const isNewTransactionOpen = query.get('newtran') === 'open';
   return (
-    <Transition appear show={true} as={Fragment}>
+    <Transition appear show={isNewTransactionOpen} as={Fragment}>
       <Dialog as={Fragment} onClose={() => history.goBack()}>
         <div className='fixed inset-0 overflow-y-auto'>
           <Transition.Child
@@ -48,6 +48,9 @@ export default function NewTransaction() {
             enter='ease-out duration-300'
             enterFrom='opacity-0 transform translate-y-full'
             enterTo='opacity-100 transform translate-y-0'
+            leave='ease-in duration-200'
+            leaveFrom='opacity-100 transform translate-y-0'
+            leaveTo='opacity-0 transform translate-y-full'
           >
             <div className='fixed bottom-0 inset-x-0 overflow-hidden transition-all transform bg-white shadow-xl rounded-2xl'>
               <div className='sticky h- top-0 bg-white flex items-center font-medium rounded-t-5xl'>

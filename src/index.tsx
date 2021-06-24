@@ -36,12 +36,10 @@ ReactDOM.render(
         <Route path='/:year/:month'>
           <App>
             <Route exact path='/:year/:month' component={Budget} />
-            {/* <Route exact path='/:year/:month' component={BottomNav}/> */}
             <Route path='/:year/:month/income' component={Income} />
             <Route path='/:year/:month/income/new' component={IncomeAdd} />
             <Route path='/:year/:month/expenses' component={Transactions} />
-            {/* <Route path='/:year/:month/expenses' component={BottomNav}/> */}
-            <Route path='/:year/:month/preferences' component={Preferences} />
+            <Preferences />
             <BudgetNew />
           </App>
         </Route>
