@@ -23,14 +23,14 @@ export default function Navbar() {
 
   return (
     <div className='flex justify-between'>
-      <div className='flex items-center'>
-        <Link to='/' className='py-5 px-4'>
+      <div className='flex items-center pl-4'>
+        {/* <Link to='/' className='py-5 px-4'>
           <img
             className='h-10 w-10 m-auto rounded-full'
             src='https://randomuser.me/api/portraits/men/32.jpg'
             alt=''
           />
-        </Link>
+        </Link> */}
         <div className='text-xl ml-1'>
           <span className='font-medium mr-1 uppercase'>
             {shortMonths[+month - 1]}
