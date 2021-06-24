@@ -1,19 +1,22 @@
+import { Transition } from '@headlessui/react';
 import { ArrowCircleDownIcon, ArrowLeftIcon } from '@heroicons/react/outline';
 import dayjs from 'dayjs';
 import calendar from 'dayjs/plugin/calendar';
 import { Fragment } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useRouteMatch } from 'react-router-dom';
 import { useTransactionStore } from '../app/store';
 import { money } from '../app/utils';
+import IncomeAdd from './income-add';
 
 dayjs.extend(calendar);
 
 export default function Income() {
   const { year, month } = useParams<{ year: string; month: string }>();
+  const incomeRoute = useRouteMatch('/:year/:month/income/new');
   const { incomeList } = useTransactionStore(+year, +month)((state) => state);
 
   let lastDate: string | null = null;
-
+  console.log(incomeRoute);
   return (
     <Fragment>
       <div className='sticky h- top-0 bg-white flex items-center font-medium'>

@@ -37,7 +37,6 @@ const App: React.FC = ({ children }) => {
       setLoading(false);
     }, 1000);
   });
-  const isNewTransactionOpen = query.get('newtran') === 'open';
 
   if (loading) {
     return <div>Loading...</div>;
@@ -117,7 +116,7 @@ const App: React.FC = ({ children }) => {
         </div>
       </div>
       {children}
-      {isNewTransactionOpen && <NewTransaction />}
+      <NewTransaction />
     </div>
   );
 };

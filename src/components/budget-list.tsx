@@ -11,14 +11,20 @@ interface ItemProps {
   value: IBudget | IGoal;
   showAmount?: boolean;
   onClick?(value: IBudget | IGoal): void;
+  className?: string;
 }
-const BudgetListItem: React.FC<ItemProps> = ({ value, children, onClick }) => {
+const BudgetListItem: React.FC<ItemProps> = ({
+  className,
+  value,
+  children,
+  onClick
+}) => {
   const handleItemClick = (item: IBudget | IGoal) => {
     if (onClick) onClick(item);
   };
 
   return (
-    <li>
+    <li className={className}>
       <button
         className='w-full outline-none focus:outline-none'
         onClick={() => handleItemClick(value)}
