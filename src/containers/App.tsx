@@ -8,8 +8,6 @@ import {
 import {
   AdjustmentsIcon,
   ChevronDownIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
   HomeIcon,
   PlusIcon,
   TrendingDownIcon,
@@ -17,11 +15,13 @@ import {
 } from '@heroicons/react/outline';
 import { useQuery } from '../app/hooks';
 import NewTransaction from './new-transaction';
-import { getDefaultWallet, useTransactionStore } from '../app/store';
+import useStore, { getDefaultWallet, useTransactionStore } from '../app/store';
 import { money } from '../app/utils';
 import { useEffect, useState } from 'react';
 import { Fragment } from 'react';
 import { Toaster } from 'react-hot-toast';
+import Navbar from '../components/navbar';
+import { PieChart, Pie, Cell } from 'recharts';
 
 const App: React.FC = ({ children }) => {
   const [loading, setLoading] = useState(true);
@@ -29,8 +29,13 @@ const App: React.FC = ({ children }) => {
   const appPath = useRouteMatch('/:year/:month');
   const expensesMatch = useRouteMatch(`${appPath?.url}/expenses`);
   const incomeMatch = useRouteMatch(`${appPath?.url}/income`);
-  const { getTotalExpenses, getGrandTotalIncome, getTotalIncomeOfWallet } =
-    useTransactionStore(+year, +month)((state) => state);
+  const budgetList = useStore((state) => state.budget.list);
+  const {
+    getTotalExpenses,
+    getGrandTotalIncome,
+    getTotalIncomeOfWallet,
+    getTotalOfEachBudget
+  } = useTransactionStore(+year, +month)((state) => state);
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
@@ -45,18 +50,45 @@ const App: React.FC = ({ children }) => {
   var totalIncome = getGrandTotalIncome();
   var totalExpenses = getTotalExpenses();
   var balance = getTotalIncomeOfWallet(defaultWallet.id) - totalExpenses;
+  var chartData = getTotalOfEachBudget();
+
+  const colors = chartData.map(
+    (data) => budgetList.find((b) => b.id === data.name)!.color
+  );
 
   return (
     <div>
       <div
         style={{ height: '35vh', minHeight: '220px' }}
         className={`flex flex-col justify-between bg-gradient-to-bl from-white  to-indigo-300 transition-all ease-in-out duration-150 ${
-          appPath?.isExact ? 'rounded-b-5xl' : ''
+          appPath?.isExact ? 'rounded-b-2xl' : ''
         } `}
       >
         <Navbar />
-        <div className='flex justify-between px-6'>
-          <div className='chart'></div>
+        <div className='flex justify-between px-6 items-center'>
+          <div className='flex-1 text-center'>
+            <PieChart className='inline-block' width={200} height={100}>
+              <Pie
+                data={chartData}
+                cx={100}
+                cy={85}
+                startAngle={180}
+                endAngle={0}
+                innerRadius={60}
+                outerRadius={80}
+                fill='#8884d8'
+                paddingAngle={5}
+                dataKey='value'
+              >
+                {chartData.map((entry, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={colors[index % colors.length]}
+                  />
+                ))}
+              </Pie>
+            </PieChart>
+          </div>
           <div className='text-right'>
             <div className='text-sm font-medium flex items-center justify-end'>
               {defaultWallet.walletName}{' '}
@@ -119,68 +151,6 @@ const App: React.FC = ({ children }) => {
     </div>
   );
 };
-
-const shortMonths = [
-  'Jan',
-  'Feb',
-  'Mar',
-  'Apr',
-  'May',
-  'Jun',
-  'Jul',
-  'Aug',
-  'Sep',
-  'Oct',
-  'Nov',
-  'Dec'
-];
-
-function Navbar() {
-  const { year, month } = useParams<{ year: string; month: string }>();
-
-  let nextMonth = +month + 1;
-  let nextYear = +year;
-  let prevMonth = +month - 1;
-  let prevYear = +year;
-
-  if (nextMonth > 12) {
-    nextMonth = 1;
-    nextYear = nextYear + 1;
-  }
-
-  if (prevMonth === 0) {
-    prevMonth = 12;
-    prevYear = prevYear - 1;
-  }
-
-  return (
-    <div className='flex justify-between'>
-      <div className='flex items-center'>
-        <Link to='/' className='py-5 px-4'>
-          <img
-            className='h-10 w-10 m-auto rounded-full'
-            src='https://randomuser.me/api/portraits/men/32.jpg'
-            alt=''
-          />
-        </Link>
-        <div className='text-xl ml-1'>
-          <span className='font-medium mr-1 uppercase'>
-            {shortMonths[+month - 1]}
-          </span>
-          <span>{year}</span>
-        </div>
-      </div>
-      <div className='flex items-center'>
-        <Link to={`/${prevYear}/${prevMonth}`} className='py-5 px-4'>
-          <ChevronLeftIcon className='h-6 w-6' />
-        </Link>
-        <Link to={`/${nextYear}/${nextMonth}`} className='py-5 px-4'>
-          <ChevronRightIcon className='h-6 w-6' />
-        </Link>
-      </div>
-    </div>
-  );
-}
 
 export function BottomNav() {
   const { year, month } = useParams<{ year: string; month: string }>();

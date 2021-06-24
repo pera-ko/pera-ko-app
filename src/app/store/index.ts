@@ -31,6 +31,7 @@ interface ITransactionStore {
   getGrandTotalIncome: () => number;
   getTotalIncomeOfWallet: (walletId: string) => number;
   getTotalExpenses: () => number;
+  getTotalOfEachBudget: () => {name: string, value: number}[]
   addTransaction: (budgetId: string, amount: number, remarks?: string) => void,
   addIncome: (walletId: string, amount: number, remarks?: string) => void
 }
@@ -128,6 +129,20 @@ export const useTransactionStore = (year: number, month: number) => {
         getGrandTotalIncome: () => get().incomeList.reduce((x, y) => Number(x) + Number(y.amount),0),
         getTotalIncomeOfWallet: (walletId) => get().incomeList.filter(i => i.walletId === walletId).reduce((x, y) => Number(x) + Number(y.amount),0),
         getTotalExpenses: () => get().list.reduce((x, y) => Number(x) + Number(y.amount), 0),
+        getTotalOfEachBudget: () => {
+          let retval: { name: string, value: number }[] = [];
+          
+          get().list.forEach(tran => {
+            var g = retval.find(x => x.name === tran.budgetId)
+            if (!g) {
+              retval.push({name: tran.budgetId, value: Number(tran.amount)})
+            } else {
+              g.value += Number(tran.amount);
+            }
+          })
+
+          return retval;
+        },
         addTransaction: (budgetId, amount, remarks) => {
           const tranDate = (new Date()).toJSON()
           set(state => {
