@@ -26,7 +26,6 @@ import { Toaster } from 'react-hot-toast';
 const App: React.FC = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const { year, month } = useParams<{ year: string; month: string }>();
-  const query = useQuery();
   const appPath = useRouteMatch('/:year/:month');
   const expensesMatch = useRouteMatch(`${appPath?.url}/expenses`);
   const incomeMatch = useRouteMatch(`${appPath?.url}/income`);

@@ -1,4 +1,3 @@
-import { Transition } from '@headlessui/react';
 import { ArrowCircleDownIcon, ArrowLeftIcon } from '@heroicons/react/outline';
 import dayjs from 'dayjs';
 import calendar from 'dayjs/plugin/calendar';
@@ -6,7 +5,6 @@ import { Fragment } from 'react';
 import { Link, useParams, useRouteMatch } from 'react-router-dom';
 import { useTransactionStore } from '../app/store';
 import { money } from '../app/utils';
-import IncomeAdd from './income-add';
 
 dayjs.extend(calendar);
 
