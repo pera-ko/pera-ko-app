@@ -8,8 +8,6 @@ import {
 import {
   AdjustmentsIcon,
   ChevronDownIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
   HomeIcon,
   PlusIcon,
   TrendingDownIcon,
@@ -22,6 +20,7 @@ import { money } from '../app/utils';
 import { useEffect, useState } from 'react';
 import { Fragment } from 'react';
 import { Toaster } from 'react-hot-toast';
+import Navbar from '../components/navbar';
 
 const App: React.FC = ({ children }) => {
   const [loading, setLoading] = useState(true);
@@ -51,7 +50,7 @@ const App: React.FC = ({ children }) => {
       <div
         style={{ height: '35vh', minHeight: '220px' }}
         className={`flex flex-col justify-between bg-gradient-to-bl from-white  to-indigo-300 transition-all ease-in-out duration-150 ${
-          appPath?.isExact ? 'rounded-b-5xl' : ''
+          appPath?.isExact ? 'rounded-b-2xl' : ''
         } `}
       >
         <Navbar />
@@ -119,68 +118,6 @@ const App: React.FC = ({ children }) => {
     </div>
   );
 };
-
-const shortMonths = [
-  'Jan',
-  'Feb',
-  'Mar',
-  'Apr',
-  'May',
-  'Jun',
-  'Jul',
-  'Aug',
-  'Sep',
-  'Oct',
-  'Nov',
-  'Dec'
-];
-
-function Navbar() {
-  const { year, month } = useParams<{ year: string; month: string }>();
-
-  let nextMonth = +month + 1;
-  let nextYear = +year;
-  let prevMonth = +month - 1;
-  let prevYear = +year;
-
-  if (nextMonth > 12) {
-    nextMonth = 1;
-    nextYear = nextYear + 1;
-  }
-
-  if (prevMonth === 0) {
-    prevMonth = 12;
-    prevYear = prevYear - 1;
-  }
-
-  return (
-    <div className='flex justify-between'>
-      <div className='flex items-center'>
-        <Link to='/' className='py-5 px-4'>
-          <img
-            className='h-10 w-10 m-auto rounded-full'
-            src='https://randomuser.me/api/portraits/men/32.jpg'
-            alt=''
-          />
-        </Link>
-        <div className='text-xl ml-1'>
-          <span className='font-medium mr-1 uppercase'>
-            {shortMonths[+month - 1]}
-          </span>
-          <span>{year}</span>
-        </div>
-      </div>
-      <div className='flex items-center'>
-        <Link to={`/${prevYear}/${prevMonth}`} className='py-5 px-4'>
-          <ChevronLeftIcon className='h-6 w-6' />
-        </Link>
-        <Link to={`/${nextYear}/${nextMonth}`} className='py-5 px-4'>
-          <ChevronRightIcon className='h-6 w-6' />
-        </Link>
-      </div>
-    </div>
-  );
-}
 
 export function BottomNav() {
   const { year, month } = useParams<{ year: string; month: string }>();
