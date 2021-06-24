@@ -15,12 +15,13 @@ import {
 } from '@heroicons/react/outline';
 import { useQuery } from '../app/hooks';
 import NewTransaction from './new-transaction';
-import { getDefaultWallet, useTransactionStore } from '../app/store';
+import useStore, { getDefaultWallet, useTransactionStore } from '../app/store';
 import { money } from '../app/utils';
 import { useEffect, useState } from 'react';
 import { Fragment } from 'react';
 import { Toaster } from 'react-hot-toast';
 import Navbar from '../components/navbar';
+import { PieChart, Pie, Cell } from 'recharts';
 
 const App: React.FC = ({ children }) => {
   const [loading, setLoading] = useState(true);
@@ -28,8 +29,13 @@ const App: React.FC = ({ children }) => {
   const appPath = useRouteMatch('/:year/:month');
   const expensesMatch = useRouteMatch(`${appPath?.url}/expenses`);
   const incomeMatch = useRouteMatch(`${appPath?.url}/income`);
-  const { getTotalExpenses, getGrandTotalIncome, getTotalIncomeOfWallet } =
-    useTransactionStore(+year, +month)((state) => state);
+  const budgetList = useStore((state) => state.budget.list);
+  const {
+    getTotalExpenses,
+    getGrandTotalIncome,
+    getTotalIncomeOfWallet,
+    getTotalOfEachBudget
+  } = useTransactionStore(+year, +month)((state) => state);
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
@@ -44,6 +50,11 @@ const App: React.FC = ({ children }) => {
   var totalIncome = getGrandTotalIncome();
   var totalExpenses = getTotalExpenses();
   var balance = getTotalIncomeOfWallet(defaultWallet.id) - totalExpenses;
+  var chartData = getTotalOfEachBudget();
+
+  const colors = chartData.map(
+    (data) => budgetList.find((b) => b.id === data.name)!.color
+  );
 
   return (
     <div>
@@ -54,8 +65,30 @@ const App: React.FC = ({ children }) => {
         } `}
       >
         <Navbar />
-        <div className='flex justify-between px-6'>
-          <div className='chart'></div>
+        <div className='flex justify-between px-6 items-center'>
+          <div className='flex-1 text-center'>
+            <PieChart className='inline-block' width={200} height={100}>
+              <Pie
+                data={chartData}
+                cx={100}
+                cy={85}
+                startAngle={180}
+                endAngle={0}
+                innerRadius={60}
+                outerRadius={80}
+                fill='#8884d8'
+                paddingAngle={5}
+                dataKey='value'
+              >
+                {chartData.map((entry, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={colors[index % colors.length]}
+                  />
+                ))}
+              </Pie>
+            </PieChart>
+          </div>
           <div className='text-right'>
             <div className='text-sm font-medium flex items-center justify-end'>
               {defaultWallet.walletName}{' '}
