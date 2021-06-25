@@ -14,20 +14,21 @@ interface Props {
 export default function SelectBudget({ value, items, onChange }: Props) {
   const [referenceElement, setReferenceElement] =
     useState<HTMLDivElement | null>(null);
-  const [popperElement, setPopperElement] =
-    useState<HTMLUListElement | null>(null);
+  const [popperElement, setPopperElement] = useState<HTMLUListElement | null>(
+    null
+  );
   const { styles, attributes } = usePopper(referenceElement, popperElement);
   return (
     <Listbox value={value} onChange={onChange}>
       <div className='relative mt-1' ref={setReferenceElement}>
         <Listbox.Button
-          className={`flex items-center ${
-            !value && 'py-2 pl-3 pr-10 bg-indigo-100'
+          className={`flex items-center outline-none focus:outline-none ${
+            !value && 'py-2 pl-3 pr-10 bg-indigo-50'
           } border-2 border-transparent relative w-full text-left  rounded-lg`}
         >
           {value ? (
             <Fragment>
-              <BudgetIcon budget={value} size='large' />
+              <BudgetIcon className='ml-0' budget={value} size='large' />
               <div>
                 <span className='font-medium text-sm'>{value.budgetName}</span>
                 <div className='text-xs font-medium text-gray-600'>
@@ -44,7 +45,7 @@ export default function SelectBudget({ value, items, onChange }: Props) {
               </span>
             </Fragment>
           )}
-          <span className='absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none'>
+          <span className='absolute inset-y-0 right-0 flex items-center pr-1 pointer-events-none'>
             <SelectorIcon
               className='w-6 h-6 text-gray-400'
               aria-hidden='true'
