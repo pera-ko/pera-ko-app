@@ -65,7 +65,7 @@ const BudgetForm: React.FC<BudgetFormProps> = ({
     });
     register('endDate');
   }, [register, type]);
-  console.log(startDateValue);
+
   const handleFormSubmit: SubmitHandler<Inputs> = (data) => {
     let returnValue: IBudget | IGoal;
     if (defaultValue && !defaultValue.icon && !chosenEmoji) return;
