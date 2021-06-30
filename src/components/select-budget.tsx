@@ -3,7 +3,7 @@ import { SelectorIcon } from '@heroicons/react/outline';
 import { Fragment, useState } from 'react';
 import { usePopper } from 'react-popper';
 import { IBudgetGoalData } from '../app/@types';
-import { hexToRGB, money } from '../app/utils';
+import { formatCurrency, hexToRGB, money } from '../app/utils';
 import BudgetIcon from './budget-icon';
 
 interface Props {
@@ -47,7 +47,8 @@ export default function SelectBudget({
                     {value.budgetName}
                   </span>
                   <div className='col-span-2 text-xs font-medium text-gray-600 text-right'>
-                    {money(progress.value)} / {money(value.amount)}
+                    {formatCurrency(progress.value)} /{' '}
+                    {formatCurrency(value.amount)}
                   </div>
 
                   <div
