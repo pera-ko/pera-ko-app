@@ -38,7 +38,7 @@ export default function TransactionForm({
       amountInputRef.current.focus();
       amountInputRef.current.select();
     }
-  }, [register]);
+  }, [register, selectedBudget]);
 
   const handleFormSubmit: SubmitHandler<Inputs> = (data) => {
     if (onSubmit && budget)
