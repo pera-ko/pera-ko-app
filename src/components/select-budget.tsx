@@ -42,17 +42,18 @@ export default function SelectBudget({
             <Fragment>
               <BudgetIcon className='ml-0' budget={value} size='large' />
               {progress && progressPercent ? (
-                <div className='grid grid-cols-3 items-center flex-1 pr-9'>
-                  <span className='font-medium text-sm'>
-                    {value.budgetName}
-                  </span>
-                  <div className='col-span-2 text-xs font-medium text-gray-600 text-right'>
-                    {formatCurrency(progress.value)} /{' '}
-                    {formatCurrency(value.amount)}
+                <div className='flex-1 pr-8'>
+                  <div className='flex justify-between items-center'>
+                    <span className='font-medium text-sm'>
+                      {value.budgetName}
+                    </span>
+                    <div className='text-xs font-medium text-gray-600 text-right'>
+                      {formatCurrency(progress.value)} /{' '}
+                      {formatCurrency(value.amount)}
+                    </div>
                   </div>
-
                   <div
-                    className='col-span-3 mt-2 h-3 rounded shadow-inner'
+                    className='mt-1 h-3 rounded shadow-inner'
                     style={{ backgroundColor: hexToRGB('#000000', 0.05) }}
                   >
                     <div
