@@ -1,5 +1,6 @@
 import { Listbox } from '@headlessui/react';
 import { SelectorIcon } from '@heroicons/react/outline';
+import { ExclamationIcon } from '@heroicons/react/solid';
 import { Fragment, useState } from 'react';
 import { usePopper } from 'react-popper';
 import { IBudgetGoalData } from '../app/@types';
@@ -47,7 +48,14 @@ export default function SelectBudget({
                     <span className='font-medium text-sm'>
                       {value.budgetName}
                     </span>
-                    <div className='text-xs font-medium text-gray-600 text-right'>
+                    <div
+                      className={`flex items-center text-xs font-medium text-gray-600 text-right ${
+                        progress.value > value.amount ? '' : ''
+                      }`}
+                    >
+                      {progress.value > value.amount && (
+                        <ExclamationIcon className='h-4 w-4 inline-block mr-1 text-red-700' />
+                      )}
                       {formatCurrency(progress.value)} /{' '}
                       {formatCurrency(value.amount)}
                     </div>
