@@ -2,7 +2,7 @@ import { ArrowCircleDownIcon, ArrowLeftIcon } from '@heroicons/react/outline';
 import dayjs from 'dayjs';
 import calendar from 'dayjs/plugin/calendar';
 import { Fragment } from 'react';
-import { Link, useParams, useRouteMatch } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useTransactionStore } from '../app/store';
 import { money } from '../app/utils';
 
@@ -10,11 +10,10 @@ dayjs.extend(calendar);
 
 export default function Income() {
   const { year, month } = useParams<{ year: string; month: string }>();
-  const incomeRoute = useRouteMatch('/:year/:month/income/new');
   const { incomeList } = useTransactionStore(+year, +month)((state) => state);
 
   let lastDate: string | null = null;
-  console.log(incomeRoute);
+
   return (
     <Fragment>
       <div className='sticky h- top-0 bg-white flex items-center font-medium'>
@@ -24,7 +23,7 @@ export default function Income() {
         Income
       </div>
       <ul>
-        {incomeList.map((income) => {
+        {incomeList.map((income, index) => {
           var retVal: React.ReactElement[] = [];
           var currentDate = new Date(income.tranDate).toDateString();
 
@@ -40,9 +39,13 @@ export default function Income() {
           }
 
           retVal.push(
-            <IncomeItem amount={income.amount} remarks={income.remarks} />
+            <IncomeItem
+              key={income.tranDate}
+              amount={income.amount}
+              remarks={income.remarks}
+            />
           );
-          return <Fragment>{retVal}</Fragment>;
+          return <Fragment key={index}>{retVal}</Fragment>;
         })}
       </ul>
       <Link

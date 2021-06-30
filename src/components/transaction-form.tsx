@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { IBudgetGoalData } from '../app/@types';
 import InputGroup from './input-group';
@@ -11,7 +11,7 @@ interface Inputs {
 
 interface Props {
   selectedBudget?: IBudgetGoalData;
-  budgetList: IBudgetGoalData[];
+  budgetList: (IBudgetGoalData & { totTranAmt: number })[];
   onSubmit?(value: Inputs & { budgetId: string }): void;
 }
 
@@ -20,13 +20,25 @@ export default function TransactionForm({
   budgetList,
   onSubmit
 }: Props) {
-  const [budget, setBudget] =
-    useState<IBudgetGoalData | undefined>(selectedBudget);
+  const amountInputRef = useRef<HTMLInputElement | null>(null);
+  const [budget, setBudget] = useState<IBudgetGoalData | undefined>(
+    selectedBudget
+  );
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors }
   } = useForm<Inputs>();
+  useEffect(() => {
+    register('amount', {
+      required: 'Amount is required.'
+    });
+    if (selectedBudget && amountInputRef.current) {
+      amountInputRef.current.focus();
+      amountInputRef.current.select();
+    }
+  }, [register, selectedBudget]);
 
   const handleFormSubmit: SubmitHandler<Inputs> = (data) => {
     if (onSubmit && budget)
@@ -45,12 +57,22 @@ export default function TransactionForm({
         : selectedBudget.amount / 2;
   }
 
+  const getBudgetProgress = (budgetId: string | undefined) => {
+    if (!budgetId) return { value: 0 };
+    var budgetX = budgetList.find((b) => b.id === budgetId);
+    return budgetX ? { value: budgetX.totTranAmt } : { value: 0 };
+  };
   return (
     <form
       className='px-5 mb-5 text-gray-800'
       onSubmit={handleSubmit(handleFormSubmit)}
     >
-      <SelectBudget items={budgetList} value={budget} onChange={setBudget} />
+      <SelectBudget
+        items={budgetList}
+        value={budget}
+        onChange={setBudget}
+        progress={getBudgetProgress(budget?.id)}
+      />
       <InputGroup
         inputClassName='text-right'
         label='Amount'
@@ -59,9 +81,8 @@ export default function TransactionForm({
         type='number'
         step='.01'
         contentLabel={{ type: 'text', content: 'PHP' }}
-        {...register('amount', {
-          required: 'Amount is required.'
-        })}
+        ref={amountInputRef}
+        onChange={(e) => setValue('amount', e.target.valueAsNumber)}
       />
       <InputGroup label='Remarks' {...register('remarks')} />
       {/* {budget ? (

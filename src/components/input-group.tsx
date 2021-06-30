@@ -21,9 +21,13 @@ function InputGroup(
       <div className='font-medium text-sm my-1 text-gray-600'>{label}</div>
       <div
         className={`
-        ${error ? 'border-error' : 'focus-within:border-indigo-300'}
-        px-3 font-medium flex items-center bg-indigo-100 rounded-md 
-        border-2 border-transparent `}
+        ${
+          error
+            ? 'border-error border-transparent'
+            : 'focus-within:outline-none focus-within:ring-4 focus-within:ring-indigo-300 focus-within:ring-opacity-50 focus-within:border-indigo-900'
+        }
+        px-3 font-medium flex items-center bg-indigo-50 rounded-md 
+        border  `}
       >
         {contentLabel &&
           (contentLabel.type === 'text' ? (
