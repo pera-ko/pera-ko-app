@@ -11,7 +11,7 @@ interface Inputs {
 
 interface Props {
   selectedBudget?: IBudgetGoalData;
-  budgetList: IBudgetGoalData[];
+  budgetList: (IBudgetGoalData & { totTranAmt: number })[];
   onSubmit?(value: Inputs & { budgetId: string }): void;
 }
 
@@ -57,12 +57,22 @@ export default function TransactionForm({
         : selectedBudget.amount / 2;
   }
 
+  const getBudgetProgress = (budgetId: string | undefined) => {
+    if (!budgetId) return { value: 0 };
+    var budgetX = budgetList.find((b) => b.id === budgetId);
+    return budgetX ? { value: budgetX.totTranAmt } : { value: 0 };
+  };
   return (
     <form
       className='px-5 mb-5 text-gray-800'
       onSubmit={handleSubmit(handleFormSubmit)}
     >
-      <SelectBudget items={budgetList} value={budget} onChange={setBudget} />
+      <SelectBudget
+        items={budgetList}
+        value={budget}
+        onChange={setBudget}
+        progress={getBudgetProgress(budget?.id)}
+      />
       <InputGroup
         inputClassName='text-right'
         label='Amount'

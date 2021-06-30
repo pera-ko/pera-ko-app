@@ -14,13 +14,21 @@ export default function NewTransaction() {
   const budgetList = useStore((state) => state.budget.list);
   const history = useHistory();
   const query = useQuery();
-  const addTransaction = useTransactionStore(
+  const { addTransaction, getTotalOfBudget } = useTransactionStore(
     +year,
     +month
-  )((state) => state).addTransaction;
+  )((state) => state);
   const id = query.get('id');
   const selectedBudget = id ? budgetList.find((b) => b.id === id) : undefined;
   const isNewTransactionOpen = query.get('newtran') === 'open';
+
+  const budgetListWithAmt = budgetList.map((b) => {
+    return {
+      ...b,
+      totTranAmt: getTotalOfBudget(b.id)
+    };
+  });
+
   return (
     <Transition appear show={isNewTransactionOpen} as={Fragment}>
       <Dialog as={Fragment} onClose={() => history.goBack()}>
@@ -52,7 +60,7 @@ export default function NewTransaction() {
             leaveFrom='opacity-100 transform translate-y-0'
             leaveTo='opacity-0 transform translate-y-full'
           >
-            <div className='fixed bottom-0 inset-x-0 overflow-hidden transition-all transform bg-white shadow-xl rounded-2xl'>
+            <div className='fixed bottom-0 inset-x-0 overflow-hidden transition-all transform bg-white shadow-xl rounded-t-2xl'>
               <div className='sticky h- top-0 bg-white flex items-center font-medium rounded-t-5xl'>
                 <button
                   className='p-5 outline-none focus:outline-none'
@@ -64,7 +72,7 @@ export default function NewTransaction() {
               </div>
               <TransactionForm
                 selectedBudget={selectedBudget}
-                budgetList={budgetList}
+                budgetList={budgetListWithAmt}
                 onSubmit={(value) => {
                   addTransaction(value.budgetId, value.amount, value.remarks);
                   history.goBack();
