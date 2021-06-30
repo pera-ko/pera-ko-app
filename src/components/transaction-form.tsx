@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { IBudgetGoalData } from '../app/@types';
 import InputGroup from './input-group';
@@ -20,13 +20,25 @@ export default function TransactionForm({
   budgetList,
   onSubmit
 }: Props) {
-  const [budget, setBudget] =
-    useState<IBudgetGoalData | undefined>(selectedBudget);
+  const amountInputRef = useRef<HTMLInputElement | null>(null);
+  const [budget, setBudget] = useState<IBudgetGoalData | undefined>(
+    selectedBudget
+  );
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors }
   } = useForm<Inputs>();
+  useEffect(() => {
+    register('amount', {
+      required: 'Amount is required.'
+    });
+    if (selectedBudget && amountInputRef.current) {
+      amountInputRef.current.focus();
+      amountInputRef.current.select();
+    }
+  }, [register]);
 
   const handleFormSubmit: SubmitHandler<Inputs> = (data) => {
     if (onSubmit && budget)
@@ -59,9 +71,8 @@ export default function TransactionForm({
         type='number'
         step='.01'
         contentLabel={{ type: 'text', content: 'PHP' }}
-        {...register('amount', {
-          required: 'Amount is required.'
-        })}
+        ref={amountInputRef}
+        onChange={(e) => setValue('amount', e.target.valueAsNumber)}
       />
       <InputGroup label='Remarks' {...register('remarks')} />
       {/* {budget ? (
