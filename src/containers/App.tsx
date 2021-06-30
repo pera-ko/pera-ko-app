@@ -17,14 +17,12 @@ import { useQuery } from '../app/hooks';
 import NewTransaction from './new-transaction';
 import useStore, { getDefaultWallet, useTransactionStore } from '../app/store';
 import { money } from '../app/utils';
-import { useEffect, useState } from 'react';
 import { Fragment } from 'react';
 import { Toaster } from 'react-hot-toast';
 import Navbar from '../components/navbar';
 import { PieChart, Pie, Cell } from 'recharts';
 
 const App: React.FC = ({ children }) => {
-  const [loading, setLoading] = useState(true);
   const { year, month } = useParams<{ year: string; month: string }>();
   const appPath = useRouteMatch('/:year/:month');
   const expensesMatch = useRouteMatch(`${appPath?.url}/expenses`);
@@ -36,15 +34,6 @@ const App: React.FC = ({ children }) => {
     getTotalIncomeOfWallet,
     getTotalOfEachBudget
   } = useTransactionStore(+year, +month)((state) => state);
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-  });
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
 
   var defaultWallet = getDefaultWallet();
   var totalIncome = getGrandTotalIncome();
@@ -83,6 +72,7 @@ const App: React.FC = ({ children }) => {
                   <Cell
                     key={`cell-${index}`}
                     fill={colors[index % colors.length]}
+                    strokeWidth={0.5}
                   />
                 ))}
               </Pie>
