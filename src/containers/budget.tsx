@@ -31,7 +31,7 @@ const Budget: React.FC = () => {
   const handleQuickAddClick = () => {
     var total = 0;
     selectedItems.forEach((item) => {
-      addTransaction(item.id, item.amount);
+      addTransaction(item.id, 'default', item.amount);
       total += item.amount;
     });
     setSelectedItems([]);

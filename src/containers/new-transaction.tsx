@@ -74,7 +74,12 @@ export default function NewTransaction() {
                 selectedBudget={selectedBudget}
                 budgetList={budgetListWithAmt}
                 onSubmit={(value) => {
-                  addTransaction(value.budgetId, value.amount, value.remarks);
+                  addTransaction(
+                    value.budgetId,
+                    'default',
+                    value.amount,
+                    value.remarks
+                  );
                   history.goBack();
                   toast.success(`${money(value.amount)} added to transaction`);
                 }}

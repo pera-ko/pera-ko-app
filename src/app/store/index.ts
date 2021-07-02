@@ -5,6 +5,7 @@ import dayjs from 'dayjs'
 import isBetween from 'dayjs/plugin/isBetween'
 import { IBudget, IBudgetData, IGoal, IGoalData, IIncome, IWalletData } from '../@types'
 import IndexedDBStorage from '../infra/indexedDBPersistence'
+import { listenerCount } from 'events'
 
 dayjs.extend(isBetween)
 
@@ -25,15 +26,17 @@ interface IStoreState {
   }
 }
 
+interface ITransaction { budgetId: string, walletId: string, amount: number, tranDate: string, remarks?: string }
+
 interface ITransactionStore {
   incomeList: IIncome[],
-  list: { budgetId: string, amount: number, tranDate: string, remarks?: string }[],
+  list: ITransaction[],
   getGrandTotalIncome: () => number;
   getTotalIncomeOfWallet: (walletId: string) => number;
   getTotalExpenses: () => number;
   getTotalOfEachBudget: () => {name: string, value: number}[];
   getTotalOfBudget: (budgetId: string) => number;
-  addTransaction: (budgetId: string, amount: number, remarks?: string) => void,
+  addTransaction: (budgetId: string, walletId: string, amount: number, remarks?: string) => void,
   addIncome: (walletId: string, amount: number, remarks?: string) => void
 }
 
@@ -147,10 +150,10 @@ export const useTransactionStore = (year: number, month: number) => {
         getTotalOfBudget: (budgetId) => {
           return get().list.filter(t => t.budgetId === budgetId).reduce((tot, t) => Number(tot) + Number(t.amount), 0)
         },
-        addTransaction: (budgetId, amount, remarks) => {
+        addTransaction: (budgetId, walletId, amount, remarks) => {
           const tranDate = (new Date()).toJSON()
           set(state => {
-            state.list.push({ budgetId, amount, tranDate, remarks })
+            state.list.push({ budgetId, walletId, amount, tranDate, remarks })
           })
         },
         addIncome: (walletId, amount, remarks) => {
@@ -167,7 +170,22 @@ export const useTransactionStore = (year: number, month: number) => {
       }),
       {
         name: `perako-transaction-${year}-${month}`,
-        getStorage: () => IndexedDBStorage
+        getStorage: () => IndexedDBStorage,
+        migrate: (persistedState, version) => {
+          switch(version) {
+            case 0:
+              return {
+                ...persistedState,
+                list: persistedState.list.map((tran: any) => {
+                  tran.walletId = "default";
+                  return tran;
+                })
+              }
+            default:
+              return persistedState
+          }
+        },
+        version: 1
       }
     ))
   }
