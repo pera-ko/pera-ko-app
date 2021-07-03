@@ -16,6 +16,7 @@ import IncomeAdd from './containers/income-add';
 import Preferences from './containers/preferences';
 import BudgetNew from './containers/budget-new';
 import WalletEditor from './containers/wallet-editor';
+import { Toaster } from 'react-hot-toast';
 
 const DefaultRoute = () => {
   const dateNow = new Date();
@@ -49,6 +50,7 @@ ReactDOM.render(
         <NotFound />
       </Switch>
     </Router>
+    <Toaster position='bottom-center' />
   </React.StrictMode>,
   document.getElementById('root')
 );

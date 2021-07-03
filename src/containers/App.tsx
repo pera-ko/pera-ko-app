@@ -18,7 +18,6 @@ import NewTransaction from './new-transaction';
 import useStore, { getDefaultWallet, useTransactionStore } from '../app/store';
 import { money } from '../app/utils';
 import { Fragment } from 'react';
-import { Toaster } from 'react-hot-toast';
 import Navbar from '../components/navbar';
 import { PieChart, Pie, Cell } from 'recharts';
 
@@ -175,7 +174,6 @@ export function BottomNav() {
           <div className='text-xs font-medium'>Preferences</div>
         </Link>
       </div>
-      <Toaster position='bottom-center' />
     </Fragment>
   );
 }
