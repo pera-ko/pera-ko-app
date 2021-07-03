@@ -1,7 +1,9 @@
+import toast from 'react-hot-toast';
 import { useHistory, useRouteMatch } from 'react-router';
 import useStore, {
   createWallet,
   deleteWallet,
+  undoDeleteWallet,
   updateWallet
 } from '../app/store';
 import Dialog, { IDialogButton } from '../components/dialog';
@@ -37,6 +39,20 @@ const WalletEditor = () => {
   const handleDelete = () => {
     if (defaultValue) {
       deleteWallet(defaultValue);
+      toast((t) => (
+        <span className='flex items-center space-x-3'>
+          <span>{defaultValue.walletName} has been deleted.</span>
+          <button
+            className='uppercase font-medium text-indigo-600'
+            onClick={() => {
+              undoDeleteWallet(defaultValue);
+              toast.dismiss(t.id);
+            }}
+          >
+            Undo
+          </button>
+        </span>
+      ));
       handleClose();
     }
   };

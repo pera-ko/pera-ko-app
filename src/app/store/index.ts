@@ -18,7 +18,8 @@ interface IStoreState {
     getDefaultWallet: () => IWalletData,
     createWallet: (name: string) => void,
     updateWallet: (wallet: IWalletData) => void,
-    deleteWallet: (wallet: IWalletData) => void
+    deleteWallet: (wallet: IWalletData) => void,
+    undoDeleteWallet: (wallet: IWalletData) => void
   },
   budget: {
     list: (IGoalData | IBudgetData) [],
@@ -96,6 +97,18 @@ const useStore = create<IStoreState>(persist(
             }
           }
         })
+      },
+      undoDeleteWallet: wallet => {
+        set(state => {
+          state.wallet.list = {
+            ...state.wallet.list,
+            [wallet.id] : {
+              ...wallet,
+              isDeleted: undefined,
+              deleteDate: undefined
+            }
+          }
+        })
       }
     },
     budget: {
@@ -148,7 +161,7 @@ const useStore = create<IStoreState>(persist(
 ))
 
 export const { getEffectiveBudget, createBudget, updateBudget, deleteBudget } = useStore.getState().budget
-export const { getDefaultWallet, createWallet, updateWallet, deleteWallet } = useStore.getState().wallet
+export const { getDefaultWallet, createWallet, updateWallet, deleteWallet, undoDeleteWallet } = useStore.getState().wallet
 
 const transactionStore: {
   [year: number] : {
