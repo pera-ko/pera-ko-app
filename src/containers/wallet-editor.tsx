@@ -43,7 +43,7 @@ const WalletEditor = () => {
         <span className='flex items-center space-x-3'>
           <span>{defaultValue.walletName} has been deleted.</span>
           <button
-            className='uppercase font-medium text-indigo-600'
+            className='uppercase font-medium text-sm text-indigo-600'
             onClick={() => {
               undoDeleteWallet(defaultValue);
               toast.dismiss(t.id);
