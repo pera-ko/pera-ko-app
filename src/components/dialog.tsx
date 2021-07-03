@@ -1,13 +1,15 @@
 import { Dialog as HUIDialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 
+export interface IDialogButton extends React.HTMLProps<HTMLButtonElement> {
+  text: string;
+  type: 'submit' | 'button' | undefined;
+}
+
 interface Props {
   title: string;
   onClose(): void;
-  buttons: (React.HTMLProps<HTMLButtonElement> & {
-    text: string;
-    type: 'submit' | 'button' | undefined;
-  })[];
+  buttons: IDialogButton[];
   isOpen?: boolean;
 }
 
@@ -63,8 +65,14 @@ const Dialog: React.FC<Props> = ({
               <div className='mt-2'>{children}</div>
 
               <div className='mt-4 space-x-2 text-right'>
-                {buttons.map((b) => (
-                  <button type={b.type} form={b.form} className={b.className}>
+                {buttons.map((b, index) => (
+                  <button
+                    key={index}
+                    type={b.type}
+                    form={b.form}
+                    className={b.className}
+                    onClick={b.onClick}
+                  >
                     {b.text}
                   </button>
                 ))}
