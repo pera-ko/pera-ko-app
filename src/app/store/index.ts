@@ -15,7 +15,8 @@ interface IStoreState {
       [id: string]: IWalletData
     },
     selected: string,
-    getDefaultWallet: () => IWalletData
+    getDefaultWallet: () => IWalletData,
+    createWallet: (name: string) => void,
   },
   budget: {
     list: (IGoalData | IBudgetData) [],
@@ -58,6 +59,21 @@ const useStore = create<IStoreState>(persist(
         var { list, selected } = get().wallet;
 
         return list[selected]
+      },
+      createWallet: (name) => {
+        const newId = nanoid();
+
+        const newWallet: IWalletData = {
+          id: newId,
+          walletName: name
+        }
+
+        set(state => {
+          state.wallet.list = {
+            ...state.wallet.list,
+            [newId] : newWallet
+          }
+        })
       }
     },
     budget: {
@@ -110,7 +126,7 @@ const useStore = create<IStoreState>(persist(
 ))
 
 export const { getEffectiveBudget, createBudget, updateBudget, deleteBudget } = useStore.getState().budget
-export const { getDefaultWallet } = useStore.getState().wallet
+export const { getDefaultWallet, createWallet } = useStore.getState().wallet
 
 const transactionStore: {
   [year: number] : {

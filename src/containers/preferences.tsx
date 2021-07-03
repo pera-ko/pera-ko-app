@@ -58,9 +58,9 @@ const Preferences: React.FC = () => {
             />
             <StickyHeader>
               Wallets
-              {/* <Link to={`${route?.url}/newwallet`} className='text-link'>
-            ADD
-          </Link> */}
+              <Link to={`${route?.url}/newwallet`} className='text-link'>
+                ADD
+              </Link>
             </StickyHeader>
             <ul>
               {Object.values(walletList).map((wallet) => {
