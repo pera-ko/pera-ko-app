@@ -5,7 +5,7 @@ import dayjs from 'dayjs'
 import isBetween from 'dayjs/plugin/isBetween'
 import { IBudget, IBudgetData, IGoal, IGoalData, IIncome, IWalletData } from '../@types'
 import IndexedDBStorage from '../infra/indexedDBPersistence'
-import { listenerCount } from 'events'
+import storeMigration from './migration'
 
 dayjs.extend(isBetween)
 
@@ -28,7 +28,7 @@ interface IStoreState {
 
 interface ITransaction { budgetId: string, walletId: string, amount: number, tranDate: string, remarks?: string }
 
-interface ITransactionStore {
+export interface ITransactionStore {
   incomeList: IIncome[],
   list: ITransaction[],
   getGrandTotalIncome: () => number;
@@ -171,20 +171,7 @@ export const useTransactionStore = (year: number, month: number) => {
       {
         name: `perako-transaction-${year}-${month}`,
         getStorage: () => IndexedDBStorage,
-        migrate: (persistedState, version) => {
-          switch(version) {
-            case 0:
-              return {
-                ...persistedState,
-                list: persistedState.list.map((tran: any) => {
-                  tran.walletId = "default";
-                  return tran;
-                })
-              }
-            default:
-              return persistedState
-          }
-        },
+        migrate: storeMigration.transactionStore,
         version: 1
       }
     ))
