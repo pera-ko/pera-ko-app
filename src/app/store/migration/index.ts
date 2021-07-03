@@ -10,6 +10,8 @@ const storeMigration = (persistedState: any, version: number): ITransactionStore
   }
 }
 
-export default {
+const migration = {
   transactionStore: storeMigration
-};
+}
+
+export default migration;

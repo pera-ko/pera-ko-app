@@ -1,5 +1,5 @@
 import { Dialog as HUIDialog, Transition } from '@headlessui/react';
-import { Fragment, ReactPropTypes } from 'react';
+import { Fragment } from 'react';
 
 interface Props {
   title: string;
