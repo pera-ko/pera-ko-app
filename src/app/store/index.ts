@@ -3,7 +3,7 @@ import create, { UseStore } from 'zustand'
 import { persist } from 'zustand/middleware'
 import dayjs from 'dayjs'
 import isBetween from 'dayjs/plugin/isBetween'
-import { IBudget, IBudgetData, IGoal, IGoalData, IIncome, IWalletData } from '../@types'
+import { IBudget, IBudgetData, IGoal, IGoalData, IIncome, IWallet, IWalletData } from '../@types'
 import IndexedDBStorage from '../infra/indexedDBPersistence'
 import storeMigration from './migration'
 
@@ -15,6 +15,7 @@ interface IStoreState {
       [id: string]: IWalletData
     },
     selected: string,
+    setDefaultWallet: (wallet: IWalletData) => void,
     getDefaultWallet: () => IWalletData,
     createWallet: (name: string) => void,
     updateWallet: (wallet: IWalletData) => void,
@@ -38,6 +39,7 @@ export interface ITransactionStore {
   getGrandTotalIncome: () => number;
   getTotalIncomeOfWallet: (walletId: string) => number;
   getTotalExpenses: () => number;
+  getTotalExpensesOfWallet: (walletId: string) => number;
   getTotalOfEachBudget: () => {name: string, value: number}[];
   getTotalOfBudget: (budgetId: string) => number;
   addTransaction: (budgetId: string, walletId: string, amount: number, remarks?: string) => void,
@@ -62,6 +64,11 @@ const useStore = create<IStoreState>(persist(
         var { list, selected } = get().wallet;
 
         return list[selected]
+      },
+      setDefaultWallet: (wallet) => {
+        set(state => {
+          state.wallet.selected = wallet.id
+        })
       },
       createWallet: (name) => {
         const newId = nanoid();
@@ -161,7 +168,7 @@ const useStore = create<IStoreState>(persist(
 ))
 
 export const { getEffectiveBudget, createBudget, updateBudget, deleteBudget } = useStore.getState().budget
-export const { getDefaultWallet, createWallet, updateWallet, deleteWallet, undoDeleteWallet } = useStore.getState().wallet
+export const { getDefaultWallet, setDefaultWallet, createWallet, updateWallet, deleteWallet, undoDeleteWallet } = useStore.getState().wallet
 
 const transactionStore: {
   [year: number] : {
@@ -184,6 +191,7 @@ export const useTransactionStore = (year: number, month: number) => {
         getGrandTotalIncome: () => get().incomeList.reduce((x, y) => Number(x) + Number(y.amount),0),
         getTotalIncomeOfWallet: (walletId) => get().incomeList.filter(i => i.walletId === walletId).reduce((x, y) => Number(x) + Number(y.amount),0),
         getTotalExpenses: () => get().list.reduce((x, y) => Number(x) + Number(y.amount), 0),
+        getTotalExpensesOfWallet: (walletId: string) => get().list.filter(t => t.walletId === walletId).reduce((x, y) => Number(x) + Number(y.amount), 0),
         getTotalOfEachBudget: () => {
           let retval: { name: string, value: number }[] = [];
           

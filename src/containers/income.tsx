@@ -5,7 +5,7 @@ import calendar from 'dayjs/plugin/calendar';
 import { Fragment } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { IIncome } from '../app/@types';
-import { useTransactionStore } from '../app/store';
+import useStore, { useTransactionStore } from '../app/store';
 import { money } from '../app/utils';
 
 dayjs.extend(calendar);
@@ -13,7 +13,7 @@ dayjs.extend(calendar);
 export default function Income() {
   const { year, month } = useParams<{ year: string; month: string }>();
   const { incomeList } = useTransactionStore(+year, +month)((state) => state);
-
+  const walletList = useStore((state) => state.wallet.list);
   return (
     <Fragment>
       <div className='sticky h- top-0 bg-white flex items-center font-medium'>
@@ -24,7 +24,12 @@ export default function Income() {
       </div>
       {incomeList.length > 0 ? (
         <>
-          <List incomeList={incomeList} />
+          <List
+            incomeList={incomeList.map((income) => ({
+              ...income,
+              walletName: walletList[income.walletId].walletName
+            }))}
+          />
           <AddIncomeButton
             to={`/${year}/${month}/income/new`}
             className='fixed bottom-5 right-5'
@@ -49,12 +54,16 @@ function IncomeHeader({ date }: { date: string }) {
 
 interface IncomeItemProps {
   amount: number;
+  text: string;
   remarks?: string;
 }
-function IncomeItem({ amount, remarks }: IncomeItemProps) {
+function IncomeItem({ amount, text, remarks }: IncomeItemProps) {
   return (
     <li className='flex justify-between items-center'>
-      <ArrowCircleDownIcon className='h-6 w-6 mx-5 my-3 text-gray-600' />
+      <div className='flex items-center'>
+        <ArrowCircleDownIcon className='h-6 w-6 mx-5 my-3 text-gray-600' />
+        <span className='text-sm'>{text}</span>
+      </div>
       <div className='text-right mr-5'>
         <div className='text-sm font-medium'>{money(amount)}</div>
         <div className='text-xs text-gray-600'>{remarks}</div>
@@ -63,7 +72,11 @@ function IncomeItem({ amount, remarks }: IncomeItemProps) {
   );
 }
 
-function List({ incomeList }: { incomeList: IIncome[] }) {
+function List({
+  incomeList
+}: {
+  incomeList: (IIncome & { walletName: string })[];
+}) {
   let lastDate: string | null = null;
   return (
     <ul>
@@ -84,6 +97,7 @@ function List({ incomeList }: { incomeList: IIncome[] }) {
           <IncomeItem
             key={income.tranDate}
             amount={income.amount}
+            text={income.walletName}
             remarks={income.remarks}
           />
         );

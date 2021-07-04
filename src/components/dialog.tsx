@@ -9,8 +9,9 @@ export interface IDialogButton extends React.HTMLProps<HTMLButtonElement> {
 interface Props {
   title: string;
   onClose(): void;
-  buttons: IDialogButton[];
+  buttons?: IDialogButton[];
   isOpen?: boolean;
+  showClose?: boolean;
 }
 
 const Dialog: React.FC<Props> = ({
@@ -18,7 +19,8 @@ const Dialog: React.FC<Props> = ({
   title,
   onClose,
   buttons,
-  isOpen
+  isOpen,
+  showClose = true
 }) => {
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -65,7 +67,7 @@ const Dialog: React.FC<Props> = ({
               <div className='mt-2'>{children}</div>
 
               <div className='mt-4 space-x-2 text-right'>
-                {buttons.map((b, index) => (
+                {buttons?.map((b, index) => (
                   <button
                     key={index}
                     type={b.type}
@@ -76,13 +78,15 @@ const Dialog: React.FC<Props> = ({
                     {b.text}
                   </button>
                 ))}
-                <button
-                  type='button'
-                  className='inline-flex justify-center px-4 py-2 text-sm font-medium text-indigo-900 bg-indigo-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500'
-                  onClick={onClose}
-                >
-                  Close
-                </button>
+                {showClose && (
+                  <button
+                    type='button'
+                    className='inline-flex justify-center px-4 py-2 text-sm font-medium text-indigo-900 bg-indigo-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500'
+                    onClick={onClose}
+                  >
+                    Close
+                  </button>
+                )}
               </div>
             </div>
           </Transition.Child>
