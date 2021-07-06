@@ -36,6 +36,7 @@ const App: React.FC = ({ children }) => {
     shallow
   );
   const {
+    getTotalExpenses,
     getTotalExpensesOfWallet,
     getGrandTotalIncome,
     getTotalIncomeOfWallet,
@@ -44,8 +45,10 @@ const App: React.FC = ({ children }) => {
 
   const defaultWallet = walletList[selectedWalletId];
   const totalIncome = getGrandTotalIncome();
-  const totalExpenses = getTotalExpensesOfWallet(selectedWalletId);
-  const balance = getTotalIncomeOfWallet(defaultWallet.id) - totalExpenses;
+  const totalExpenses = getTotalExpenses();
+  const totalWalletExpenses = getTotalExpensesOfWallet(selectedWalletId);
+  const balance =
+    getTotalIncomeOfWallet(defaultWallet.id) - totalWalletExpenses;
   const chartData = getTotalOfEachBudget();
 
   const colors = chartData.map(

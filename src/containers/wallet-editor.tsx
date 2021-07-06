@@ -12,7 +12,7 @@ import WalletForm from '../components/wallet-form';
 const WalletEditor = () => {
   const route = useRouteMatch('/:year/:month/preferences/newwallet');
   const editRoute = useRouteMatch<{ id: string }>(
-    '/:year/:month/preferences/wallet/:id'
+    '/:year/:month/preferences/wallet/:id/edit'
   );
   const history = useHistory();
   const walletList = useStore((state) => state.wallet.list);

@@ -17,6 +17,8 @@ import Preferences from './containers/preferences';
 import BudgetNew from './containers/budget-new';
 import WalletEditor from './containers/wallet-editor';
 import { Toaster } from 'react-hot-toast';
+import WalletDetails from './containers/wallet-details';
+import WalletTransfer from './containers/wallet-transfer';
 
 const DefaultRoute = () => {
   const dateNow = new Date();
@@ -44,6 +46,7 @@ ReactDOM.render(
             <Preferences />
             <BudgetNew />
             <WalletEditor />
+            <WalletDetails />
           </App>
         </Route>
 

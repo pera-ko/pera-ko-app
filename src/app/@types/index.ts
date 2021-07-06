@@ -31,6 +31,7 @@ export interface IWallet {
 }
 
 export interface IIncome {
+  type: undefined | 'transfer'
   walletId: string;
   amount: number;
   remarks?: string;

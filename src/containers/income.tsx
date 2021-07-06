@@ -12,8 +12,12 @@ dayjs.extend(calendar);
 
 export default function Income() {
   const { year, month } = useParams<{ year: string; month: string }>();
-  const { incomeList } = useTransactionStore(+year, +month)((state) => state);
+  const incomeList = useTransactionStore(
+    +year,
+    +month
+  )((state) => state.incomeList);
   const walletList = useStore((state) => state.wallet.list);
+
   return (
     <Fragment>
       <div className='sticky h- top-0 bg-white flex items-center font-medium'>
@@ -22,7 +26,7 @@ export default function Income() {
         </Link>
         Income
       </div>
-      {incomeList.length > 0 ? (
+      {incomeList.filter((i) => i.type !== 'transfer').length > 0 ? (
         <>
           <List
             incomeList={incomeList.map((income) => ({
@@ -77,10 +81,12 @@ function List({
 }: {
   incomeList: (IIncome & { walletName: string })[];
 }) {
+  const sortedList = [...incomeList];
+  sortedList.reverse();
   let lastDate: string | null = null;
   return (
     <ul>
-      {incomeList.map((income, index) => {
+      {sortedList.map((income, index) => {
         var retVal: React.ReactElement[] = [];
         var currentDate = new Date(income.tranDate).toDateString();
 
@@ -89,7 +95,7 @@ function List({
             sameDay: '[Today]',
             lastDay: '[Yesterday]'
           });
-          retVal.push(<IncomeHeader key={desc} date='Friday, June 30, 2021' />);
+          retVal.push(<IncomeHeader key={desc} date={desc} />);
           lastDate = currentDate;
         }
 

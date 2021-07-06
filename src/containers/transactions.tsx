@@ -3,7 +3,7 @@ import React, { Fragment } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
 import calendar from 'dayjs/plugin/calendar';
-import useStore, { useTransactionStore } from '../app/store';
+import useStore, { ITransaction, useTransactionStore } from '../app/store';
 import { money } from '../app/utils';
 import BudgetIcon from '../components/budget-icon';
 import shallow from 'zustand/shallow';
@@ -24,7 +24,9 @@ export default function Transactions() {
     shallow
   );
 
-  let sortedList = [...transactionList];
+  let sortedList: ITransaction[] = [
+    ...transactionList.filter((t) => t.type === undefined)
+  ] as ITransaction[];
   sortedList.reverse();
   let lastDate: string | null = null;
   return (
