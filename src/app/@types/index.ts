@@ -2,6 +2,11 @@ interface WithId {
   id: string
 }
 
+interface IDeletable {
+  isDeleted?: boolean
+  deleteDate?: string
+}
+
 export interface IBudget {
   type: "budget";
   budgetName: string;
@@ -26,6 +31,7 @@ export interface IWallet {
 }
 
 export interface IIncome {
+  type: undefined | 'transfer'
   walletId: string;
   amount: number;
   remarks?: string;
@@ -34,5 +40,5 @@ export interface IIncome {
 
 export type IBudgetData = IBudget & WithId;
 export type IGoalData = IGoal & WithId;
-export type IWalletData = IWallet & WithId;
+export type IWalletData = IWallet & WithId & IDeletable;
 export type IBudgetGoalData = IGoalData | IBudgetData;

@@ -15,6 +15,9 @@ import Income from './containers/income';
 import IncomeAdd from './containers/income-add';
 import Preferences from './containers/preferences';
 import BudgetNew from './containers/budget-new';
+import WalletEditor from './containers/wallet-editor';
+import { Toaster } from 'react-hot-toast';
+import WalletDetails from './containers/wallet-details';
 
 const DefaultRoute = () => {
   const dateNow = new Date();
@@ -41,12 +44,15 @@ ReactDOM.render(
             <Route path='/:year/:month/expenses' component={Transactions} />
             <Preferences />
             <BudgetNew />
+            <WalletEditor />
+            <WalletDetails />
           </App>
         </Route>
 
         <NotFound />
       </Switch>
     </Router>
+    <Toaster position='bottom-center' />
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -1,3 +1,4 @@
+import shallow from 'zustand/shallow';
 import {
   Link,
   useHistory,
@@ -7,7 +8,6 @@ import {
 } from 'react-router-dom';
 import {
   AdjustmentsIcon,
-  ChevronDownIcon,
   HomeIcon,
   PlusIcon,
   TrendingDownIcon,
@@ -15,12 +15,12 @@ import {
 } from '@heroicons/react/outline';
 import { useQuery } from '../app/hooks';
 import NewTransaction from './new-transaction';
-import useStore, { getDefaultWallet, useTransactionStore } from '../app/store';
+import useStore, { setDefaultWallet, useTransactionStore } from '../app/store';
 import { money } from '../app/utils';
 import { Fragment } from 'react';
-import { Toaster } from 'react-hot-toast';
 import Navbar from '../components/navbar';
 import { PieChart, Pie, Cell } from 'recharts';
+import SelectWallet from '../components/select-wallet';
 
 const App: React.FC = ({ children }) => {
   const { year, month } = useParams<{ year: string; month: string }>();
@@ -28,18 +28,28 @@ const App: React.FC = ({ children }) => {
   const expensesMatch = useRouteMatch(`${appPath?.url}/expenses`);
   const incomeMatch = useRouteMatch(`${appPath?.url}/income`);
   const budgetList = useStore((state) => state.budget.list);
+  const { walletList, selectedWalletId } = useStore(
+    (state) => ({
+      walletList: state.wallet.list,
+      selectedWalletId: state.wallet.selected
+    }),
+    shallow
+  );
   const {
     getTotalExpenses,
+    getTotalExpensesOfWallet,
     getGrandTotalIncome,
     getTotalIncomeOfWallet,
     getTotalOfEachBudget
   } = useTransactionStore(+year, +month)((state) => state);
 
-  var defaultWallet = getDefaultWallet();
-  var totalIncome = getGrandTotalIncome();
-  var totalExpenses = getTotalExpenses();
-  var balance = getTotalIncomeOfWallet(defaultWallet.id) - totalExpenses;
-  var chartData = getTotalOfEachBudget();
+  const defaultWallet = walletList[selectedWalletId];
+  const totalIncome = getGrandTotalIncome();
+  const totalExpenses = getTotalExpenses();
+  const totalWalletExpenses = getTotalExpensesOfWallet(selectedWalletId);
+  const balance =
+    getTotalIncomeOfWallet(defaultWallet.id) - totalWalletExpenses;
+  const chartData = getTotalOfEachBudget();
 
   const colors = chartData.map(
     (data) => budgetList.find((b) => b.id === data.name)!.color
@@ -79,10 +89,15 @@ const App: React.FC = ({ children }) => {
             </PieChart>
           </div>
           <div className='text-right'>
-            <div className='text-sm font-medium flex items-center justify-end'>
+            <SelectWallet
+              value={defaultWallet}
+              items={Object.values(walletList)}
+              onChange={setDefaultWallet}
+            />
+            {/* <div className='text-sm font-medium flex items-center justify-end'>
               {defaultWallet.walletName}{' '}
               <ChevronDownIcon className='h-4 w-4 inline-block' />{' '}
-            </div>
+            </div> */}
             <div className='text-3xl font-medium whitespace-nowrap'>
               {money(balance)}
             </div>
@@ -175,7 +190,6 @@ export function BottomNav() {
           <div className='text-xs font-medium'>Preferences</div>
         </Link>
       </div>
-      <Toaster position='bottom-center' />
     </Fragment>
   );
 }

@@ -12,3 +12,18 @@ export const shortMonths = [
   'Nov',
   'Dec'
 ];
+
+export const longMonths = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'Septempber',
+  'October',
+  'November',
+  'December'
+];

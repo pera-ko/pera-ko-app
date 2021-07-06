@@ -58,31 +58,33 @@ const Preferences: React.FC = () => {
             />
             <StickyHeader>
               Wallets
-              {/* <Link to={`${route?.url}/newwallet`} className='text-link'>
-            ADD
-          </Link> */}
+              <Link to={`${route?.url}/newwallet`} className='text-link'>
+                ADD
+              </Link>
             </StickyHeader>
             <ul>
-              {Object.values(walletList).map((wallet) => {
-                return (
-                  <li key={wallet.id}>
-                    <Link
-                      to='/'
-                      className='flex justify-between items-center py-3 px-5'
-                    >
-                      <div className='pr-5 text-2xl'>
-                        <CreditCardIcon className='h-6 w-6' />
-                      </div>
-                      <div className='flex-1'>
-                        <span className='font-medium text-sm'>
-                          {wallet.walletName}
-                        </span>
-                      </div>
-                      {/* <ChevronRightIcon className='h-6 w-6 block' /> */}
-                    </Link>
-                  </li>
-                );
-              })}
+              {Object.values(walletList)
+                .filter((w) => !w.isDeleted)
+                .map((wallet) => {
+                  return (
+                    <li key={wallet.id}>
+                      <Link
+                        to={`${route?.url}/wallet/${wallet.id}`}
+                        className='flex justify-between items-center py-3 px-5'
+                      >
+                        <div className='pr-5 text-2xl'>
+                          <CreditCardIcon className='h-6 w-6' />
+                        </div>
+                        <div className='flex-1'>
+                          <span className='font-medium text-sm'>
+                            {wallet.walletName}
+                          </span>
+                        </div>
+                        <ChevronRightIcon className='h-6 w-6 block' />
+                      </Link>
+                    </li>
+                  );
+                })}
             </ul>
             <StickyHeader>
               Budget List
