@@ -4,7 +4,7 @@ import { Fragment } from 'react';
 import { Route, useHistory, useParams, useRouteMatch } from 'react-router';
 import { Link } from 'react-router-dom';
 import shallow from 'zustand/shallow';
-import { longMonths, shortMonths } from '../app/constants';
+import { longMonths } from '../app/constants';
 import useStore, { useTransactionStore } from '../app/store';
 import { money } from '../app/utils';
 import ModalFull from '../components/modal-full';

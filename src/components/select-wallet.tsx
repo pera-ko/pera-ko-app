@@ -1,4 +1,3 @@
-import { Listbox, Portal } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/outline';
 import { CheckIcon } from '@heroicons/react/solid';
 import { useState } from 'react';

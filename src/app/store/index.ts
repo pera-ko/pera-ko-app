@@ -3,7 +3,7 @@ import create, { UseStore } from 'zustand'
 import { persist } from 'zustand/middleware'
 import dayjs from 'dayjs'
 import isBetween from 'dayjs/plugin/isBetween'
-import { IBudget, IBudgetData, IGoal, IGoalData, IIncome, IWallet, IWalletData } from '../@types'
+import { IBudget, IBudgetData, IGoal, IGoalData, IIncome, IWalletData } from '../@types'
 import IndexedDBStorage from '../infra/indexedDBPersistence'
 import storeMigration from './migration'
 

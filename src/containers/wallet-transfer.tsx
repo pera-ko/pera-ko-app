@@ -4,11 +4,10 @@ import {
   CheckIcon,
   SelectorIcon
 } from '@heroicons/react/outline';
-import { Fragment, useRef, useState } from 'react';
+import { Fragment, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { usePopper } from 'react-popper';
 import { useHistory, useParams } from 'react-router';
-import shallow from 'zustand/shallow';
 import { IWalletData } from '../app/@types';
 import useStore, { useTransactionStore } from '../app/store';
 import InputGroup from '../components/input-group';
@@ -25,7 +24,6 @@ const WalletTransfer = () => {
   const {
     register,
     handleSubmit,
-    setValue,
     formState: { errors }
   } = useForm<Inputs>();
   const walletList = useStore((state) => state.wallet.list);
