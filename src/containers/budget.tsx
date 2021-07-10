@@ -4,7 +4,7 @@ import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { IBudgetGoalData } from '../app/@types';
 import { BottomNav } from './App';
 import BudgetCheckList from '../components/budget-check-list';
-import BudgetGrid from '../components/budget-grid';
+import BudgetGrid from '../components/widgets/budget-grid';
 import { useQuery } from '../app/hooks';
 import { getEffectiveBudget, useTransactionStore } from '../app/store';
 import { money } from '../app/utils';
