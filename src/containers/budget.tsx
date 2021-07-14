@@ -6,7 +6,10 @@ import { BottomNav } from './App';
 import BudgetCheckList from '../components/budget-check-list';
 import BudgetGrid from '../components/widgets/budget-grid';
 import { useQuery } from '../app/hooks';
-import { getEffectiveBudget, useTransactionStore } from '../app/store';
+import useStore, {
+  getEffectiveBudget,
+  useTransactionStore
+} from '../app/store';
 import { money } from '../app/utils';
 import toast from 'react-hot-toast';
 
@@ -20,6 +23,7 @@ const Budget: React.FC = () => {
     +year,
     +month
   )((state) => state).addTransaction;
+  const selectedWalletId = useStore((state) => state.wallet.selected);
   const isQuickAdd = query.get('view') === 'quickadd';
 
   const handleViewChange = (mode: 'grid' | 'quickadd') => {
@@ -31,7 +35,7 @@ const Budget: React.FC = () => {
   const handleQuickAddClick = () => {
     var total = 0;
     selectedItems.forEach((item) => {
-      addTransaction(item.id, 'default', item.amount);
+      addTransaction(item.id, selectedWalletId, item.amount);
       total += item.amount;
     });
     setSelectedItems([]);
