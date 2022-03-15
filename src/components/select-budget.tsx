@@ -3,7 +3,7 @@ import { SelectorIcon } from '@heroicons/react/outline';
 import { Fragment, useState } from 'react';
 import { usePopper } from 'react-popper';
 import { IBudgetGoalData } from '../app/@types';
-import { formatCurrency, hexToRGB, money } from '../app/utils';
+import { hexToRGB, money } from '../app/utils';
 import BudgetIcon from './budget-icon';
 
 interface Props {
