@@ -44,6 +44,7 @@ const Preferences: React.FC = () => {
               </button>
               Preferences
             </div>
+            <StickyHeader className='mb-4'>General</StickyHeader>
             <OptionSwitch
               checked={enableSuggestions}
               title='Enable Suggestions'
