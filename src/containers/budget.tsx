@@ -4,9 +4,12 @@ import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { IBudgetGoalData } from '../app/@types';
 import { BottomNav } from './App';
 import BudgetCheckList from '../components/budget-check-list';
-import BudgetGrid from '../components/budget-grid';
+import BudgetGrid from '../components/widgets/budget-grid';
 import { useQuery } from '../app/hooks';
-import { getEffectiveBudget, useTransactionStore } from '../app/store';
+import useStore, {
+  getEffectiveBudget,
+  useTransactionStore
+} from '../app/store';
 import { money } from '../app/utils';
 import toast from 'react-hot-toast';
 
@@ -20,6 +23,7 @@ const Budget: React.FC = () => {
     +year,
     +month
   )((state) => state).addTransaction;
+  const selectedWalletId = useStore((state) => state.wallet.selected);
   const isQuickAdd = query.get('view') === 'quickadd';
 
   const handleViewChange = (mode: 'grid' | 'quickadd') => {

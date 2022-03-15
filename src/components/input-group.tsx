@@ -12,7 +12,7 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   inputClassName?: string;
 }
 
-function InputGroup(
+function InputGroupInner(
   { label, error, className, contentLabel, inputClassName, ...rest }: Props,
   ref: React.ForwardedRef<HTMLInputElement>
 ) {
@@ -44,5 +44,5 @@ function InputGroup(
     </label>
   );
 }
-
-export default React.forwardRef(InputGroup);
+const InputGroup = React.forwardRef(InputGroupInner);
+export default InputGroup;

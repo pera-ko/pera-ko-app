@@ -3,9 +3,10 @@ import React, { Fragment } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
 import calendar from 'dayjs/plugin/calendar';
-import useStore, { useTransactionStore } from '../app/store';
+import useStore, { ITransaction, useTransactionStore } from '../app/store';
 import { money } from '../app/utils';
 import BudgetIcon from '../components/budget-icon';
+import shallow from 'zustand/shallow';
 
 dayjs.extend(calendar);
 
@@ -15,9 +16,17 @@ export default function Transactions() {
     +year,
     +month
   )((state) => state);
-  const budgetList = useStore((state) => state.budget.list);
+  const { budgetList, walletList } = useStore(
+    (state) => ({
+      budgetList: state.budget.list,
+      walletList: state.wallet.list
+    }),
+    shallow
+  );
 
-  let sortedList = [...transactionList];
+  let sortedList: ITransaction[] = [
+    ...transactionList.filter((t) => t.type === undefined)
+  ] as ITransaction[];
   sortedList.reverse();
   let lastDate: string | null = null;
   return (
@@ -26,7 +35,7 @@ export default function Transactions() {
         <Link to={`/${year}/${month}`} className='p-5'>
           <ArrowLeftIcon className='h-6 w-6' />
         </Link>
-        Transactions
+        Expenses
       </div>
       <ul>
         {sortedList.map((t, index) => {
@@ -54,9 +63,14 @@ export default function Transactions() {
             <li key={t.tranDate} className='flex justify-between items-center'>
               <div className='flex items-center'>
                 <BudgetIcon budget={budget} />
-                <span className='font-medium text-sm'>
-                  {budget?.budgetName}
-                </span>
+                <div>
+                  <div className='font-medium text-sm'>
+                    {budget?.budgetName}
+                  </div>
+                  <div className='text-xs'>
+                    {walletList[t.walletId].walletName}
+                  </div>
+                </div>
               </div>
               <div className='text-right mr-5'>
                 <div className='text-sm font-medium'>{money(t.amount)}</div>

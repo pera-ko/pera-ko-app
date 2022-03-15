@@ -1,4 +1,5 @@
 import { Dialog, Transition } from '@headlessui/react';
+import shallow from 'zustand/shallow';
 import { ArrowLeftIcon } from '@heroicons/react/outline';
 import { useHistory, useParams } from 'react-router-dom';
 import useStore from '../app/store';
@@ -11,13 +12,25 @@ import { Fragment } from 'react';
 
 export default function NewTransaction() {
   const { year, month } = useParams<{ year: string; month: string }>();
-  const budgetList = useStore((state) => state.budget.list);
+  const { budgetList, selectedWalletId } = useStore(
+    (state) => ({
+      budgetList: state.budget.list,
+      selectedWalletId: state.wallet.selected
+    }),
+    shallow
+  );
   const history = useHistory();
   const query = useQuery();
   const { addTransaction, getTotalOfBudget } = useTransactionStore(
     +year,
     +month
-  )((state) => state);
+  )(
+    (state) => ({
+      addTransaction: state.addTransaction,
+      getTotalOfBudget: state.getTotalOfBudget
+    }),
+    shallow
+  );
   const id = query.get('id');
   const selectedBudget = id ? budgetList.find((b) => b.id === id) : undefined;
   const isNewTransactionOpen = query.get('newtran') === 'open';
@@ -74,7 +87,12 @@ export default function NewTransaction() {
                 selectedBudget={selectedBudget}
                 budgetList={budgetListWithAmt}
                 onSubmit={(value) => {
-                  addTransaction(value.budgetId, value.amount, value.remarks);
+                  addTransaction(
+                    value.budgetId,
+                    selectedWalletId,
+                    value.amount,
+                    value.remarks
+                  );
                   history.goBack();
                   toast.success(`${money(value.amount)} added to transaction`);
                 }}

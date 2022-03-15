@@ -13,6 +13,7 @@
     "dayjs": "^1.10.5",
     "emoji-picker-react": "^3.4.4",
     "idb-keyval": "^5.1.5",
+    "framer-motion": "^4.1.17",
     "nanoid": "^3.1.23",
     "react": "^17.0.2",
     "react-colorful": "^5.2.2",
