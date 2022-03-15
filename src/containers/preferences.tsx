@@ -48,13 +48,13 @@ const Preferences: React.FC = () => {
             <OptionSwitch
               checked={enableSuggestions}
               title='Enable Suggestions'
-              description='Suggest recent transactions to quickly populate the form'
+              description='Suggests recent transactions to quickly populate the form'
               onChange={setEnableSuggestions}
             />
             <OptionSwitch
               checked={maskIncome}
               title='Mask Income and Balance'
-              description="Hides the amount of income and balance with masking it with '?'"
+              description="Hides the amount of income and balance by masking it with '?'"
               onChange={setMaskIncome}
             />
             <StickyHeader>

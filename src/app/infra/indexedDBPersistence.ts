@@ -1,4 +1,4 @@
-import { get, set } from 'idb-keyval'                                                                             
+import { get, set, del } from 'idb-keyval'                                                                             
 import { StateStorage } from 'zustand/middleware'
                                                                                                                       
 const IndexedDBStorage: StateStorage = {                                                                                                
@@ -16,7 +16,10 @@ const IndexedDBStorage: StateStorage = {
       return
     }                                                                                                                                                                                          
     set(name, value)                                                                                                
-  }                                                                                                                 
+  },
+  removeItem: (name: string) => {
+    del(name)
+  }                                                                                                          
 }                                                                                                                   
                                                                                                                       
 export default IndexedDBStorage
