@@ -31,8 +31,9 @@ const Budget: React.FC = () => {
   const handleQuickAddClick = () => {
     var total = 0;
     selectedItems.forEach((item) => {
-      addTransaction(item.id, item.amount);
-      total += item.amount;
+      const amount = item.amount ?? 0;
+      addTransaction(item.id, amount);
+      total += amount;
     });
     setSelectedItems([]);
     handleViewChange('grid');
@@ -49,7 +50,7 @@ const Budget: React.FC = () => {
     listItems = listItems
       .filter((x) => x.type === 'goal')
       .map((x) => {
-        let amount = x.amount;
+        let amount = x.amount ?? 0;
         if (x.type === 'goal' && x.installmentType === 'semi-monthly') {
           amount = amount / 2;
         }

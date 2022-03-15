@@ -1,4 +1,5 @@
-export function money(value: number, currency: string = "PHP") {
+export function money(value?: number, currency: string = "PHP") {
+  if (!value) value = 0
   value = Number(value)
   return currency + ' ' + value.toLocaleString('en-us', {
     minimumFractionDigits: 2,

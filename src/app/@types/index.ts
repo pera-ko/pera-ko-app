@@ -5,7 +5,7 @@ interface WithId {
 export interface IBudget {
   type: "budget";
   budgetName: string;
-  amount: number;
+  amount?: number;
   icon: string;
   color: string;
 }

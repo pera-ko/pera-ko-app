@@ -28,7 +28,9 @@ export default function SelectBudget({
   const { styles, attributes } = usePopper(referenceElement, popperElement);
 
   let progressPercent =
-    progress && value ? (progress.value / value.amount) * 100 : undefined;
+    progress && value && value.amount
+      ? (progress.value / value.amount) * 100
+      : undefined;
   if (progressPercent && progressPercent > 100) progressPercent = 100;
   return (
     <Listbox value={value} onChange={onChange}>
@@ -47,8 +49,7 @@ export default function SelectBudget({
                     {value.budgetName}
                   </span>
                   <div className='col-span-2 text-xs font-medium text-gray-600 text-right'>
-                    {formatCurrency(progress.value)} /{' '}
-                    {formatCurrency(value.amount)}
+                    {money(progress.value)} / {money(value.amount)}
                   </div>
 
                   <div
@@ -71,7 +72,7 @@ export default function SelectBudget({
                     {value.budgetName}
                   </span>
                   <div className='text-xs font-medium text-gray-600'>
-                    {money(value.amount)}
+                    {value.amount ? money(value.amount) : ''}
                   </div>
                 </div>
               )}

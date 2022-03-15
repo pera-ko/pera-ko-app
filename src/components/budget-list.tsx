@@ -35,7 +35,7 @@ const BudgetListItem: React.FC<ItemProps> = ({
             <div>
               <span className='font-medium text-sm'>{value.budgetName}</span>
               <div className='text-xs font-medium text-gray-600 leading-3'>
-                {money(value.amount)}
+                {value.amount ? money(value.amount) : ''}
               </div>
             </div>
           </div>

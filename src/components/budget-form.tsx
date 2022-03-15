@@ -11,7 +11,7 @@ import dayjs from 'dayjs';
 interface Inputs {
   type: 'goal' | 'budget';
   budgetName: string;
-  amount: number;
+  amount?: number;
   icon: string;
   color: string;
   startDate?: string;
@@ -82,7 +82,7 @@ const BudgetForm: React.FC<BudgetFormProps> = ({
       returnValue = {
         type,
         budgetName: data.budgetName,
-        amount: data.amount,
+        amount: data.amount ?? 0,
         color,
         icon,
         startDate: data.startDate!,
@@ -153,7 +153,7 @@ const BudgetForm: React.FC<BudgetFormProps> = ({
             contentLabel={{ type: 'text', content: 'PHP' }}
             error={errors.amount}
             inputClassName='text-right'
-            {...register('amount', { required: 'Amount is required.' })}
+            {...register('amount')}
           />
           {type === 'goal' && (
             <Fragment>
