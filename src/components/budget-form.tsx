@@ -7,6 +7,7 @@ import InputGroup from './input-group';
 import { default as EmojiPicker, IEmojiData } from 'emoji-picker-react';
 import { IBudget, IGoal } from '../app/@types';
 import dayjs from 'dayjs';
+import OptionSwitch from './option-switch';
 
 interface Inputs {
   type: 'goal' | 'budget';
@@ -17,6 +18,7 @@ interface Inputs {
   startDate?: string;
   endDate?: string;
   installmentType?: 'monthly' | 'semi-monthly';
+  isHidden?: boolean;
 }
 
 interface BudgetFormProps {
@@ -59,6 +61,7 @@ const BudgetForm: React.FC<BudgetFormProps> = ({
   const [color, setColor] = useState(
     defaultValue ? defaultValue.color : '#fff'
   );
+  const [isHidden, setIsHidden] = useState(defaultValue ? defaultValue.isHidden : false)
   useEffect(() => {
     register('startDate', {
       required: type === 'goal' ? 'Start Date is required.' : false
@@ -76,7 +79,8 @@ const BudgetForm: React.FC<BudgetFormProps> = ({
         budgetName: data.budgetName,
         amount: data.amount,
         color,
-        icon
+        icon,
+        isHidden
       };
     } else {
       returnValue = {
@@ -87,7 +91,8 @@ const BudgetForm: React.FC<BudgetFormProps> = ({
         icon,
         startDate: data.startDate!,
         endDate: data.endDate,
-        installmentType
+        installmentType,
+        isHidden
       };
     }
     if (onSubmit) onSubmit(returnValue);
@@ -106,18 +111,17 @@ const BudgetForm: React.FC<BudgetFormProps> = ({
               <Popover.Button
                 type='button'
                 className={`
-                ${
-                  isSubmitted && !chosenEmoji && !defaultValue?.icon
+                ${isSubmitted && !chosenEmoji && !defaultValue?.icon
                     ? 'border-error'
                     : 'border-transparent'
-                }
+                  }
                 block h-11 w-11 text-2xl font-medium items-center bg-indigo-100 rounded-md border-2 border-transparent focus:border-indigo-300 outline-none focus:outline-none`}
               >
                 {chosenEmoji
                   ? chosenEmoji.emoji
                   : defaultValue
-                  ? defaultValue.icon
-                  : ''}
+                    ? defaultValue.icon
+                    : ''}
               </Popover.Button>
               <Popover.Panel className='absolute z-10'>
                 <EmojiPicker
@@ -183,8 +187,7 @@ const BudgetForm: React.FC<BudgetFormProps> = ({
                   value='monthly'
                   className={({ active, checked }) => `
                     ${checked ? 'bg-indigo-100 text-indigo-500' : ''} 
-                    ${
-                      active ? 'ring-2 ring-offset-indigo-300 text-red-500' : ''
+                    ${active ? 'ring-2 ring-offset-indigo-300 text-red-500' : ''
                     } 
                     px-2 py-3 border rounded-l-md outline-none focus:outline-none text-gray-600 
                     `}
@@ -195,8 +198,7 @@ const BudgetForm: React.FC<BudgetFormProps> = ({
                   value='semi-monthly'
                   className={({ active, checked }) => `
                     ${checked ? 'bg-indigo-100 text-indigo-500' : ''} 
-                    ${
-                      active ? 'ring-2 ring-offset-indigo-300 text-red-500' : ''
+                    ${active ? 'ring-2 ring-offset-indigo-300 text-red-500' : ''
                     } 
                     px-2 py-3 border rounded-r-md outline-none focus:outline-none text-gray-600 
                     `}
@@ -206,6 +208,9 @@ const BudgetForm: React.FC<BudgetFormProps> = ({
               </RadioGroup>
             </Fragment>
           )}
+          <div className='flex flex-row-reverse mt-4'>
+            <OptionSwitch title='Hidden' description='' checked={isHidden} onChange={e => setIsHidden(e)} />
+          </div>
         </div>
       </div>
       <div className='fixed bottom-4 inset-x-0 px-5'>

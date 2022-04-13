@@ -12,12 +12,16 @@ export default function OptionSwitch({
 }: Props) {
   return (
     <button
-      className='flex px-5 mb-4 text-left outline-none focus:outline-none'
+      type='button'
+      className='flex px-5 mb-4 text-left outline-none focus:outline-none items-center'
       onClick={() => onChange(!checked)}
     >
       <div className='flex-1 mr-4'>
         <div className='font-medium text-sm'>{title}</div>
-        <div className='text-gray-500 text-sm'>{description}</div>
+        {
+          description &&
+          <div className='text-gray-500 text-sm'>{description}</div>
+        }
       </div>
       <div
         className={`

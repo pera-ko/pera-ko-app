@@ -30,7 +30,7 @@ const Budget: React.FC = () => {
     query.set('view', mode);
     history.push(`${location.pathname}?${query.toString()}`);
   };
-  let listItems = getEffectiveBudget(+year, +month);
+  let listItems = getEffectiveBudget(+year, +month).filter(b => !b.isHidden);
 
   const handleQuickAddClick = () => {
     var total = 0;
@@ -69,21 +69,19 @@ const Budget: React.FC = () => {
         <div className='font-medium'>Select a budget</div>
         <div>
           <button
-            className={`px-3 py-2 border rounded-l-xl outline-none focus:outline-none border-indigo-400 ${
-              isQuickAdd
+            className={`px-3 py-2 border rounded-l-xl outline-none focus:outline-none border-indigo-400 ${isQuickAdd
                 ? 'rounded-r-none text-indigo-400'
                 : 'bg-indigo-400 text-white'
-            }`}
+              }`}
             onClick={() => handleViewChange('grid')}
           >
             <ViewGridIcon className='h-6 w-6' />
           </button>
           <button
-            className={`px-3 py-2 border rounded-r-xl outline-none focus:outline-none border-indigo-400 ${
-              !isQuickAdd
+            className={`px-3 py-2 border rounded-r-xl outline-none focus:outline-none border-indigo-400 ${!isQuickAdd
                 ? 'text-indigo-400 rounded-l-none'
                 : 'bg-indigo-400 text-white'
-            }`}
+              }`}
             onClick={() => handleViewChange('quickadd')}
           >
             <ClipboardCheckIcon className='h-6 w-6' />
