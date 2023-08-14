@@ -18,7 +18,7 @@ const Preferences: React.FC = () => {
   const history = useHistory();
   const budgetList = useStore((state) => state.budget.list);
   const walletList = useStore((state) => state.wallet.list);
-  const [newDashboard, setNewDashboard] = useLocalStorage('expenses-dashboard', false);
+  const {value: newDashboard, setValue: setNewDashboard } = useLocalStorage('expenses-dashboard', false);
   const isOpen = route ? true : false;
 
   return (

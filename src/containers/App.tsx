@@ -15,7 +15,11 @@ import Dashboard from './dashboard';
 import Dashboard2 from './dashboard2';
 
 const App: React.FC<PropsWithChildren> = ({ children }) => {
-  const [newDashboard] = useLocalStorage('expenses-dashboard', false);
+  const {value: newDashboard, loading } = useLocalStorage('expenses-dashboard', false);
+  
+  if (loading) {
+    return null;
+  }
   
   if (newDashboard) {
     return (
