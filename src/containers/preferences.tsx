@@ -15,7 +15,6 @@ import useStore from '../app/store';
 const Preferences: React.FC = () => {
   const route = useRouteMatch('/:year/:month/preferences');
   const history = useHistory();
-  
   const budgetList = useStore((state) => state.budget.list);
   const walletList = useStore((state) => state.wallet.list);
 
@@ -43,7 +42,7 @@ const Preferences: React.FC = () => {
               </button>
               Settings
             </div>
-            
+            {false ? <GeneralSettings/> : null}
             <StickyHeader>
               Wallets
               <Link to={`${route?.url}/newwallet`} className='text-link'>

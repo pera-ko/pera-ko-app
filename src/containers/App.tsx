@@ -5,7 +5,6 @@ import {
   useParams
 } from 'react-router-dom';
 import {
-  AdjustmentsVerticalIcon,
   Cog6ToothIcon,
   HomeIcon,
   PlusIcon,
@@ -13,7 +12,6 @@ import {
 import { useLocQuery } from '../app/hooks';
 import { Fragment, PropsWithChildren } from 'react';
 import Dashboard from './dashboard';
-import Dashboard2 from './dashboard2';
 
 const App: React.FC<PropsWithChildren> = ({ children }) => {
   return (

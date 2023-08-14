@@ -1,8 +1,7 @@
 import { Listbox } from '@headlessui/react';
 import { ChevronUpDownIcon } from '@heroicons/react/24/outline';
 import { ExclamationTriangleIcon } from '@heroicons/react/24/solid';
-import { Fragment, useState } from 'react';
-import { usePopper } from 'react-popper';
+import { Fragment } from 'react';
 import { IBudgetGoalData } from '../app/@types';
 import { formatCurrency, hexToRGB, money } from '../app/utils';
 import BudgetIcon from './budget-icon';
@@ -21,19 +20,13 @@ export default function SelectBudget({
   onChange,
   progress
 }: Props) {
-  const [referenceElement, setReferenceElement] =
-    useState<HTMLDivElement | null>(null);
-  const [popperElement, setPopperElement] = useState<HTMLUListElement | null>(
-    null
-  );
-  const { styles, attributes } = usePopper(referenceElement, popperElement);
 
   let progressPercent =
     progress && value ? (progress.value / value.amount) * 100 : undefined;
   if (progressPercent && progressPercent > 100) progressPercent = 100;
   return (
     <Listbox value={value} onChange={onChange}>
-      <div className='relative mt-1' ref={setReferenceElement}>
+      <div className='relative mt-1'>
         <Listbox.Button
           className={`flex items-center outline-none focus:outline-none ${
             !value && 'py-2 pl-3 pr-10  bg-gray-500/10'
@@ -104,9 +97,7 @@ export default function SelectBudget({
 
         <Listbox.Options
           className='absolute w-full overflow-y-auto bg-white rounded shadow-md outline-none dark:bg-zinc-800 focus:outline-none max-h-60'
-          // ref={setPopperElement} TODO:
-          style={styles.popper}
-          {...attributes.popper}
+          
         >
           {items.map((b) => (
             <Listbox.Option

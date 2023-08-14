@@ -6,7 +6,6 @@ import {
 } from '@heroicons/react/24/outline';
 import { Fragment, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { usePopper } from 'react-popper';
 import { useHistory, useParams } from 'react-router';
 import { IWalletData } from '../app/@types';
 import useStore, { useTransactionStore } from '../app/store';
@@ -113,15 +112,9 @@ const WalletSelect = ({
   value: IWalletData | null;
   onChange(value: IWalletData): void;
 }) => {
-  const [referenceElement, setReferenceElement] =
-    useState<HTMLDivElement | null>(null);
-  const [popperElement, setPopperElement] = useState<HTMLUListElement | null>(
-    null
-  );
-  const { styles, attributes } = usePopper(referenceElement, popperElement);
   return (
     <Listbox value={value} onChange={onChange}>
-      <div className='relative mt-1' ref={setReferenceElement}>
+      <div className='relative mt-1'>
         <Listbox.Button className='relative w-full py-2 pl-3 pr-10 text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm'>
           <span className='block truncate'>
             {value ? value.walletName : ' - Select Wallet - '}
@@ -141,9 +134,6 @@ const WalletSelect = ({
         >
           <Listbox.Options
             className='absolute z-10 w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm'
-            // ref={setPopperElement} TODO:
-            style={styles.popper}
-            {...attributes.popper}
           >
             {items
               .filter((w) => !w.isDeleted)
