@@ -16,6 +16,7 @@ export function useLocalStorage<T>(name: string, initialValue: T): [T, (initialV
     if (storedValue) {
       setValue(JSON.parse(storedValue))
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const saveItem = (val: T) => {
