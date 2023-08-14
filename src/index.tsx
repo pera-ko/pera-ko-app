@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import './index.css';
 import App from './containers/App';
@@ -31,7 +31,7 @@ const NotFound = () => {
   return <div>not found</div>;
 };
 
-ReactDOM.render(
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <Router>
       <Switch>
@@ -48,13 +48,11 @@ ReactDOM.render(
             <WalletDetails />
           </App>
         </Route>
-
         <NotFound />
       </Switch>
     </Router>
     <Toaster position='bottom-center' />
-  </React.StrictMode>,
-  document.getElementById('root')
+  </React.StrictMode>
 );
 
 serviceWorkerRegistration.register();

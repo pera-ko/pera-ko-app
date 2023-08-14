@@ -1,8 +1,8 @@
 import { Dialog, Transition } from '@headlessui/react';
-import { ArrowLeftIcon } from '@heroicons/react/outline';
-import { Fragment } from 'react';
+import { ArrowLeftIcon } from '@heroicons/react/24/outline';
+import { Fragment, PropsWithChildren } from 'react';
 
-interface Props {
+interface Props extends PropsWithChildren {
   isOpen?: boolean;
   title: string;
   onClose(): void;
@@ -22,13 +22,13 @@ const ModalFull: React.FC<Props> = ({ isOpen, children, title, onClose }) => {
             leaveFrom='opacity-100 transform translate-x-0'
             leaveTo='opacity-0 transform translate-x-full'
           >
-            <div className='fixed inset-0 overflow-hidden transition-all transform bg-white overflow-y-auto'>
-              <div className='sticky top-0 bg-white flex items-center font-medium bg-current'>
+            <div className='fixed inset-0 overflow-hidden overflow-y-auto transition-all transform bg-white'>
+              <div className='sticky top-0 flex items-center font-medium bg-current bg-white'>
                 <button
                   className='p-5 outline-none focus:outline-none'
                   onClick={onClose}
                 >
-                  <ArrowLeftIcon className='h-6 w-6' />
+                  <ArrowLeftIcon className='w-6 h-6' />
                 </button>
                 <Dialog.Title>{title}</Dialog.Title>
               </div>

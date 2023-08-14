@@ -1,4 +1,4 @@
-import { ArrowCircleDownIcon, ArrowLeftIcon } from '@heroicons/react/outline';
+import { ArrowDownCircleIcon, ArrowLeftIcon } from '@heroicons/react/24/outline';
 import { ReactComponent as WalletPana } from '../assets/svg/Wallet-pana.svg';
 import dayjs from 'dayjs';
 import calendar from 'dayjs/plugin/calendar';
@@ -20,9 +20,9 @@ export default function Income() {
 
   return (
     <Fragment>
-      <div className='sticky h- top-0 bg-white flex items-center font-medium'>
+      <div className='sticky top-0 flex items-center font-medium bg-white dark:bg-dark'>
         <Link to={`/${year}/${month}`} className='p-5'>
-          <ArrowLeftIcon className='h-6 w-6' />
+          <ArrowLeftIcon className='w-6 h-6' />
         </Link>
         Income
       </div>
@@ -52,7 +52,7 @@ export default function Income() {
 
 function IncomeHeader({ date }: { date: string }) {
   return (
-    <li className='bg-gray-200 px-5 py-2 text-xs sticky top-16'>{date}</li>
+    <li className='sticky px-5 py-2 text-xs bg-gray-200 dark:bg-zinc-900 top-16'>{date}</li>
   );
 }
 
@@ -63,14 +63,14 @@ interface IncomeItemProps {
 }
 function IncomeItem({ amount, text, remarks }: IncomeItemProps) {
   return (
-    <li className='flex justify-between items-center'>
+    <li className='flex items-center justify-between'>
       <div className='flex items-center'>
-        <ArrowCircleDownIcon className='h-6 w-6 mx-5 my-3 text-gray-600' />
+        <ArrowDownCircleIcon className='w-6 h-6 mx-5 my-3 ' />
         <span className='text-sm'>{text}</span>
       </div>
-      <div className='text-right mr-5'>
+      <div className='mr-5 text-right'>
         <div className='text-sm font-medium'>{money(amount)}</div>
-        <div className='text-xs text-gray-600'>{remarks}</div>
+        <div className='text-xs text-gray-500'>{remarks}</div>
       </div>
     </li>
   );
@@ -123,9 +123,9 @@ function AddIncomeButton({
   return (
     <Link
       to={to}
-      className={`${className} text-sm font-medium p-3 bg-indigo-500 text-white rounded-full shadow-md`}
+      className={`${className} text-sm font-medium p-3 bg-indigo-600 text-white rounded-full shadow-md`}
     >
-      <ArrowCircleDownIcon className='h-6 w-6 mr-3 inline-block' />
+      <ArrowDownCircleIcon className='inline-block w-6 h-6 mr-3' />
       Add Income
     </Link>
   );

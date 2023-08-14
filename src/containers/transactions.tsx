@@ -1,4 +1,4 @@
-import { ArrowLeftIcon } from '@heroicons/react/outline';
+import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import React, { Fragment } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
@@ -31,9 +31,9 @@ export default function Transactions() {
   let lastDate: string | null = null;
   return (
     <Fragment>
-      <div className='sticky top-0 bg-white flex items-center font-medium'>
+      <div className='sticky top-0 flex items-center font-medium bg-white dark:bg-dark'>
         <Link to={`/${year}/${month}`} className='p-5'>
-          <ArrowLeftIcon className='h-6 w-6' />
+          <ArrowLeftIcon className='w-6 h-6' />
         </Link>
         Expenses
       </div>
@@ -51,7 +51,7 @@ export default function Transactions() {
             retVal.push(
               <li
                 key={desc}
-                className='bg-gray-200 px-5 py-2 text-xs sticky top-16'
+                className='sticky px-5 py-2 text-xs bg-gray-200 dark:bg-zinc-900 top-16'
               >
                 {desc}
               </li>
@@ -60,11 +60,11 @@ export default function Transactions() {
           }
 
           retVal.push(
-            <li key={t.tranDate} className='flex justify-between items-center'>
+            <li key={t.tranDate} className='flex items-center justify-between'>
               <div className='flex items-center'>
                 <BudgetIcon budget={budget} />
                 <div>
-                  <div className='font-medium text-sm'>
+                  <div className='text-sm font-medium'>
                     {budget?.budgetName}
                   </div>
                   <div className='text-xs'>
@@ -72,9 +72,9 @@ export default function Transactions() {
                   </div>
                 </div>
               </div>
-              <div className='text-right mr-5'>
+              <div className='mr-5 text-right'>
                 <div className='text-sm font-medium'>{money(t.amount)}</div>
-                <div className='text-xs text-gray-600'>{t.remarks}</div>
+                <div className='text-xs text-gray-500'>{t.remarks}</div>
               </div>
             </li>
           );

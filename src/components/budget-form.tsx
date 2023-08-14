@@ -4,7 +4,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { HexColorPicker } from 'react-colorful';
 import BudgetRadio from './budget-radio';
 import InputGroup from './input-group';
-import { default as EmojiPicker, IEmojiData } from 'emoji-picker-react';
+import { default as EmojiPicker, EmojiStyle } from 'emoji-picker-react';
 import { IBudget, IGoal } from '../app/@types';
 import dayjs from 'dayjs';
 import OptionSwitch from './option-switch';
@@ -57,7 +57,7 @@ const BudgetForm: React.FC<BudgetFormProps> = ({
   const [installmentType, setInstallmentType] = useState<
     'monthly' | 'semi-monthly'
   >(defaultValue?.installmentType ? defaultValue.installmentType : 'monthly');
-  const [chosenEmoji, setChosenEmoji] = useState<IEmojiData | null>();
+  const [chosenEmoji, setChosenEmoji] = useState<string | null>();
   const [color, setColor] = useState(
     defaultValue ? defaultValue.color : '#fff'
   );
@@ -72,7 +72,7 @@ const BudgetForm: React.FC<BudgetFormProps> = ({
   const handleFormSubmit: SubmitHandler<Inputs> = (data) => {
     let returnValue: IBudget | IGoal;
     if (defaultValue && !defaultValue.icon && !chosenEmoji) return;
-    const icon = chosenEmoji ? chosenEmoji!.emoji : defaultValue!.icon;
+    const icon = chosenEmoji ? chosenEmoji! : defaultValue!.icon;
     if (type === 'budget') {
       returnValue = {
         type,
@@ -104,35 +104,43 @@ const BudgetForm: React.FC<BudgetFormProps> = ({
         <BudgetRadio type={type} onChange={setType} />
       </div>
       <div className='flex'>
-        <div className='w-11 mr-3'>
+        <div className='mr-3 w-11'>
           <label className='block mb-2'>
-            <div className='font-medium text-sm my-1 text-gray-600'>Icon</div>
+            <div className='my-1 text-sm font-medium text-gray-500'>Icon</div>
             <Popover>
               <Popover.Button
                 type='button'
                 className={`
+                border
+                block h-11 w-11 text-2xl font-medium items-center bg-gray-500/10 
+                rounded-md focus-within:outline-none focus-within:ring-2
+                focus-within:ring-slate-500 focus-within:ring-opacity-50 focus-within:border-slate-900
                 ${isSubmitted && !chosenEmoji && !defaultValue?.icon
-                    ? 'border-error'
-                    : 'border-transparent'
-                  }
-                block h-11 w-11 text-2xl font-medium items-center bg-indigo-100 rounded-md border-2 border-transparent focus:border-indigo-300 outline-none focus:outline-none`}
+                  ? 'border-error'
+                  : 'border-transparent'
+                }`}
               >
                 {chosenEmoji
-                  ? chosenEmoji.emoji
+                  ? chosenEmoji
                   : defaultValue
                     ? defaultValue.icon
                     : ''}
               </Popover.Button>
               <Popover.Panel className='absolute z-10'>
                 <EmojiPicker
-                  onEmojiClick={(e, emoji) => setChosenEmoji(emoji)}
-                  native
+                  onEmojiClick={(ed, emoji) => setChosenEmoji(ed.emoji)}
+                  emojiStyle={EmojiStyle.NATIVE}
+                  width={275}
+                  height={325}
+                  previewConfig={{
+                    showPreview: false
+                  }}
                 />
               </Popover.Panel>
             </Popover>
           </label>
           <label className=''>
-            <div className='font-medium text-sm my-1 text-gray-600'>Color</div>
+            <div className='my-1 text-sm font-medium text-gray-500'>Color</div>
             <Popover>
               <Popover.Button
                 type='button'
@@ -175,13 +183,13 @@ const BudgetForm: React.FC<BudgetFormProps> = ({
                 value={endDateValue}
                 onChange={(e) => setValue('endDate', e.target.value)}
               />
-              <div className='font-medium text-sm my-1 text-gray-600 mt-1'>
+              <div className='my-1 mt-1 text-sm font-medium text-gray-600'>
                 Installment Type
               </div>
               <RadioGroup
                 value={installmentType}
                 onChange={setInstallmentType}
-                className='grid grid-cols-2 text-center text-sm font-medium focus:bg-black'
+                className='grid grid-cols-2 text-sm font-medium text-center focus:bg-black'
               >
                 <RadioGroup.Option
                   value='monthly'
@@ -213,10 +221,10 @@ const BudgetForm: React.FC<BudgetFormProps> = ({
           </div>
         </div>
       </div>
-      <div className='fixed bottom-4 inset-x-0 px-5'>
+      <div className='fixed inset-x-0 px-5 bottom-4'>
         <button
           type='submit'
-          className='font-medium w-full bg-indigo-600 text-white py-3 rounded-2xl shadow-md'
+          className='w-full py-3 font-medium text-white bg-indigo-600 shadow-md rounded-2xl'
         >
           {submitText}
         </button>

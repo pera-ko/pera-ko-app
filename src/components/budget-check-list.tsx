@@ -1,4 +1,4 @@
-import { CheckIcon } from '@heroicons/react/outline';
+import { CheckIcon } from '@heroicons/react/24/outline';
 import { IBudgetGoalData } from '../app/@types';
 import BudgetList from './budget-list';
 
@@ -46,7 +46,7 @@ export default function BudgetCheckList({
             >
               {isSelected && (
                 <CheckIcon
-                  className='h-6 w-6 absolute'
+                  className='absolute w-6 h-6'
                   style={{ top: '1px', left: '1px' }}
                 />
               )}

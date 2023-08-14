@@ -1,14 +1,14 @@
 import { Dialog, Transition } from '@headlessui/react';
 import shallow from 'zustand/shallow';
-import { ArrowLeftIcon } from '@heroicons/react/outline';
 import { useHistory, useParams } from 'react-router-dom';
 import useStore from '../app/store';
 import TransactionForm from '../components/transaction-form';
 import { useTransactionStore } from '../app/store';
-import { useQuery } from '../app/hooks';
+import { useLocQuery } from '../app/hooks';
 import toast from 'react-hot-toast';
 import { money } from '../app/utils';
 import { Fragment } from 'react';
+import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 
 export default function NewTransaction() {
   const { year, month } = useParams<{ year: string; month: string }>();
@@ -20,7 +20,7 @@ export default function NewTransaction() {
     shallow
   );
   const history = useHistory();
-  const query = useQuery();
+  const query = useLocQuery();
   const { addTransaction, getTotalOfBudget } = useTransactionStore(
     +year,
     +month
@@ -55,7 +55,7 @@ export default function NewTransaction() {
             leaveFrom='opacity-100'
             leaveTo='opacity-0'
           >
-            <Dialog.Overlay className='bg-black bg-opacity-50 fixed inset-0' />
+            <Dialog.Overlay className='fixed inset-0 bg-black bg-opacity-50' />
           </Transition.Child>
           {/* This element is to trick the browser into centering the modal contents. */}
           <span
@@ -73,13 +73,13 @@ export default function NewTransaction() {
             leaveFrom='opacity-100 transform translate-y-0'
             leaveTo='opacity-0 transform translate-y-full'
           >
-            <div className='fixed bottom-0 inset-x-0 overflow-hidden transition-all transform bg-white shadow-xl rounded-t-2xl'>
-              <div className='sticky h- top-0 bg-white flex items-center font-medium rounded-t-5xl'>
+            <div className='fixed inset-x-0 bottom-0 overflow-hidden transition-all transform shadow-xl bg-slate-100 dark:bg-zinc-900 rounded-t-2xl'>
+              <div className='sticky top-0 flex items-center font-medium transition-all dark:bg-zinc-900 rounded-t-2xl'>
                 <button
                   className='p-5 outline-none focus:outline-none'
                   onClick={() => history.goBack()}
                 >
-                  <ArrowLeftIcon className='h-6 w-6' />
+                  <ArrowLeftIcon className='w-6 h-6' />
                 </button>
                 <Dialog.Title>New Transaction</Dialog.Title>
               </div>
@@ -108,14 +108,14 @@ export default function NewTransaction() {
     //   as='div'
 
     // >
-    //   <Dialog.Overlay className='bg-black bg-opacity-75 inset-0 fixed' />
-    //   <div className='bg-white fixed inset-x-0 bottom-0 rounded-t-5xl pt-1'>
-    //     <div className='sticky h- top-0 bg-white flex items-center font-medium rounded-t-5xl'>
+    //   <Dialog.Overlay className='fixed inset-0 bg-black bg-opacity-75' />
+    //   <div className='fixed inset-x-0 bottom-0 pt-1 bg-white rounded-t-5xl'>
+    //     <div className='sticky top-0 flex items-center font-medium bg-white h- rounded-t-5xl'>
     //       <button
     //         className='p-5 outline-none focus:outline-none'
     //         onClick={() => history.goBack()}
     //       >
-    //         <ArrowLeftIcon className='h-6 w-6' />
+    //         <ArrowLeftIcon className='w-6 h-6' />
     //       </button>
     //       <Dialog.Title>New Transaction</Dialog.Title>
     //     </div>

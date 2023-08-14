@@ -1,5 +1,5 @@
 import { Transition } from '@headlessui/react';
-import { PencilIcon, SwitchHorizontalIcon } from '@heroicons/react/outline';
+import { PencilIcon, ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
 import { Fragment } from 'react';
 import { Route, useHistory, useParams, useRouteMatch } from 'react-router';
 import { Link } from 'react-router-dom';
@@ -41,15 +41,15 @@ const WalletDetails = () => {
   return (
     <>
       <ModalFull isOpen={isOpen} title='Wallet' onClose={handleClose}>
-        <div className='sticky top-16 bg-white'>
-          <div className='px-5 pb-5 mt-2 shadow-md text-center'>
-            <h3 className='text-xl flex-1'>{selectedWallet?.walletName}</h3>
-            <h1 className='text-2xl flex-1 mt-3'>{money(balance)}</h1>
-            <div className='font-medium text-sm text-gray-500'>
+        <div className='sticky bg-white top-16'>
+          <div className='px-5 pb-5 mt-2 text-center shadow-md'>
+            <h3 className='flex-1 text-xl'>{selectedWallet?.walletName}</h3>
+            <h1 className='flex-1 mt-3 text-2xl'>{money(balance)}</h1>
+            <div className='text-sm font-medium text-gray-500'>
               Available Balance
             </div>
           </div>
-          <div className='font-medium p-5 bg-gray-50 shadow-inner'>
+          <div className='p-5 font-medium shadow-inner bg-gray-50'>
             Transaction History for {longMonths[+month - 1]}
           </div>
         </div>
@@ -68,10 +68,10 @@ const WalletDetails = () => {
               className={`bottom-5 inset-x-5 bg-gray-700 text-white fixed px-4 flex justify-evenly rounded shadow-md z-10`}
             >
               <Link to={`${route?.url}/transfer`} className='p-3'>
-                <SwitchHorizontalIcon className='h-6 w-6' />
+                <ArrowsRightLeftIcon className='w-6 h-6' />
               </Link>
               <Link to={`${route?.url}/edit`} className='p-3'>
-                <PencilIcon className='h-6 w-6' />
+                <PencilIcon className='w-6 h-6' />
               </Link>
             </div>
           </Transition.Child>

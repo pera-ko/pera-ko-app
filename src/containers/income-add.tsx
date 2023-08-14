@@ -1,5 +1,5 @@
 import { Dialog } from '@headlessui/react';
-import { ArrowLeftIcon } from '@heroicons/react/outline';
+import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import { useHistory, useParams } from 'react-router-dom';
 import { getDefaultWallet, useTransactionStore } from '../app/store';
 import IncomeForm from '../components/income-form';
@@ -19,13 +19,13 @@ export default function IncomeAdd() {
       open
       onClose={() => history.goBack()}
       as='div'
-      className='fixed inset-0  overflow-y-auto'
+      className='fixed inset-0 overflow-y-auto'
     >
-      <Dialog.Overlay className='bg-black bg-opacity-75 inset-0 fixed' />
-      <div className='bg-white fixed inset-x-0 bottom-0 rounded-t-5xl'>
-        <div className='sticky h- top-0 bg-white flex items-center font-medium rounded-t-5xl'>
+      <Dialog.Overlay className='fixed inset-0 bg-black bg-opacity-75' />
+      <div className='fixed inset-x-0 bottom-0 bg-white rounded-t-5xl'>
+        <div className='sticky top-0 flex items-center font-medium bg-white h- rounded-t-5xl'>
           <button className='p-5' onClick={() => history.goBack()}>
-            <ArrowLeftIcon className='h-6 w-6' />
+            <ArrowLeftIcon className='w-6 h-6' />
           </button>
           <Dialog.Title>New Income</Dialog.Title>
         </div>

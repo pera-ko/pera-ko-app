@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import { IBudget, IGoal } from '../app/@types';
 import { money } from '../app/utils';
 import BudgetIcon from './budget-icon';
 
-const BudgetListComponent: React.FC = ({ children }) => {
+const BudgetListComponent: React.FC<PropsWithChildren> = ({ children }) => {
   return <ul>{children}</ul>;
 };
 
-interface ItemProps {
+interface ItemProps extends PropsWithChildren {
   value: IBudget | IGoal;
   showAmount?: boolean;
   onClick?(value: IBudget | IGoal): void;
@@ -29,12 +29,12 @@ const BudgetListItem: React.FC<ItemProps> = ({
         className='w-full outline-none focus:outline-none'
         onClick={() => handleItemClick(value)}
       >
-        <div className='flex justify-between items-center text-left'>
+        <div className='flex items-center justify-between text-left'>
           <div className='flex items-center'>
             <BudgetIcon budget={value} />
             <div>
-              <span className='font-medium text-sm'>{value.budgetName}</span>
-              <div className='text-xs font-medium text-gray-600 leading-3'>
+              <span className='text-sm font-medium'>{value.budgetName}</span>
+              <div className='text-xs font-medium leading-3 text-gray-600'>
                 {money(value.amount)}
               </div>
             </div>

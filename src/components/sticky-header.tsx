@@ -1,6 +1,8 @@
-const StickyHeader: React.FC = ({ children }) => {
+import { PropsWithChildren } from "react";
+
+const StickyHeader: React.FC<PropsWithChildren> = ({ children }) => {
   return (
-    <div className='bg-gray-200 px-5 py-2 text-sm sticky top-16 font-medium flex justify-between'>
+    <div className='sticky flex justify-between px-5 py-2 text-sm font-medium bg-gray-200 dark:bg-zinc-900 top-16'>
       {children}
     </div>
   );

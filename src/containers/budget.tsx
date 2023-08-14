@@ -1,11 +1,11 @@
-import { ClipboardCheckIcon, ViewGridIcon } from '@heroicons/react/outline';
+import { ClipboardDocumentCheckIcon, Squares2X2Icon } from '@heroicons/react/24/outline';
 import { Fragment, useState } from 'react';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { IBudgetGoalData } from '../app/@types';
 import { BottomNav } from './App';
 import BudgetCheckList from '../components/budget-check-list';
 import BudgetGrid from '../components/widgets/budget-grid';
-import { useQuery } from '../app/hooks';
+import { useLocQuery } from '../app/hooks';
 import useStore, {
   getEffectiveBudget,
   useTransactionStore
@@ -17,7 +17,7 @@ const Budget: React.FC = () => {
   const { year, month } = useParams<{ year: string; month: string }>();
   const location = useLocation();
   const history = useHistory();
-  const query = useQuery();
+  const query = useLocQuery();
   const [selectedItems, setSelectedItems] = useState<IBudgetGoalData[]>([]);
   const addTransaction = useTransactionStore(
     +year,
@@ -65,26 +65,26 @@ const Budget: React.FC = () => {
   }
   return (
     <Fragment>
-      <div className='sticky top-0 px-6 py-5 flex justify-between items-center bg-white z-auto'>
+      <div className='sticky top-0 z-auto flex items-center justify-between px-6 py-5 bg-inherit'>
         <div className='font-medium'>Select a budget</div>
         <div>
           <button
-            className={`px-3 py-2 border rounded-l-xl outline-none focus:outline-none border-indigo-400 ${isQuickAdd
+            className={`px-3 py-2 border rounded-l-xl outline-none focus:outline-none border-indigo-600 ${isQuickAdd
                 ? 'rounded-r-none text-indigo-400'
-                : 'bg-indigo-400 text-white'
+                : 'bg-indigo-600 text-white'
               }`}
             onClick={() => handleViewChange('grid')}
           >
-            <ViewGridIcon className='h-6 w-6' />
+            <Squares2X2Icon className='w-6 h-6' />
           </button>
           <button
-            className={`px-3 py-2 border rounded-r-xl outline-none focus:outline-none border-indigo-400 ${!isQuickAdd
-                ? 'text-indigo-400 rounded-l-none'
-                : 'bg-indigo-400 text-white'
+            className={`px-3 py-2 border rounded-r-xl outline-none focus:outline-none border-indigo-600 ${!isQuickAdd
+                ? 'text-indigo-600 rounded-l-none'
+                : 'bg-indigo-600 text-white'
               }`}
             onClick={() => handleViewChange('quickadd')}
           >
-            <ClipboardCheckIcon className='h-6 w-6' />
+            <ClipboardDocumentCheckIcon className='w-6 h-6' />
           </button>
         </div>
       </div>
@@ -106,9 +106,9 @@ const Budget: React.FC = () => {
         </BudgetGrid>
       )}
       {isQuickAdd && selectedItems.length > 0 ? (
-        <div className='fixed inset-x-0 bottom-0 text-center pb-6'>
+        <div className='fixed inset-x-0 bottom-0 pb-6 text-center'>
           <button
-            className='bg-indigo-600 text-white rounded-full px-4 py-3 shadow-md text-sm'
+            className='px-4 py-3 text-sm text-white bg-indigo-600 rounded-full shadow-md'
             onClick={handleQuickAddClick}
           >
             Add&nbsp;

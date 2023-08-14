@@ -1,6 +1,6 @@
 import { Listbox } from '@headlessui/react';
-import { SelectorIcon } from '@heroicons/react/outline';
-import { ExclamationIcon } from '@heroicons/react/solid';
+import { ChevronUpDownIcon } from '@heroicons/react/24/outline';
+import { ExclamationTriangleIcon } from '@heroicons/react/24/solid';
 import { Fragment, useState } from 'react';
 import { usePopper } from 'react-popper';
 import { IBudgetGoalData } from '../app/@types';
@@ -36,7 +36,7 @@ export default function SelectBudget({
       <div className='relative mt-1' ref={setReferenceElement}>
         <Listbox.Button
           className={`flex items-center outline-none focus:outline-none ${
-            !value && 'py-2 pl-3 pr-10 bg-indigo-50'
+            !value && 'py-2 pl-3 pr-10  bg-gray-500/10'
           } border-2 border-transparent relative w-full text-left  rounded-lg`}
         >
           {value ? (
@@ -44,24 +44,24 @@ export default function SelectBudget({
               <BudgetIcon className='ml-0' budget={value} size='large' />
               {progress && progressPercent ? (
                 <div className='flex-1 pr-8'>
-                  <div className='flex justify-between items-center'>
-                    <span className='font-medium text-sm'>
+                  <div className='flex items-center justify-between'>
+                    <span className='text-sm font-medium'>
                       {value.budgetName}
                     </span>
                     <div
-                      className={`flex items-center text-xs font-medium text-gray-600 text-right ${
+                      className={`flex items-center text-xs font-medium  text-right ${
                         progress.value > value.amount ? '' : ''
                       }`}
                     >
                       {progress.value > value.amount && (
-                        <ExclamationIcon className='h-4 w-4 inline-block mr-1 text-red-700' />
+                        <ExclamationTriangleIcon className='inline-block w-4 h-4 mr-1 text-red-700' />
                       )}
                       {formatCurrency(progress.value)} /{' '}
                       {formatCurrency(value.amount)}
                     </div>
                   </div>
                   <div
-                    className='mt-1 h-3 rounded shadow-inner'
+                    className='h-3 mt-1 rounded shadow-inner'
                     style={{ backgroundColor: hexToRGB('#000000', 0.05) }}
                   >
                     <div
@@ -76,10 +76,10 @@ export default function SelectBudget({
                 </div>
               ) : (
                 <div>
-                  <span className='font-medium text-sm'>
+                  <span className='text-sm font-medium'>
                     {value.budgetName}
                   </span>
-                  <div className='text-xs font-medium text-gray-600'>
+                  <div className='text-xs font-medium text-gray-500'>
                     {money(value.amount)}
                   </div>
                 </div>
@@ -95,16 +95,16 @@ export default function SelectBudget({
             </Fragment>
           )}
           <span className='absolute inset-y-0 right-0 flex items-center pr-1 pointer-events-none'>
-            <SelectorIcon
-              className='w-6 h-6 text-gray-400'
+            <ChevronUpDownIcon
+              className='w-6 h-6'
               aria-hidden='true'
             />
           </span>
         </Listbox.Button>
 
         <Listbox.Options
-          className='bg-white shadow-md absolute w-full rounded outline-none focus:outline-none overflow-y-auto max-h-60'
-          ref={setPopperElement}
+          className='absolute w-full overflow-y-auto bg-white rounded shadow-md outline-none dark:bg-zinc-800 focus:outline-none max-h-60'
+          // ref={setPopperElement} TODO:
           style={styles.popper}
           {...attributes.popper}
         >
@@ -115,14 +115,14 @@ export default function SelectBudget({
               className={({ active }) =>
                 `${
                   active
-                    ? 'flex bg-indigo-50 items-center'
+                    ? 'flex  items-center'
                     : 'flex items-center'
                 }`
               }
             >
               <BudgetIcon budget={b} />
               <div>
-                <span className='font-medium text-sm'>{b.budgetName}</span>
+                <span className='text-sm font-medium'>{b.budgetName}</span>
                 <div className='text-xs font-medium text-gray-600'>
                   {money(b.amount)}
                 </div>

@@ -16,8 +16,8 @@ const BudgetRadio: React.FC<BudgetRadioProps> = ({ type, onChange }) => {
       <RadioGroup.Option value='budget' as={Fragment}>
         {({ checked }) => (
           <span
-            className={`px-3 py-2 border rounded-l-full outline-none focus:outline-none text-gray-600 ${
-              !checked ? '' : 'bg-indigo-100 text-indigo-500'
+            className={`px-3 py-2 border rounded-l-full outline-none focus:outline-none border-indigo-600 ${
+              !checked ? ' ' : 'bg-indigo-600 text-white'
             }`}
           >
             Budget
@@ -27,8 +27,8 @@ const BudgetRadio: React.FC<BudgetRadioProps> = ({ type, onChange }) => {
       <RadioGroup.Option value='goal' as={Fragment}>
         {({ checked }) => (
           <span
-            className={`px-3 py-2 border rounded-r-full outline-none focus:outline-none text-gray-600 ${
-              !checked ? '' : 'bg-indigo-100 text-indigo-500'
+            className={`px-3 py-2 border rounded-r-full outline-none focus:outline-none border-indigo-600 ${
+              !checked ? '' : 'bg-indigo-600 text-white'
             }`}
           >
             Goal
