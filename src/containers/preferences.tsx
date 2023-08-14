@@ -4,20 +4,21 @@ import {
   ChevronRightIcon,
   CreditCardIcon
 } from '@heroicons/react/24/outline';
-import React, { Fragment, useState } from 'react';
+import React, { Fragment } from 'react';
 import { useHistory, useRouteMatch } from 'react-router';
 import { Link } from 'react-router-dom';
 import BudgetList from '../components/budget-list';
 import OptionSwitch from '../components/option-switch';
 import StickyHeader from '../components/sticky-header';
 import useStore from '../app/store';
+import { useLocalStorage } from '../app/hooks';
 
 const Preferences: React.FC = () => {
   const route = useRouteMatch('/:year/:month/preferences');
   const history = useHistory();
   const budgetList = useStore((state) => state.budget.list);
   const walletList = useStore((state) => state.wallet.list);
-
+  const [newDashboard, setNewDashboard] = useLocalStorage('expenses-dashboard', false);
   const isOpen = route ? true : false;
 
   return (
@@ -42,19 +43,29 @@ const Preferences: React.FC = () => {
               </button>
               Settings
             </div>
-            {false ? <GeneralSettings/> : null}
+            <StickyHeader>
+              General
+            </StickyHeader>
+            <div className='mt-4'>
+              <OptionSwitch
+                checked={newDashboard}
+                title='Expenses Dashboard'
+                description='Use the new dashboard that only displays expenses for the month'
+                onChange={setNewDashboard}
+                />
+            </div>
             <StickyHeader>
               Wallets
               <Link to={`${route?.url}/newwallet`} className='text-link'>
                 ADD
               </Link>
             </StickyHeader>
-            <ul>
+            <ul className='bg-white dark:bg-dark'>
               {Object.values(walletList)
                 .filter((w) => !w.isDeleted)
                 .map((wallet) => {
                   return (
-                    <li key={wallet.id}>
+                    <li key={wallet.id} >
                       <Link
                         to={`${route?.url}/wallet/${wallet.id}`}
                         className='flex items-center justify-between px-5 py-3'
@@ -92,38 +103,24 @@ const Preferences: React.FC = () => {
                 </BudgetList.Item>
               ))}
             </BudgetList>
+            <BudgetList>
+              {budgetList.map((item) => (
+                <BudgetList.Item
+                  key={item.id}
+                  value={item}
+                  onClick={() =>
+                    history.push(`${route?.url}/budget/${item.id}`)
+                  }
+                >
+                  <ChevronRightIcon className='w-6 h-6 mr-5' />
+                </BudgetList.Item>
+              ))}
+            </BudgetList>
           </div>
         </Transition.Child>
       </div>
     </Transition>
   );
 };
-
-const GeneralSettings = () => {
-  const [enableSuggestions, setEnableSuggestions] = useState(true);
-  const [maskIncome, setMaskIncome] = useState(false);
-  
-  return (
-    <>
-      <StickyHeader>
-        General
-      </StickyHeader>
-      <div className='mt-2'>
-        <OptionSwitch
-          checked={enableSuggestions}
-          title='New Dashboard'
-          description='Use the new customizable dashboard'
-          onChange={setEnableSuggestions}
-          />
-        <OptionSwitch
-          checked={maskIncome}
-          title='Mask Income and Balance'
-          description="Hides the amount of income and balance with masking it with '?'"
-          onChange={setMaskIncome}
-          />
-      </div>
-    </>
-  )
-}
 
 export default Preferences;

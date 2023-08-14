@@ -1,11 +1,15 @@
 import { PropsWithChildren } from "react"
-import OverviewPie from "../components/widgets/charts/overview-pie"
+import TotalExpenses from "../components/widgets/total-expenses"
+import Navbar from "../components/navbar"
+import NewTransaction from "./new-transaction"
 
 const Dashboard2 : React.FC<PropsWithChildren> = ({ children }) => {
   return (
     <>
-      <OverviewPie/>
+      <Navbar/>
+      <TotalExpenses/>
       {children}
+      <NewTransaction />
     </>
   )
 }

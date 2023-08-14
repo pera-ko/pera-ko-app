@@ -9,11 +9,22 @@ import {
   HomeIcon,
   PlusIcon,
 } from '@heroicons/react/24/outline';
-import { useLocQuery } from '../app/hooks';
+import { useLocQuery, useLocalStorage } from '../app/hooks';
 import { Fragment, PropsWithChildren } from 'react';
 import Dashboard from './dashboard';
+import Dashboard2 from './dashboard2';
 
 const App: React.FC<PropsWithChildren> = ({ children }) => {
+  const [newDashboard] = useLocalStorage('expenses-dashboard', false);
+  
+  if (newDashboard) {
+    return (
+      <Dashboard2>
+        {children}
+      </Dashboard2>
+    )
+  }
+
   return (
     <Dashboard>
       {children}
