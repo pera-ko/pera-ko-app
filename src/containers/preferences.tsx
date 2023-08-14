@@ -103,19 +103,6 @@ const Preferences: React.FC = () => {
                 </BudgetList.Item>
               ))}
             </BudgetList>
-            <BudgetList>
-              {budgetList.map((item) => (
-                <BudgetList.Item
-                  key={item.id}
-                  value={item}
-                  onClick={() =>
-                    history.push(`${route?.url}/budget/${item.id}`)
-                  }
-                >
-                  <ChevronRightIcon className='w-6 h-6 mr-5' />
-                </BudgetList.Item>
-              ))}
-            </BudgetList>
           </div>
         </Transition.Child>
       </div>
