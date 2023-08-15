@@ -31,7 +31,9 @@ const BudgetListItem: React.FC<ItemProps> = ({
       >
         <div className='flex items-center justify-between text-left'>
           <div className='flex items-center'>
-            <BudgetIcon budget={value} />
+            <div className='mx-3'>
+              <BudgetIcon budget={value} />
+            </div>
             <div>
               <span className='text-sm font-medium'>{value.budgetName}</span>
               <div className='text-xs font-medium leading-3 text-gray-600'>
