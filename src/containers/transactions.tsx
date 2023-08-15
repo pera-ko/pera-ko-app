@@ -1,4 +1,4 @@
-import { ArrowLeftIcon } from '@heroicons/react/24/outline';
+import { ArrowLeftIcon, EllipsisVerticalIcon } from '@heroicons/react/24/outline';
 import React, { Fragment } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
@@ -32,10 +32,15 @@ export default function Transactions() {
   return (
     <Fragment>
       <div className='sticky top-0 flex items-center font-medium bg-white dark:bg-dark'>
-        <Link to={`/${year}/${month}`} className='p-5'>
-          <ArrowLeftIcon className='w-6 h-6' />
-        </Link>
-        Expenses
+        <div className='flex items-center flex-1'>
+          <Link to={`/${year}/${month}`} className='p-5'>
+            <ArrowLeftIcon className='w-6 h-6' />
+          </Link>
+          Expenses
+        </div>
+        {/* <Link to={`/${year}/${month}/expenses/export`} className='p-5'>
+          <EllipsisVerticalIcon className='w-6 h-6' />
+        </Link> */}
       </div>
       <ul>
         {sortedList.map((t, index) => {
@@ -46,7 +51,8 @@ export default function Transactions() {
           if (lastDate !== currentDate) {
             var desc = dayjs(currentDate).calendar(undefined, {
               sameDay: '[Today]',
-              lastDay: '[Yesterday]'
+              lastDay: '[Yesterday]',
+              lastWeek: '[Last] dddd'
             });
             retVal.push(
               <li
