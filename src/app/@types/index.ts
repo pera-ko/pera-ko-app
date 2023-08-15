@@ -30,6 +30,7 @@ export interface IGoal {
 
 export interface IWallet {
   walletName: string
+  type: "credit-card" | "e-wallet" | "cash"
 }
 
 export interface IIncome {

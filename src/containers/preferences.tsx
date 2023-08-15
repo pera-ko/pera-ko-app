@@ -20,7 +20,7 @@ const Preferences: React.FC = () => {
   const walletList = useStore((state) => state.wallet.list);
   const {value: newDashboard, setValue: setNewDashboard } = useLocalStorage('expenses-dashboard', false);
   const isOpen = route ? true : false;
-
+  
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <div className='fixed inset-0 overflow-y-auto bg-white dark:bg-[#242424]'>
@@ -55,7 +55,7 @@ const Preferences: React.FC = () => {
                 />
             </div>
             <StickyHeader>
-              Wallets
+              Payment Methods
               <Link to={`${route?.url}/newwallet`} className='text-link'>
                 ADD
               </Link>
@@ -67,7 +67,7 @@ const Preferences: React.FC = () => {
                   return (
                     <li key={wallet.id} >
                       <Link
-                        to={`${route?.url}/wallet/${wallet.id}`}
+                        to={`${route?.url}/wallet/${wallet.id}/edit`}
                         className='flex items-center justify-between px-5 py-3'
                       >
                         <div className='pr-5 text-2xl'>

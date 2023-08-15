@@ -17,21 +17,21 @@ interface IStoreState {
     selected: string,
     setDefaultWallet: (wallet: IWalletData) => void,
     getDefaultWallet: () => IWalletData,
-    createWallet: (name: string) => void,
+    createWallet: (name: string, type: "credit-card" | "e-wallet" | "cash") => void,
     updateWallet: (wallet: IWalletData) => void,
     deleteWallet: (wallet: IWalletData) => void,
     undoDeleteWallet: (wallet: IWalletData) => void
   },
   budget: {
-    list: (IGoalData | IBudgetData) [],
-    getEffectiveBudget: (year: number, month: number) => (IGoalData | IBudgetData) [],
+    list: (IGoalData | IBudgetData)[],
+    getEffectiveBudget: (year: number, month: number) => (IGoalData | IBudgetData)[],
     createBudget: (value: IGoal | IBudget) => void,
     updateBudget: (id: string, value: IGoal | IBudget) => void,
     deleteBudget: (id: string) => void,
   }
 }
 
-export interface ITransaction { 
+export interface ITransaction {
   type: undefined;
   budgetId: string;
   walletId: string;
@@ -39,13 +39,13 @@ export interface ITransaction {
   tranDate: string;
   remarks?: string;
 }
-export interface ITransferTransaction { 
+export interface ITransferTransaction {
   type: 'transfer';
   walletFromId: string;
   walletToId: string;
   amount: number;
   tranDate: string;
-  remarks?: string 
+  remarks?: string
 }
 
 export interface ITransactionStore {
@@ -55,7 +55,7 @@ export interface ITransactionStore {
   getTotalIncomeOfWallet: (walletId: string) => number;
   getTotalExpenses: () => number;
   getTotalExpensesOfWallet: (walletId: string) => number;
-  getTotalOfEachBudget: () => {name: string, value: number}[];
+  getTotalOfEachBudget: () => { name: string, value: number }[];
   getTotalOfBudget: (budgetId: string) => number;
   addTransaction: (budgetId: string, walletId: string, amount: number, remarks?: string) => void;
   addIncome: (walletId: string, amount: number, remarks?: string) => void;
@@ -67,12 +67,13 @@ const defaultWalletList: {
 } = {
   "default": {
     id: "default",
-    walletName: "Cash on Hand"
+    walletName: "Cash on Hand",
+    type: "cash"
   }
 }
 
 const useStore = create<IStoreState>(persist(
-  (set,get) => ({
+  (set, get) => ({
     wallet: {
       list: defaultWalletList,
       selected: "default",
@@ -86,18 +87,19 @@ const useStore = create<IStoreState>(persist(
           state.wallet.selected = wallet.id
         })
       },
-      createWallet: (name) => {
+      createWallet: (name, type) => {
         const newId = nanoid();
 
         const newWallet: IWalletData = {
           id: newId,
-          walletName: name
+          walletName: name,
+          type
         }
 
         set(state => {
           state.wallet.list = {
             ...state.wallet.list,
-            [newId] : newWallet
+            [newId]: newWallet
           }
         })
       },
@@ -105,7 +107,7 @@ const useStore = create<IStoreState>(persist(
         set(state => {
           state.wallet.list = {
             ...state.wallet.list,
-            [wallet.id] : wallet
+            [wallet.id]: wallet
           }
         })
       },
@@ -113,7 +115,7 @@ const useStore = create<IStoreState>(persist(
         set(state => {
           state.wallet.list = {
             ...state.wallet.list,
-            [wallet.id] : {
+            [wallet.id]: {
               ...wallet,
               isDeleted: true,
               deleteDate: new Date().toJSON()
@@ -125,7 +127,7 @@ const useStore = create<IStoreState>(persist(
         set(state => {
           state.wallet.list = {
             ...state.wallet.list,
-            [wallet.id] : {
+            [wallet.id]: {
               ...wallet,
               isDeleted: undefined,
               deleteDate: undefined
@@ -142,9 +144,9 @@ const useStore = create<IStoreState>(persist(
             return true;
           } else {
             const startDate = dayjs(b.startDate)
-            const endDate = !b.endDate ? 
-                                dayjs() : 
-                                (b.endDate === "1970-01-01T00:00:00.000Z" ? dayjs() : dayjs(b.endDate))
+            const endDate = !b.endDate ?
+              dayjs() :
+              (b.endDate === "1970-01-01T00:00:00.000Z" ? dayjs() : dayjs(b.endDate))
             return dayjs(`${year}-${month}-01`).isBetween(startDate, endDate, 'day', '[]')
           }
         })
@@ -176,19 +178,20 @@ const useStore = create<IStoreState>(persist(
           state.budget.list = get().budget.list.filter(b => b.id !== id)
         })
       }
-    }}),
-    {
-      name: "perako-budget",
-      getStorage: () => IndexedDBStorage
     }
+  }),
+  {
+    name: "perako-budget",
+    getStorage: () => IndexedDBStorage
+  }
 ))
 
 export const { getEffectiveBudget, createBudget, updateBudget, deleteBudget } = useStore.getState().budget
 export const { getDefaultWallet, setDefaultWallet, createWallet, updateWallet, deleteWallet, undoDeleteWallet } = useStore.getState().wallet
 
 const transactionStore: {
-  [year: number] : {
-    [month: number] : UseStore<ITransactionStore>
+  [year: number]: {
+    [month: number]: UseStore<ITransactionStore>
   }
 } = {}
 
@@ -204,8 +207,8 @@ export const useTransactionStore = (year: number, month: number) => {
 
         ],
         list: [],
-        getGrandTotalIncome: () => get().incomeList.filter(t => t.type !== "transfer").reduce((x, y) => Number(x) + Number(y.amount),0),
-        getTotalIncomeOfWallet: (walletId) => get().incomeList.filter(i => i.walletId === walletId).reduce((x, y) => Number(x) + Number(y.amount),0),
+        getGrandTotalIncome: () => get().incomeList.filter(t => t.type !== "transfer").reduce((x, y) => Number(x) + Number(y.amount), 0),
+        getTotalIncomeOfWallet: (walletId) => get().incomeList.filter(i => i.walletId === walletId).reduce((x, y) => Number(x) + Number(y.amount), 0),
         getTotalExpenses: () => get().list.filter(t => t.type !== "transfer").reduce((x, y) => Number(x) + Number(y.amount), 0),
         getTotalExpensesOfWallet: (walletId: string) => get().list.filter(t => {
           if (t.type === "transfer") {
@@ -216,12 +219,12 @@ export const useTransactionStore = (year: number, month: number) => {
         }).reduce((x, y) => Number(x) + Number(y.amount), 0),
         getTotalOfEachBudget: () => {
           let retval: { name: string, value: number }[] = [];
-          
+
           get().list.forEach(tran => {
             if (tran.type === undefined) {
               var g = retval.find(x => x.name === tran.budgetId)
               if (!g) {
-                retval.push({name: tran.budgetId, value: Number(tran.amount)})
+                retval.push({ name: tran.budgetId, value: Number(tran.amount) })
               } else {
                 g.value += Number(tran.amount);
               }
@@ -263,7 +266,7 @@ export const useTransactionStore = (year: number, month: number) => {
               walletId: walletToId
             })
           })
-          
+
         }
       }),
       {

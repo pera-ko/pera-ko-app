@@ -20,16 +20,17 @@ const WalletEditor = () => {
   const defaultValue = editRoute ? walletList[editRoute.params.id] : undefined;
 
   const handleClose = () => history.goBack();
-  const handleSubmit = (wallet: { walletName: string }) => {
+  const handleSubmit = (wallet: { walletName: string, type: "credit-card" | "e-wallet" | "cash" }) => {
     if (route) {
       // add
-      createWallet(wallet.walletName);
+      createWallet(wallet.walletName, wallet.type);
     } else {
       // edit
       if (defaultValue) {
         updateWallet({
           id: defaultValue.id,
-          walletName: wallet.walletName
+          walletName: wallet.walletName,
+          type: wallet.type
         });
       }
     }
@@ -43,7 +44,7 @@ const WalletEditor = () => {
         <span className='flex items-center space-x-3'>
           <span>{defaultValue.walletName} has been deleted.</span>
           <button
-            className='uppercase font-medium text-sm text-indigo-600'
+            className='text-sm font-medium text-indigo-600 uppercase'
             onClick={() => {
               undoDeleteWallet(defaultValue);
               toast.dismiss(t.id);
@@ -61,12 +62,12 @@ const WalletEditor = () => {
     {
       type: 'submit',
       form: 'wallet-form',
-      text: route ? 'Add Wallet' : 'Update',
+      text: 'Save',
       className:
         'inline-flex justify-center px-4 py-2 text-sm font-medium bg-indigo-900 text-indigo-100 border border-transparent rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500'
     }
   ];
-  if (editRoute) {
+  if (defaultValue?.id !== "default" && editRoute) {
     dialogButtons = [
       {
         type: 'button',
@@ -84,13 +85,14 @@ const WalletEditor = () => {
     <Dialog
       isOpen={isOpen}
       onClose={handleClose}
-      title={route ? 'New Wallet' : 'Edit Wallet'}
+      title={route ? 'Add Payment Method' : 'Update Payment Method'}
       buttons={dialogButtons}
     >
       <WalletForm
         id='wallet-form'
         defaultValue={defaultValue}
         onSubmit={handleSubmit}
+        isDefault={defaultValue?.id === "default"}
       />
     </Dialog>
   );

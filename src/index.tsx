@@ -17,7 +17,6 @@ import Preferences from './containers/preferences';
 import BudgetNew from './containers/budget-new';
 import WalletEditor from './containers/wallet-editor';
 import { Toaster } from 'react-hot-toast';
-import WalletDetails from './containers/wallet-details';
 
 const DefaultRoute = () => {
   const dateNow = new Date();
@@ -45,7 +44,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
             <Preferences />
             <BudgetNew />
             <WalletEditor />
-            <WalletDetails />
+            {/* <WalletDetails /> */}
           </App>
         </Route>
         <NotFound />
