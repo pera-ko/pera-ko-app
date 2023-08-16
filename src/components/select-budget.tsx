@@ -96,7 +96,7 @@ export default function SelectBudget({
         </Listbox.Button>
 
         <Listbox.Options
-          className='absolute w-full overflow-y-auto bg-white rounded shadow-md outline-none dark:bg-zinc-800 focus:outline-none max-h-60'
+          className='absolute w-full overflow-y-auto bg-white rounded shadow-md outline-none dark:bg-zinc-900 focus:outline-none max-h-60'
           
         >
           {items.map((b) => (
