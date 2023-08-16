@@ -9,6 +9,7 @@ import { Fragment } from 'react';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import useBudgetStore from '../app/store/budget-store';
 import useTransactionStore from '../app/store/transaction-store';
+import NavBar from '../components/navbar';
 
 export default function NewTransaction() {
   const { year, month } = useParams<{ year: string; month: string }>();
@@ -73,16 +74,15 @@ export default function NewTransaction() {
             leaveFrom='opacity-100 transform translate-y-0'
             leaveTo='opacity-0 transform translate-y-full'
           >
-            <div className='fixed inset-x-0 bottom-0 overflow-hidden transition-all transform shadow-xl bg-slate-100 dark:bg-zinc-900 rounded-t-2xl'>
-              <div className='sticky top-0 flex items-center font-medium transition-all dark:bg-zinc-900 rounded-t-2xl'>
-                <button
-                  className='p-5 outline-none focus:outline-none'
-                  onClick={() => history.goBack()}
-                >
-                  <ArrowLeftIcon className='w-6 h-6' />
-                </button>
-                <Dialog.Title>New Transaction</Dialog.Title>
-              </div>
+            <div className='fixed inset-x-0 bottom-0 overflow-hidden transition-all transform shadow-xl bg-slate-100 dark:bg-dark rounded-t-2xl'>
+              <NavBar
+                leftButton={{
+                  type: 'button',
+                  icon: ArrowLeftIcon,
+                  onClick: () => history.goBack()
+                }}
+                title='New Transaction'
+                />
               <TransactionForm
                 selectedBudget={selectedBudget}
                 budgetList={budgetListWithAmt}

@@ -12,6 +12,7 @@ import OptionSwitch from '../components/option-switch';
 import StickyHeader from '../components/sticky-header';
 import { useLocalStorage } from '../app/hooks';
 import useBudgetStore from '../app/store/budget-store';
+import NavBar from '../components/navbar';
 
 const Preferences: React.FC = () => {
   const route = useRouteMatch('/:year/:month/preferences');
@@ -34,15 +35,14 @@ const Preferences: React.FC = () => {
           leaveTo='opacity-0 transform translate-x-full'
         >
           <div className='top-0'>
-            <div className='sticky top-0 flex items-center text-lg font-medium bg-white dark:bg-dark'>
-              <button
-                className='p-5 outline-none focus:outline-none'
-                onClick={() => history.goBack()}
-              >
-                <ArrowLeftIcon className='w-6 h-6' />
-              </button>
-              Settings
-            </div>
+            <NavBar 
+              leftButton={{
+                type: "button",
+                icon: ArrowLeftIcon,
+                onClick: () => history.goBack()
+              }}
+              title='Settings'
+            />
             <StickyHeader>
               General
             </StickyHeader>

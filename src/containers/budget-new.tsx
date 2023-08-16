@@ -9,6 +9,7 @@ import {
   updateBudget,
   useBudgetStore
 } from '../app/store';
+import NavBar from '../components/navbar';
 
 export default function BudgetNew() {
   const route = useRouteMatch('/:year/:month/preferences/newbudget');
@@ -42,24 +43,21 @@ export default function BudgetNew() {
       open={isOpen}
       onClose={() => history.goBack()}
       as='div'
-      className='fixed inset-0 pb-20 overflow-y-auto bg-white dark:bg-zinc-900'
+      className='fixed inset-0 pb-20 overflow-y-auto bg-white dark:bg-dark'
     >
-      <div className='sticky top-0 flex items-center justify-between text-lg font-medium '>
-        <button
-          className='p-5 outline-none focus:outline-none'
-          onClick={() => history.goBack()}
-        >
-          <ArrowLeftIcon className='w-6 h-6' />
-        </button>
-        <Dialog.Title className='flex-1 text-left'>
-          {selectedBudget ? 'Update' : 'New'} Budget
-        </Dialog.Title>
-        {selectedBudget && (
-          <button className='p-5 text-error' onClick={handleDelete}>
-            <TrashIcon className='w-6 h-6 ' />
-          </button>
-        )}
-      </div>
+      <NavBar
+          leftButton={{
+            type: "button",
+            icon: ArrowLeftIcon,
+            onClick: () => history.goBack()
+          }}
+          title={`${selectedBudget ? 'Update' : 'New'} Budget`}
+          rightButton={{
+            type: "button",
+            icon: TrashIcon,
+            onClick: handleDelete
+          }}
+          />
       <div className='px-5 py-5'>
         <BudgetForm
           onSubmit={handleSubmit}

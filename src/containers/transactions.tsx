@@ -1,6 +1,6 @@
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import React, { Fragment } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
 import calendar from 'dayjs/plugin/calendar';
 import { ITransaction } from '../app/store';
@@ -9,6 +9,7 @@ import BudgetIcon from '../components/budget-icon';
 import shallow from 'zustand/shallow';
 import useTransactionStore from '../app/store/transaction-store';
 import useBudgetStore from '../app/store/budget-store';
+import NavBar from '../components/navbar';
 
 dayjs.extend(calendar);
 
@@ -33,17 +34,14 @@ export default function Transactions() {
   let lastDate: string | null = null;
   return (
     <Fragment>
-      <div className='sticky top-0 flex items-center font-medium bg-white dark:bg-dark'>
-        <div className='flex items-center flex-1'>
-          <Link to={`/${year}/${month}`} className='p-5'>
-            <ArrowLeftIcon className='w-6 h-6' />
-          </Link>
-          Expenses
-        </div>
-        {/* <Link to={`/${year}/${month}/expenses/export`} className='p-5'>
-          <EllipsisVerticalIcon className='w-6 h-6' />
-        </Link> */}
-      </div>
+      <NavBar
+        leftButton={{
+          type: "link",
+          icon: ArrowLeftIcon,
+          link: `/${year}/${month}`
+        }}
+        title='Expenses'
+        />
       <ul>
         {sortedList.map((t, index) => {
           var retVal: React.ReactElement[] = [];
