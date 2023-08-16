@@ -40,7 +40,7 @@ const WalletForm = ({ id, defaultValue, onSubmit, isDefault }: Props) => {
       walletNameInputRef.current.focus();
     }
 
-  }, [register]);
+  }, [register, defaultValue, isDefault]);
 
   const handleFormSubmit: SubmitHandler<Inputs> = (data) => {
     if (onSubmit) onSubmit(data);
