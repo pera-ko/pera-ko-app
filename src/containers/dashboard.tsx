@@ -1,7 +1,7 @@
 import { useParams, useRouteMatch } from "react-router";
 import { setDefaultWallet, useBudgetStore, useTransactionStore } from "../app/store";
 import shallow from "zustand/shallow";
-import Navbar from "../components/navbar";
+import AppBar from "../components/appbar";
 import { Cell, Pie, PieChart } from "recharts";
 import SelectWallet from "../components/select-wallet";
 import { money } from "../app/utils";
@@ -49,7 +49,7 @@ const Dashboard: React.FC<PropsWithChildren> = ({ children }) => {
         style={{ minHeight: '220px' }}
         className={`flex flex-col justify-between transition-all ease-in-out duration-150 bg-slate-200 dark:bg-[#1d1d1d]`}
       >
-        <Navbar />
+        <AppBar />
         <div className='flex items-center justify-between px-6'>
           <div className='flex-1 text-center'>
             <PieChart className='inline-block' width={125} height={100}>

@@ -3,7 +3,7 @@ import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import { shortMonths } from '../app/constants';
 
-export default function Navbar() {
+export default function AppBar() {
   const { year, month } = useParams<{ year: string; month: string }>();
 
   let nextMonth = +month + 1;

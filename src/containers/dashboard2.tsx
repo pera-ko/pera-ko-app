@@ -1,12 +1,12 @@
 import { PropsWithChildren } from "react"
 import TotalExpenses from "../components/widgets/total-expenses"
-import Navbar from "../components/navbar"
+import AppBar from "../components/appbar"
 import NewTransaction from "./new-transaction"
 
 const Dashboard2 : React.FC<PropsWithChildren> = ({ children }) => {
   return (
     <>
-      <Navbar/>
+      <AppBar/>
       <TotalExpenses/>
       {children}
       <NewTransaction />
