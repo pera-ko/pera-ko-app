@@ -1,12 +1,13 @@
 import { Dialog } from '@headlessui/react';
-import { ArrowLeftIcon, TrashIcon } from '@heroicons/react/outline';
+import { ArrowLeftIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { useHistory, useRouteMatch } from 'react-router';
 import { IBudget, IGoal } from '../app/@types';
 import BudgetForm from '../components/budget-form';
-import useStore, {
+import {
   createBudget,
   deleteBudget,
-  updateBudget
+  updateBudget,
+  useBudgetStore
 } from '../app/store';
 
 export default function BudgetNew() {
@@ -15,7 +16,7 @@ export default function BudgetNew() {
     '/:year/:month/preferences/budget/:id'
   );
   const history = useHistory();
-  const selectedBudget = useStore((state) =>
+  const selectedBudget = useBudgetStore((state) =>
     state.budget.list.find((b) => b.id === routeEdit?.params.id)
   );
   const handleSubmit = (value: IGoal | IBudget) => {
@@ -41,21 +42,21 @@ export default function BudgetNew() {
       open={isOpen}
       onClose={() => history.goBack()}
       as='div'
-      className='fixed inset-0 bg-white overflow-y-auto text-gray-800 pb-20'
+      className='fixed inset-0 pb-20 overflow-y-auto bg-white dark:bg-zinc-900'
     >
-      <div className='sticky top-0 bg-white flex justify-between items-center font-medium text-lg'>
+      <div className='sticky top-0 flex items-center justify-between text-lg font-medium '>
         <button
           className='p-5 outline-none focus:outline-none'
           onClick={() => history.goBack()}
         >
-          <ArrowLeftIcon className='h-6 w-6' />
+          <ArrowLeftIcon className='w-6 h-6' />
         </button>
-        <Dialog.Title className='text-left flex-1'>
+        <Dialog.Title className='flex-1 text-left'>
           {selectedBudget ? 'Update' : 'New'} Budget
         </Dialog.Title>
         {selectedBudget && (
           <button className='p-5 text-error' onClick={handleDelete}>
-            <TrashIcon className='h-6 w-6 ' />
+            <TrashIcon className='w-6 h-6 ' />
           </button>
         )}
       </div>

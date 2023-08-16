@@ -15,7 +15,7 @@ export default function BudgetIcon({
   let fontSize = size === 'normal' ? 'text-2xl' : 'text-3xl';
   return (
     <div
-      className={`${fontSize} mx-3 my-2 rounded-2xl text-center inline-block ${className}`}
+      className={`${fontSize} my-2 rounded-2xl text-center inline-block ${className}`}
       style={{
         backgroundColor: budget?.color,
         lineHeight: iconSize,

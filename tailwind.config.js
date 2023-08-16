@@ -1,24 +1,29 @@
-const colors = require('tailwindcss/colors')
-
+/** @type {import('tailwindcss').Config} */
 module.exports = {
-  purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
-  darkMode: false, // or 'media' or 'class'
+  content: [
+    "./src/**/*.{js,jsx,ts,tsx}",
+  ],
   theme: {
     extend: {
+      fontFamily: {
+        'money': ['Oswald, sans-serif']
+      },
       gridTemplateColumns: {
         'auto-fit-minmax-75px': 'repeat(auto-fit, minmax(75px, 1fr))',
       },
       colors: {
         'link': '#008CC8',
-        'error': '#B91C1C'
+        'error': '#B91C1C',
+        'dark': '#242424'
       },
       borderRadius: {
         '5xl': '3rem'
       }
     },
   },
-  variants: {
-    extend: {},
-  },
-  plugins: [],
+  plugins: [
+    require('cssnano')({
+      preset: 'default'
+    })
+  ],
 }

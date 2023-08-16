@@ -1,8 +1,10 @@
-import { useEffect, useRef } from 'react';
+import { Fragment, useEffect, useRef } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import InputGroup from './input-group';
+import { RadioGroup } from '@headlessui/react';
 
 interface Inputs {
+  type: "credit-card" | "e-wallet" | "cash";
   walletName: string;
 }
 
@@ -10,9 +12,10 @@ interface Props {
   id?: string;
   defaultValue?: Inputs;
   onSubmit?(value: { walletName: string }): void;
+  isDefault: boolean
 }
 
-const WalletForm = ({ id, defaultValue, onSubmit }: Props) => {
+const WalletForm = ({ id, defaultValue, onSubmit, isDefault }: Props) => {
   const walletNameInputRef = useRef<HTMLInputElement | null>(null);
   const {
     register,
@@ -20,14 +23,23 @@ const WalletForm = ({ id, defaultValue, onSubmit }: Props) => {
     setValue,
     formState: { errors }
   } = useForm<Inputs>();
-
+ 
   useEffect(() => {
     register('walletName', {
-      required: 'Name is required.'
+      required: 'Name is required.',
+      value: defaultValue?.walletName
     });
+    if (!isDefault) { 
+      register('type', {
+        required: 'Type is required.',
+        value: defaultValue?.type
+      });
+    }
+    
     if (walletNameInputRef.current) {
       walletNameInputRef.current.focus();
     }
+
   }, [register]);
 
   const handleFormSubmit: SubmitHandler<Inputs> = (data) => {
@@ -36,6 +48,40 @@ const WalletForm = ({ id, defaultValue, onSubmit }: Props) => {
 
   return (
     <form id={id} onSubmit={handleSubmit(handleFormSubmit)}>
+      {!isDefault ? (
+        <div className='py-3'>
+          <RadioGroup
+            defaultValue={defaultValue?.type}
+            onChange={(v: "credit-card" | "e-wallet") => setValue('type', v)}
+            className='grid grid-cols-2 text-sm font-medium text-center'
+          >
+            <RadioGroup.Option value='credit-card' as={Fragment}>
+              {({ checked }) => (
+                <span
+                  className={`px-2 py-1 border rounded-l outline-none focus:outline-none border-indigo-600 ${
+                    !checked ? ' ' : 'bg-indigo-600 text-white'
+                  }`}
+                >
+                  Credit Card
+                </span>
+              )}
+            </RadioGroup.Option>
+            <RadioGroup.Option value='e-wallet' as={Fragment}>
+              {({ checked }) => (
+                <span
+                  className={`px-2 py-1 border rounded-r outline-none focus:outline-none border-indigo-600 ${
+                    !checked ? '' : 'bg-indigo-600 text-white'
+                  }`}
+                >
+                  E-wallet
+                </span>
+              )}
+            </RadioGroup.Option>
+          </RadioGroup>
+          {errors && errors.type && <span className='text-xs text-red-700'>{errors?.type.message}</span>}
+        </div>
+        
+      ) : null}
       <InputGroup
         autoComplete='nope'
         label='Name'

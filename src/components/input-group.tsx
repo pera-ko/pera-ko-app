@@ -18,16 +18,16 @@ function InputGroupInner(
 ) {
   return (
     <label className={`block mb-2 ${className}`}>
-      <div className='font-medium text-sm my-1 text-gray-600'>{label}</div>
+      <div className='my-1 text-sm font-medium text-gray-500'>{label}</div>
       <div
-        className={`
+        className={`border
         ${
           error
-            ? 'border-error border-transparent'
-            : 'focus-within:outline-none focus-within:ring-4 focus-within:ring-indigo-300 focus-within:ring-opacity-50 focus-within:border-indigo-900'
+            ? 'border-error'
+            : 'focus-within:outline-none focus-within:ring-2 focus-within:ring-slate-500 focus-within:ring-opacity-50 focus-within:border-slate-500 border-transparent'
         }
-        px-3 font-medium flex items-center bg-indigo-50 rounded-md 
-        border  `}
+        px-3 font-medium flex items-center bg-gray-500/10 rounded-md 
+          `}
       >
         {contentLabel &&
           (contentLabel.type === 'text' ? (

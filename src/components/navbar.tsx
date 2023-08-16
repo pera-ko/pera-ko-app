@@ -1,4 +1,4 @@
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/outline';
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import { shortMonths } from '../app/constants';
@@ -24,26 +24,26 @@ export default function Navbar() {
   return (
     <div className='flex justify-between'>
       <div className='flex items-center pl-4'>
-        {/* <Link to='/' className='py-5 px-4'>
+        {/* <Link to='/' className='px-4 py-5'>
           <img
-            className='h-10 w-10 m-auto rounded-full'
+            className='w-10 h-10 m-auto rounded-full'
             src='https://randomuser.me/api/portraits/men/32.jpg'
             alt=''
           />
         </Link> */}
-        <div className='text-xl ml-1'>
-          <span className='font-medium mr-1 uppercase'>
+        <div className='ml-1 text-xl font-money'>
+          <span className='mr-1 font-medium uppercase'>
             {shortMonths[+month - 1]}
           </span>
           <span>{year}</span>
         </div>
       </div>
       <div className='flex items-center'>
-        <Link to={`/${prevYear}/${prevMonth}`} className='py-5 px-4'>
-          <ChevronLeftIcon className='h-6 w-6' />
+        <Link to={`/${prevYear}/${prevMonth}`} className='px-4 py-5'>
+          <ChevronLeftIcon className='w-6 h-6' />
         </Link>
-        <Link to={`/${nextYear}/${nextMonth}`} className='py-5 px-4'>
-          <ChevronRightIcon className='h-6 w-6' />
+        <Link to={`/${nextYear}/${nextMonth}`} className='px-4 py-5'>
+          <ChevronRightIcon className='w-6 h-6' />
         </Link>
       </div>
     </div>

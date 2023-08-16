@@ -13,6 +13,7 @@ export interface IBudget {
   amount?: number;
   icon: string;
   color: string;
+  isHidden?: boolean;
 }
 
 export interface IGoal {
@@ -23,11 +24,13 @@ export interface IGoal {
   color: string;
   startDate: string;
   endDate?: string | undefined;
-  installmentType: "monthly" | "semi-monthly"
+  installmentType: "monthly" | "semi-monthly";
+  isHidden?: boolean;
 }
 
 export interface IWallet {
   walletName: string
+  type: "credit-card" | "e-wallet" | "cash"
 }
 
 export interface IIncome {

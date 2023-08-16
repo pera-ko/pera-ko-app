@@ -3,6 +3,10 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { IBudgetGoalData } from '../app/@types';
 import InputGroup from './input-group';
 import SelectBudget from './select-budget';
+import { ChevronUpDownIcon } from '@heroicons/react/24/outline';
+import PaymentMethodList from './payment-method-list';
+import { setDefaultWallet, useBudgetStore } from '../app/store';
+import shallow from 'zustand/shallow';
 
 interface Inputs {
   amount: number;
@@ -24,6 +28,15 @@ export default function TransactionForm({
   const [budget, setBudget] = useState<IBudgetGoalData | undefined>(
     selectedBudget
   );
+  const { walletList, selectedWalletId } = useBudgetStore(
+    (state) => ({
+      walletList: state.wallet.list,
+      selectedWalletId: state.wallet.selected
+    }),
+    shallow
+  );
+  const defaultWallet = walletList[selectedWalletId];
+  const [selectPayment, setSelectPayment] = useState(false)
   const {
     register,
     handleSubmit,
@@ -64,7 +77,7 @@ export default function TransactionForm({
   };
   return (
     <form
-      className='px-5 mb-5 text-gray-800'
+      className='px-5 mb-5'
       onSubmit={handleSubmit(handleFormSubmit)}
     >
       <SelectBudget
@@ -86,16 +99,16 @@ export default function TransactionForm({
       />
       <InputGroup label='Remarks' {...register('remarks')} />
       {/* {budget ? (
-        <div className='text-right my-4'>
+        <div className='my-4 text-right'>
           <button
             type='button'
-            className='border border-indigo-500 py-1 px-2 rounded-full text-sm font-medium mr-2'
+            className='px-2 py-1 mr-2 text-sm font-medium border border-indigo-500 rounded-full'
           >
             PHP 50,000.00
           </button>
           <button
             type='button'
-            className='border border-indigo-500 py-1 px-2 rounded-full text-sm font-medium'
+            className='px-2 py-1 text-sm font-medium border border-indigo-500 rounded-full'
           >
             PHP 1,250.00
           </button>
@@ -103,13 +116,40 @@ export default function TransactionForm({
       ) : (
         
       )} */}
-      <div className='h-8'></div>
-      <button
-        type='submit'
-        className='bg-indigo-500 rounded-lg py-3 w-full text-sm font-medium text-white'
-      >
-        Add Transaction
-      </button>
+      {
+        selectPayment ? (
+          <div>
+            <div className='mx-2 my-4 text-sm font-medium'>Select Payment Method:</div>
+            <PaymentMethodList
+            items={Object.values(walletList)}
+            selected={defaultWallet}
+            onSelect={w => {
+              setDefaultWallet(w)
+              setSelectPayment(!selectPayment)
+            }}
+            />
+          </div>
+        ) : (
+          <div className='flex justify-between mt-4'>
+            <button 
+              type='button' 
+              className='py-1.5 text-left flex items-center justify-between' 
+              onClick={() => setSelectPayment(!selectPayment)}>
+              <div>
+                <div className='text-xs font-medium text-gray-500'>Payment Method:</div>
+                <div className='text-sm font-medium'>{defaultWallet.walletName}</div>
+              </div>
+              <ChevronUpDownIcon className='w-6 h-6'/>
+            </button>
+            <button
+              type='submit'
+              className='px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-lg'
+              >
+              Add Transaction
+            </button>
+          </div>
+        )
+      }
     </form>
   );
 }

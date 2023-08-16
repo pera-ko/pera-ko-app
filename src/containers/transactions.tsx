@@ -1,12 +1,14 @@
-import { ArrowLeftIcon } from '@heroicons/react/outline';
+import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import React, { Fragment } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
 import calendar from 'dayjs/plugin/calendar';
-import useStore, { ITransaction, useTransactionStore } from '../app/store';
+import { ITransaction } from '../app/store';
 import { money } from '../app/utils';
 import BudgetIcon from '../components/budget-icon';
 import shallow from 'zustand/shallow';
+import useTransactionStore from '../app/store/transaction-store';
+import useBudgetStore from '../app/store/budget-store';
 
 dayjs.extend(calendar);
 
@@ -16,7 +18,7 @@ export default function Transactions() {
     +year,
     +month
   )((state) => state);
-  const { budgetList, walletList } = useStore(
+  const { budgetList, walletList } = useBudgetStore(
     (state) => ({
       budgetList: state.budget.list,
       walletList: state.wallet.list
@@ -31,11 +33,16 @@ export default function Transactions() {
   let lastDate: string | null = null;
   return (
     <Fragment>
-      <div className='sticky top-0 bg-white flex items-center font-medium'>
-        <Link to={`/${year}/${month}`} className='p-5'>
-          <ArrowLeftIcon className='h-6 w-6' />
-        </Link>
-        Expenses
+      <div className='sticky top-0 flex items-center font-medium bg-white dark:bg-dark'>
+        <div className='flex items-center flex-1'>
+          <Link to={`/${year}/${month}`} className='p-5'>
+            <ArrowLeftIcon className='w-6 h-6' />
+          </Link>
+          Expenses
+        </div>
+        {/* <Link to={`/${year}/${month}/expenses/export`} className='p-5'>
+          <EllipsisVerticalIcon className='w-6 h-6' />
+        </Link> */}
       </div>
       <ul>
         {sortedList.map((t, index) => {
@@ -46,12 +53,13 @@ export default function Transactions() {
           if (lastDate !== currentDate) {
             var desc = dayjs(currentDate).calendar(undefined, {
               sameDay: '[Today]',
-              lastDay: '[Yesterday]'
+              lastDay: '[Yesterday]',
+              lastWeek: '[Last] dddd'
             });
             retVal.push(
               <li
                 key={desc}
-                className='bg-gray-200 px-5 py-2 text-xs sticky top-16'
+                className='sticky px-5 py-2 text-xs bg-gray-200 dark:bg-zinc-900 top-16'
               >
                 {desc}
               </li>
@@ -60,11 +68,11 @@ export default function Transactions() {
           }
 
           retVal.push(
-            <li key={t.tranDate} className='flex justify-between items-center'>
+            <li key={t.tranDate} className='flex items-center justify-between'>
               <div className='flex items-center'>
-                <BudgetIcon budget={budget} />
+                <BudgetIcon className='ml-4 mr-2' budget={budget} />
                 <div>
-                  <div className='font-medium text-sm'>
+                  <div className='text-sm font-medium'>
                     {budget?.budgetName}
                   </div>
                   <div className='text-xs'>
@@ -72,9 +80,9 @@ export default function Transactions() {
                   </div>
                 </div>
               </div>
-              <div className='text-right mr-5'>
+              <div className='mr-5 text-right'>
                 <div className='text-sm font-medium'>{money(t.amount)}</div>
-                <div className='text-xs text-gray-600'>{t.remarks}</div>
+                <div className='text-xs text-gray-500'>{t.remarks}</div>
               </div>
             </li>
           );
