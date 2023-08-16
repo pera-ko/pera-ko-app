@@ -41,7 +41,7 @@ export default function Income() {
         </>
       ) : (
         <div className='text-center'>
-          <WalletPana className='w-96' />
+          <WalletPana className='m-auto h-44'/>
           <div className='mb-5 -mt-3 font-medium'>No Income yet</div>
           <AddIncomeButton to={`/${year}/${month}/income/new`} />
         </div>

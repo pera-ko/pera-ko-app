@@ -70,7 +70,7 @@ export default function Transactions() {
           retVal.push(
             <li key={t.tranDate} className='flex items-center justify-between'>
               <div className='flex items-center'>
-                <BudgetIcon budget={budget} />
+                <BudgetIcon className='ml-4 mr-2' budget={budget} />
                 <div>
                   <div className='text-sm font-medium'>
                     {budget?.budgetName}
