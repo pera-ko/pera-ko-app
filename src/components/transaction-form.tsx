@@ -5,7 +5,7 @@ import InputGroup from './input-group';
 import SelectBudget from './select-budget';
 import { ChevronUpDownIcon } from '@heroicons/react/24/outline';
 import PaymentMethodList from './payment-method-list';
-import useStore, { setDefaultWallet } from '../app/store';
+import { setDefaultWallet, useBudgetStore } from '../app/store';
 import shallow from 'zustand/shallow';
 
 interface Inputs {
@@ -28,7 +28,7 @@ export default function TransactionForm({
   const [budget, setBudget] = useState<IBudgetGoalData | undefined>(
     selectedBudget
   );
-  const { walletList, selectedWalletId } = useStore(
+  const { walletList, selectedWalletId } = useBudgetStore(
     (state) => ({
       walletList: state.wallet.list,
       selectedWalletId: state.wallet.selected

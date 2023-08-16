@@ -5,8 +5,8 @@ import calendar from 'dayjs/plugin/calendar';
 import { Fragment } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { IIncome } from '../app/@types';
-import useStore, { useTransactionStore } from '../app/store';
 import { money } from '../app/utils';
+import { useBudgetStore, useTransactionStore } from '../app/store';
 
 dayjs.extend(calendar);
 
@@ -16,7 +16,7 @@ export default function Income() {
     +year,
     +month
   )((state) => state.incomeList);
-  const walletList = useStore((state) => state.wallet.list);
+  const walletList = useBudgetStore((state) => state.wallet.list);
 
   return (
     <Fragment>

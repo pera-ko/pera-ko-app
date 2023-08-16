@@ -1,5 +1,5 @@
 import { useParams, useRouteMatch } from "react-router";
-import useStore, { setDefaultWallet, useTransactionStore } from "../app/store";
+import { setDefaultWallet, useBudgetStore, useTransactionStore } from "../app/store";
 import shallow from "zustand/shallow";
 import Navbar from "../components/navbar";
 import { Cell, Pie, PieChart } from "recharts";
@@ -15,8 +15,8 @@ const Dashboard: React.FC<PropsWithChildren> = ({ children }) => {
   const appPath = useRouteMatch('/:year/:month');
   const expensesMatch = useRouteMatch(`${appPath?.url}/expenses`);
   const incomeMatch = useRouteMatch(`${appPath?.url}/income`);
-  const budgetList = useStore((state) => state.budget.list);
-  const { walletList, selectedWalletId } = useStore(
+  const budgetList = useBudgetStore((state) => state.budget.list);
+  const { walletList, selectedWalletId } = useBudgetStore(
     (state) => ({
       walletList: state.wallet.list,
       selectedWalletId: state.wallet.selected

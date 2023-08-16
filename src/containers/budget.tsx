@@ -6,8 +6,9 @@ import { BottomNav } from './App';
 import BudgetCheckList from '../components/budget-check-list';
 import BudgetGrid from '../components/widgets/budget-grid';
 import { useLocQuery } from '../app/hooks';
-import useStore, {
+import {
   getEffectiveBudget,
+  useBudgetStore,
   useTransactionStore
 } from '../app/store';
 import { money } from '../app/utils';
@@ -23,7 +24,7 @@ const Budget: React.FC = () => {
     +year,
     +month
   )((state) => state).addTransaction;
-  const selectedWalletId = useStore((state) => state.wallet.selected);
+  const selectedWalletId = useBudgetStore((state) => state.wallet.selected);
   const isQuickAdd = query.get('view') === 'quickadd';
 
   const handleViewChange = (mode: 'grid' | 'quickadd') => {

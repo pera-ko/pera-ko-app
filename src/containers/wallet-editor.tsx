@@ -1,6 +1,6 @@
 import toast from 'react-hot-toast';
 import { useHistory, useRouteMatch } from 'react-router';
-import useStore, {
+import {
   createWallet,
   deleteWallet,
   undoDeleteWallet,
@@ -8,6 +8,7 @@ import useStore, {
 } from '../app/store';
 import Dialog, { IDialogButton } from '../components/dialog';
 import WalletForm from '../components/wallet-form';
+import useBudgetStore from '../app/store/budget-store';
 
 const WalletEditor = () => {
   const route = useRouteMatch('/:year/:month/preferences/newwallet');
@@ -15,7 +16,7 @@ const WalletEditor = () => {
     '/:year/:month/preferences/wallet/:id/edit'
   );
   const history = useHistory();
-  const walletList = useStore((state) => state.wallet.list);
+  const walletList = useBudgetStore((state) => state.wallet.list);
 
   const defaultValue = editRoute ? walletList[editRoute.params.id] : undefined;
 

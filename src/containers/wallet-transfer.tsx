@@ -8,8 +8,9 @@ import { Fragment, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useHistory, useParams } from 'react-router';
 import { IWalletData } from '../app/@types';
-import useStore, { useTransactionStore } from '../app/store';
 import InputGroup from '../components/input-group';
+import useBudgetStore from '../app/store/budget-store';
+import useTransactionStore from '../app/store/transaction-store';
 
 interface Inputs {
   amount: number;
@@ -25,7 +26,7 @@ const WalletTransfer = () => {
     handleSubmit,
     formState: { errors }
   } = useForm<Inputs>();
-  const walletList = useStore((state) => state.wallet.list);
+  const walletList = useBudgetStore((state) => state.wallet.list);
   const addTransfer = useTransactionStore(
     +year,
     +month

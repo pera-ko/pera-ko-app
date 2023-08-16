@@ -1,18 +1,18 @@
 import { Dialog, Transition } from '@headlessui/react';
 import shallow from 'zustand/shallow';
 import { useHistory, useParams } from 'react-router-dom';
-import useStore from '../app/store';
 import TransactionForm from '../components/transaction-form';
-import { useTransactionStore } from '../app/store';
 import { useLocQuery } from '../app/hooks';
 import toast from 'react-hot-toast';
 import { money } from '../app/utils';
 import { Fragment } from 'react';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
+import useBudgetStore from '../app/store/budget-store';
+import useTransactionStore from '../app/store/transaction-store';
 
 export default function NewTransaction() {
   const { year, month } = useParams<{ year: string; month: string }>();
-  const { budgetList, selectedWalletId } = useStore(
+  const { budgetList, selectedWalletId } = useBudgetStore(
     (state) => ({
       budgetList: state.budget.list,
       selectedWalletId: state.wallet.selected

@@ -1,10 +1,10 @@
 import { useParams } from "react-router";
 import { Cell, Pie, PieChart } from "recharts"
-import useStore, { useTransactionStore } from "../../../app/store";
+import { useBudgetStore, useTransactionStore } from "../../../app/store";
 
 const OverviewPie = () => {
   const { year, month } = useParams<{ year: string; month: string }>();
-  const budgetList = useStore((state) => state.budget.list);
+  const budgetList = useBudgetStore((state) => state.budget.list);
   const {
     getTotalOfEachBudget
   } = useTransactionStore(+year, +month)((state) => state);

@@ -10,14 +10,14 @@ import { Link } from 'react-router-dom';
 import BudgetList from '../components/budget-list';
 import OptionSwitch from '../components/option-switch';
 import StickyHeader from '../components/sticky-header';
-import useStore from '../app/store';
 import { useLocalStorage } from '../app/hooks';
+import useBudgetStore from '../app/store/budget-store';
 
 const Preferences: React.FC = () => {
   const route = useRouteMatch('/:year/:month/preferences');
   const history = useHistory();
-  const budgetList = useStore((state) => state.budget.list);
-  const walletList = useStore((state) => state.wallet.list);
+  const budgetList = useBudgetStore((state) => state.budget.list);
+  const walletList = useBudgetStore((state) => state.wallet.list);
   const {value: newDashboard, setValue: setNewDashboard } = useLocalStorage('expenses-dashboard', false);
   const isOpen = route ? true : false;
   

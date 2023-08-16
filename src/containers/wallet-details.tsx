@@ -5,10 +5,11 @@ import { Route, useHistory, useParams, useRouteMatch } from 'react-router';
 import { Link } from 'react-router-dom';
 import shallow from 'zustand/shallow';
 import { longMonths } from '../app/constants';
-import useStore, { useTransactionStore } from '../app/store';
 import { money } from '../app/utils';
 import ModalFull from '../components/modal-full';
 import WalletTransfer from './wallet-transfer';
+import useBudgetStore from '../app/store/budget-store';
+import useTransactionStore from '../app/store/transaction-store';
 
 const WalletDetails = () => {
   const { year, month } = useParams<{ year: string; month: string }>();
@@ -16,7 +17,7 @@ const WalletDetails = () => {
     '/:year/:month/preferences/wallet/:id'
   );
   const history = useHistory();
-  const walletList = useStore((state) => state.wallet.list);
+  const walletList = useBudgetStore((state) => state.wallet.list);
   const { getTotalIncomeOfWallet, getTotalExpensesOfWallet } =
     useTransactionStore(+year, +month)(
       (state) => ({

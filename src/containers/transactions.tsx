@@ -3,10 +3,12 @@ import React, { Fragment } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
 import calendar from 'dayjs/plugin/calendar';
-import useStore, { ITransaction, useTransactionStore } from '../app/store';
+import { ITransaction } from '../app/store';
 import { money } from '../app/utils';
 import BudgetIcon from '../components/budget-icon';
 import shallow from 'zustand/shallow';
+import useTransactionStore from '../app/store/transaction-store';
+import useBudgetStore from '../app/store/budget-store';
 
 dayjs.extend(calendar);
 
@@ -16,7 +18,7 @@ export default function Transactions() {
     +year,
     +month
   )((state) => state);
-  const { budgetList, walletList } = useStore(
+  const { budgetList, walletList } = useBudgetStore(
     (state) => ({
       budgetList: state.budget.list,
       walletList: state.wallet.list

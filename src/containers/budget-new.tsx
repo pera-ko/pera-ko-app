@@ -3,10 +3,11 @@ import { ArrowLeftIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { useHistory, useRouteMatch } from 'react-router';
 import { IBudget, IGoal } from '../app/@types';
 import BudgetForm from '../components/budget-form';
-import useStore, {
+import {
   createBudget,
   deleteBudget,
-  updateBudget
+  updateBudget,
+  useBudgetStore
 } from '../app/store';
 
 export default function BudgetNew() {
@@ -15,7 +16,7 @@ export default function BudgetNew() {
     '/:year/:month/preferences/budget/:id'
   );
   const history = useHistory();
-  const selectedBudget = useStore((state) =>
+  const selectedBudget = useBudgetStore((state) =>
     state.budget.list.find((b) => b.id === routeEdit?.params.id)
   );
   const handleSubmit = (value: IGoal | IBudget) => {
