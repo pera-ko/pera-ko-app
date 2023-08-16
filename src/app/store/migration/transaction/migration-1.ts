@@ -1,6 +1,6 @@
-import { ITransactionStore } from "..";
+import { ITransactionStore } from "../..";
 
-export function transaction (persistedState: any): ITransactionStore {
+export function transaction(persistedState: any): ITransactionStore {
   return {
     ...persistedState,
     list: persistedState.list.map((tran: any) => {

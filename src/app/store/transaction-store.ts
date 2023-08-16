@@ -2,7 +2,7 @@ import create, { UseStore } from "zustand";
 import { persist } from "zustand/middleware";
 import { IIncome } from "../@types";
 import IndexedDBStorage from "../infra/indexedDBPersistence";
-import storeMigration from './migration'
+import storeMigration from "./migration";
 
 
 export interface ITransaction {

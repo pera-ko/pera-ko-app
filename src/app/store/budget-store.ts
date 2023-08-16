@@ -5,10 +5,11 @@ import dayjs from "dayjs";
 import isBetween from 'dayjs/plugin/isBetween'
 import IndexedDBStorage from "../infra/indexedDBPersistence";
 import { IBudget, IBudgetData, IGoal, IGoalData, IWalletData } from "../@types";
+import storeMigration from "./migration";
 
 dayjs.extend(isBetween)
 
-interface IBudgetStoreState {
+export interface IBudgetStoreState {
   wallet: {
     list: {
       [id: string]: IWalletData
@@ -150,7 +151,9 @@ const useBudgetStore = create<IBudgetStoreState>(persist(
   }),
   {
     name: "perako-budget",
-    getStorage: () => IndexedDBStorage
+    getStorage: () => IndexedDBStorage,
+    migrate: storeMigration.budgetStore,
+    version: 1
   }
 ))
 

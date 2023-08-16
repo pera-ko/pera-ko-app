@@ -1,17 +1,9 @@
-import { ITransactionStore } from '..';
-import { transaction } from './migration-1'
+import budgetStoreMigration from "./budget"
+import transactionStoreMigration from "./transaction"
 
-const storeMigration = (persistedState: any, version: number): ITransactionStore => {
-  switch(version) {
-    case 0:
-      return transaction(persistedState)
-    default:
-      return persistedState
-  }
+const storeMigration = {
+  budgetStore: budgetStoreMigration,
+  transactionStore: transactionStoreMigration
 }
 
-const migration = {
-  transactionStore: storeMigration
-}
-
-export default migration;
+export default storeMigration
