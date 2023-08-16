@@ -54,16 +54,16 @@ const useTransactionStore = (year: number, month: number) => {
 
         ],
         list: [],
-        getGrandTotalIncome: () => get().incomeList.filter(t => t.type !== "transfer").reduce((x, y) => Number(x) + Number(y.amount), 0),
-        getTotalIncomeOfWallet: (walletId: string) => get().incomeList.filter(i => i.walletId === walletId).reduce((x, y) => Number(x) + Number(y.amount), 0),
-        getTotalExpenses: () => get().list.filter(t => t.type !== "transfer").reduce((x, y) => Number(x) + Number(y.amount), 0),
+        getGrandTotalIncome: () => get().incomeList.filter(t => t.type !== "transfer").reduce((x, y) => x + y.amount, 0),
+        getTotalIncomeOfWallet: (walletId: string) => get().incomeList.filter(i => i.walletId === walletId).reduce((x, y) => x + y.amount, 0),
+        getTotalExpenses: () => get().list.filter(t => t.type !== "transfer").reduce((x, y) => x + y.amount, 0),
         getTotalExpensesOfWallet: (walletId: string) => get().list.filter(t => {
           if (t.type === "transfer") {
             return t.walletFromId === walletId
           } else {
             return t.walletId === walletId
           }
-        }).reduce((x, y) => Number(x) + Number(y.amount), 0),
+        }).reduce((x, y) => x + y.amount, 0),
         getTotalOfEachBudget: () => {
           let retval: { name: string, value: number }[] = [];
 
@@ -71,9 +71,9 @@ const useTransactionStore = (year: number, month: number) => {
             if (tran.type === undefined) {
               var g = retval.find(x => x.name === tran.budgetId)
               if (!g) {
-                retval.push({ name: tran.budgetId, value: Number(tran.amount) })
+                retval.push({ name: tran.budgetId, value: tran.amount })
               } else {
-                g.value += Number(tran.amount);
+                g.value += tran.amount;
               }
             }
           })
@@ -81,7 +81,7 @@ const useTransactionStore = (year: number, month: number) => {
           return retval;
         },
         getTotalOfBudget: (budgetId: string) => {
-          return get().list.filter(t => t.type === undefined && t.budgetId === budgetId).reduce((tot, t) => Number(tot) + Number(t.amount), 0)
+          return get().list.filter(t => t.type === undefined && t.budgetId === budgetId).reduce((tot, t) => tot + t.amount, 0)
         },
         addTransaction: (budgetId: string, walletId: string, amount: number, remarks?: string) => {
           const tranDate = (new Date()).toJSON()
