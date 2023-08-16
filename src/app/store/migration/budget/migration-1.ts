@@ -1,5 +1,4 @@
 import { IBudgetStoreState } from "../..";
-import { IWalletData } from "../../../@types";
 
 export function renameCashOnHand(persistedState: IBudgetStoreState): IBudgetStoreState {
 
