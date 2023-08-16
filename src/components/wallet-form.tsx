@@ -23,17 +23,23 @@ const WalletForm = ({ id, defaultValue, onSubmit, isDefault }: Props) => {
     setValue,
     formState: { errors }
   } = useForm<Inputs>();
-
+ 
   useEffect(() => {
     register('walletName', {
-      required: 'Name is required.'
+      required: 'Name is required.',
+      value: defaultValue?.walletName
     });
-    register('type', {
-      required: 'Type is required.'
-    });
+    if (!isDefault) { 
+      register('type', {
+        required: 'Type is required.',
+        value: defaultValue?.type
+      });
+    }
+    
     if (walletNameInputRef.current) {
       walletNameInputRef.current.focus();
     }
+
   }, [register]);
 
   const handleFormSubmit: SubmitHandler<Inputs> = (data) => {
