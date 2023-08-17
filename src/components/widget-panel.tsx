@@ -13,7 +13,7 @@ function WidgetPanel({
   children,
 }: WidgetPanelProps) {
   return (
-    <div className="">
+    <div className="my-2">
       {!hideTitle ? (
         <div className="flex justify-between px-4 pt-2 pb-1 text-xs font-medium text-gray-500 uppercase">
           <span>{title}</span>

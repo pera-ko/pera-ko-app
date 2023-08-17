@@ -7,7 +7,7 @@ import RecentExpenses from "../components/widgets/recent-expenses"
 
 const Dashboard2 : React.FC<PropsWithChildren> = ({ children }) => {
   return (
-    <div className="space-y-2">
+    <div>
       <AppBar/>
       <TotalExpenses/>
       {/* <TotalPaymentExpenses/> */}

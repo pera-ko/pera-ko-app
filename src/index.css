@@ -7,6 +7,12 @@
   src: url('./assets/Oswald-Regular.ttf') format('truetype');
 }
 
+@layer components {
+  .app-bg {
+    @apply bg-[#f3f4f6] dark:bg-[#242424]
+  }
+}
+
 :root {
   font-size: 16px;
   line-height: 24px;
