@@ -9,7 +9,7 @@ const RecentExpenses = () => {
   const { getLast10 } = useAggregateStore(state => state)
 
   return (
-    <WidgetPanel title="RECENT EXPENSES">
+    <WidgetPanel title="RECENT EXPENSES" sticky>
       <ExpenseList
         items={getLast10()}
         budgetList={budget}
