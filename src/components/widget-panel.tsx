@@ -17,7 +17,7 @@ function WidgetPanel({
   return (
     <>
       {!hideTitle ? (
-        <div className={`flex justify-between px-4 pt-2 pb-1 text-xs font-medium text-gray-500 uppercase ${sticky ? 'sticky top-16 app-bg' : ''}`}>
+        <div className={`flex justify-between px-4 pt-2 pb-1 text-xs font-medium text-gray-500 uppercase ${sticky ? 'sticky top-16 app-bg-backdrop' : ''}`}>
           <span>{title}</span>
           {topRightElement ? topRightElement : null}
         </div>

@@ -11,6 +11,10 @@
   .app-bg {
     @apply bg-[#f3f4f6] dark:bg-[#242424]
   }
+
+  .app-bg-backdrop {
+    @apply bg-[#f3f4f6]/80 dark:bg-[#242424]/90 backdrop-blur
+  }
 }
 
 :root {
