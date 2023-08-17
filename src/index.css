@@ -36,6 +36,8 @@ a {
 
 body {
   margin: 0;
+  padding-bottom: 75px;
+  padding-top: 75px;
 }
 
 h1 {
