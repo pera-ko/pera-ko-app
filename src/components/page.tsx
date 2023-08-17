@@ -8,7 +8,7 @@ type Props = {
 const Page = ({ isOpen, children } : Props) => {
   return (
     <Transition appear show={isOpen} as={Fragment}>
-      <div className='fixed inset-0 overflow-y-auto bg-white dark:bg-dark'>
+      <div className='fixed inset-0 z-10 overflow-y-auto bg-white dark:bg-dark'>
         <Transition.Child
           as={Fragment}
           enter='ease-out duration-300'
