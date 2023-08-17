@@ -24,7 +24,7 @@ function TotalExpenses() {
   );
   return (
     <WidgetPanel title="Total Expenses" topRightElement={filters}>
-      <Link to={`${appPath?.url}/expenses`} className='inline mx-auto'>
+      <Link to={`${appPath?.url}/expenses`} className='block px-2'>
         <MoneyHeader value={totalExpenses} maskValue={mask} onMask={setMask}/>
       </Link>
     </WidgetPanel>

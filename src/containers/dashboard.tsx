@@ -47,7 +47,7 @@ const Dashboard: React.FC<PropsWithChildren> = ({ children }) => {
     <div>
       <div
         style={{ minHeight: '220px' }}
-        className={`flex flex-col justify-between transition-all ease-in-out duration-150 bg-slate-200 dark:bg-[#1d1d1d]`}
+        className={`flex flex-col justify-between transition-all ease-in-out duration-150 bg-slate-200 dark:bg-dark`}
       >
         <AppBar />
         <div className='flex items-center justify-between px-6'>
