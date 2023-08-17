@@ -43,7 +43,7 @@ export default function BudgetNew() {
       open={isOpen}
       onClose={() => history.goBack()}
       as='div'
-      className='fixed inset-0 pb-20 overflow-y-auto bg-white dark:bg-dark'
+      className='fixed inset-0 z-20 pb-20 overflow-y-auto bg-white dark:bg-dark'
     >
       <NavBar
           leftButton={{
