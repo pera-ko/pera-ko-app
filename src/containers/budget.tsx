@@ -5,14 +5,14 @@ import { IBudgetGoalData } from '../app/@types';
 import { BottomNav } from './App';
 import BudgetCheckList from '../components/budget-check-list';
 import BudgetGrid from '../components/widgets/budget-grid';
-import { useLocQuery } from '../app/hooks';
+import { useLocQuery, useLocalStorage } from '../app/hooks';
 import {
   getEffectiveBudget,
-  useBudgetStore,
-  useTransactionStore
+  useBudgetStore
 } from '../app/store';
 import { money } from '../app/utils';
 import toast from 'react-hot-toast';
+import useAddTransaction from '../app/hooks/use-transaction';
 
 const Budget: React.FC = () => {
   const { year, month } = useParams<{ year: string; month: string }>();
@@ -20,11 +20,9 @@ const Budget: React.FC = () => {
   const history = useHistory();
   const query = useLocQuery();
   const [selectedItems, setSelectedItems] = useState<IBudgetGoalData[]>([]);
-  const addTransaction = useTransactionStore(
-    +year,
-    +month
-  )((state) => state).addTransaction;
+  const addTransaction = useAddTransaction()
   const selectedWalletId = useBudgetStore((state) => state.wallet.selected);
+  const {value: enableQuickTran } = useLocalStorage('quick-tran-enabled', true);
   const isQuickAdd = query.get('view') === 'quickadd';
 
   const handleViewChange = (mode: 'grid' | 'quickadd') => {
@@ -66,29 +64,31 @@ const Budget: React.FC = () => {
   }
   return (
     <Fragment>
-      <div className='sticky top-0 z-auto flex items-center justify-between px-6 py-5 bg-inherit'>
-        <div className='font-medium'>Select a budget</div>
-        <div>
-          <button
-            className={`px-3 py-2 border rounded-l-xl outline-none focus:outline-none border-indigo-600 ${isQuickAdd
-                ? 'rounded-r-none text-indigo-400'
-                : 'bg-indigo-600 text-white'
-              }`}
-            onClick={() => handleViewChange('grid')}
-          >
-            <Squares2X2Icon className='w-6 h-6' />
-          </button>
-          <button
-            className={`px-3 py-2 border rounded-r-xl outline-none focus:outline-none border-indigo-600 ${!isQuickAdd
-                ? 'text-indigo-600 rounded-l-none'
-                : 'bg-indigo-600 text-white'
-              }`}
-            onClick={() => handleViewChange('quickadd')}
-          >
-            <ClipboardDocumentCheckIcon className='w-6 h-6' />
-          </button>
+      {enableQuickTran ? (
+        <div className='sticky top-0 z-auto flex items-center justify-between px-6 py-5 bg-inherit'>
+          <div className='font-medium'>Select a budget</div>
+          <div>
+            <button
+              className={`px-3 py-2 border rounded-l-xl outline-none focus:outline-none border-indigo-600 ${isQuickAdd
+                  ? 'rounded-r-none text-indigo-400'
+                  : 'bg-indigo-600 text-white'
+                }`}
+              onClick={() => handleViewChange('grid')}
+            >
+              <Squares2X2Icon className='w-6 h-6' />
+            </button>
+            <button
+              className={`px-3 py-2 border rounded-r-xl outline-none focus:outline-none border-indigo-600 ${!isQuickAdd
+                  ? 'text-indigo-600 rounded-l-none'
+                  : 'bg-indigo-600 text-white'
+                }`}
+              onClick={() => handleViewChange('quickadd')}
+            >
+              <ClipboardDocumentCheckIcon className='w-6 h-6' />
+            </button>
+          </div>
         </div>
-      </div>
+      ) : <div className="pt-2"></div>}
       {isQuickAdd ? (
         <BudgetCheckList
           selectedItems={selectedItems}

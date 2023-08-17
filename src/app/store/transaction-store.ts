@@ -1,37 +1,19 @@
 import create, { UseStore } from "zustand";
 import { persist } from "zustand/middleware";
-import { IIncome } from "../@types";
+import { IIncome, ITransactionData, ITransferTransaction } from "../@types";
 import IndexedDBStorage from "../infra/indexedDBPersistence";
 import storeMigration from "./migration";
 
-
-export interface ITransaction {
-  type: undefined;
-  budgetId: string;
-  walletId: string;
-  amount: number;
-  tranDate: string;
-  remarks?: string;
-}
-export interface ITransferTransaction {
-  type: 'transfer';
-  walletFromId: string;
-  walletToId: string;
-  amount: number;
-  tranDate: string;
-  remarks?: string
-}
-
 export interface ITransactionStore {
   incomeList: IIncome[];
-  list: (ITransaction | ITransferTransaction)[];
+  list: (ITransactionData | ITransferTransaction)[];
   getGrandTotalIncome: () => number;
   getTotalIncomeOfWallet: (walletId: string) => number;
   getTotalExpenses: () => number;
   getTotalExpensesOfWallet: (walletId: string) => number;
   getTotalOfEachBudget: () => { name: string, value: number }[];
   getTotalOfBudget: (budgetId: string) => number;
-  addTransaction: (budgetId: string, walletId: string, amount: number, remarks?: string) => void;
+  addTransaction: (id: string, budgetId: string, walletId: string, amount: number, remarks?: string) => void;
   addIncome: (walletId: string, amount: number, remarks?: string) => void;
   addTransfer: (walletFromId: string, walletToId: string, amount: number, remarks?: string) => void;
 }
@@ -83,10 +65,10 @@ const useTransactionStore = (year: number, month: number) => {
         getTotalOfBudget: (budgetId: string) => {
           return get().list.filter(t => t.type === undefined && t.budgetId === budgetId).reduce((tot, t) => tot + t.amount, 0)
         },
-        addTransaction: (budgetId: string, walletId: string, amount: number, remarks?: string) => {
+        addTransaction: (id: string, budgetId: string, walletId: string, amount: number, remarks?: string) => {
           const tranDate = (new Date()).toJSON()
           set(state => {
-            state.list.push({ type: undefined, budgetId, walletId, amount, tranDate, remarks })
+            state.list.push({ id, type: undefined, budgetId, walletId, amount, tranDate, remarks })
           })
         },
         addIncome: (walletId: string, amount: number, remarks?: string) => {

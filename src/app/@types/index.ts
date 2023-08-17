@@ -41,7 +41,25 @@ export interface IIncome {
   tranDate: string;
 }
 
+export interface ITransaction {
+  type: undefined;
+  budgetId: string;
+  walletId: string;
+  amount: number;
+  tranDate: string;
+  remarks?: string;
+}
+export interface ITransferTransaction {
+  type: 'transfer';
+  walletFromId: string;
+  walletToId: string;
+  amount: number;
+  tranDate: string;
+  remarks?: string
+}
+
 export type IBudgetData = IBudget & WithId;
 export type IGoalData = IGoal & WithId;
 export type IWalletData = IWallet & WithId & IDeletable;
 export type IBudgetGoalData = IGoalData | IBudgetData;
+export type ITransactionData = ITransaction & WithId

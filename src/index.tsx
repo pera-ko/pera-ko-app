@@ -17,6 +17,7 @@ import Preferences from './containers/preferences';
 import BudgetNew from './containers/budget-new';
 import WalletEditor from './containers/wallet-editor';
 import { Toaster } from 'react-hot-toast';
+import { PerakoProvider } from './app/contexts/perako-context';
 
 const DefaultRoute = () => {
   const dateNow = new Date();
@@ -36,16 +37,18 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
       <Switch>
         <Route exact path='/' component={DefaultRoute} />
         <Route path='/:year/:month'>
-          <App>
-            <Route exact path='/:year/:month' component={Budget} />
-            <Route path='/:year/:month/income' component={Income} />
-            <Route path='/:year/:month/income/new' component={IncomeAdd} />
-            <Route path='/:year/:month/expenses' component={Transactions} />
-            <Preferences />
-            <BudgetNew />
-            <WalletEditor />
-            {/* <WalletDetails /> */}
-          </App>
+          <PerakoProvider>
+            <App>
+              <Route exact path='/:year/:month' component={Budget} />
+              <Route path='/:year/:month/income' component={Income} />
+              <Route path='/:year/:month/income/new' component={IncomeAdd} />
+              <Route path='/:year/:month/expenses' component={Transactions} />
+              <Preferences />
+              <BudgetNew />
+              <WalletEditor />
+              {/* <WalletDetails /> */}
+            </App>
+          </PerakoProvider>
         </Route>
         <NotFound />
       </Switch>

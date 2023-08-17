@@ -10,9 +10,13 @@ import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import useBudgetStore from '../app/store/budget-store';
 import useTransactionStore from '../app/store/transaction-store';
 import NavBar from '../components/navbar';
+import useAddTransaction from '../app/hooks/use-transaction';
 
 export default function NewTransaction() {
   const { year, month } = useParams<{ year: string; month: string }>();
+  
+  const addTransaction = useAddTransaction()
+
   const { budgetList, selectedWalletId } = useBudgetStore(
     (state) => ({
       budgetList: state.budget.list,
@@ -22,12 +26,11 @@ export default function NewTransaction() {
   );
   const history = useHistory();
   const query = useLocQuery();
-  const { addTransaction, getTotalOfBudget } = useTransactionStore(
+  const { getTotalOfBudget } = useTransactionStore(
     +year,
     +month
   )(
     (state) => ({
-      addTransaction: state.addTransaction,
       getTotalOfBudget: state.getTotalOfBudget
     }),
     shallow

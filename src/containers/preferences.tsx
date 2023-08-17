@@ -20,6 +20,7 @@ const Preferences: React.FC = () => {
   const budgetList = useBudgetStore((state) => state.budget.list);
   const walletList = useBudgetStore((state) => state.wallet.list);
   const {value: newDashboard, setValue: setNewDashboard } = useLocalStorage('expenses-dashboard', false);
+  const {value: enableQuickTran, setValue: setQuickTran } = useLocalStorage('quick-tran-enabled', true);
   const isOpen = route ? true : false;
   
   return (
@@ -41,6 +42,12 @@ const Preferences: React.FC = () => {
           title='Expenses Dashboard'
           description='Use the new dashboard that only displays expenses for the month'
           onChange={setNewDashboard}
+          />
+        <OptionSwitch
+          checked={enableQuickTran}
+          title='Enable Quick Transaction'
+          description='Show quick transaction mode in the home page'
+          onChange={setQuickTran}
           />
       </div>
       <StickyHeader>

@@ -3,13 +3,13 @@ import React, { Fragment } from 'react';
 import { useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
 import calendar from 'dayjs/plugin/calendar';
-import { ITransaction } from '../app/store';
 import { money } from '../app/utils';
 import BudgetIcon from '../components/budget-icon';
 import shallow from 'zustand/shallow';
 import useTransactionStore from '../app/store/transaction-store';
 import useBudgetStore from '../app/store/budget-store';
 import NavBar from '../components/navbar';
+import { ITransaction } from '../app/@types';
 
 dayjs.extend(calendar);
 
