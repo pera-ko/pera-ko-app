@@ -22,7 +22,7 @@ export default function AppBar() {
   }
 
   return (
-    <div className='fixed inset-x-0 flex justify-between top-0 backdrop-blur bg-slate-100/30 dark:bg-[#242424]/30'>
+    <div className='fixed inset-x-0 z-[1] flex justify-between top-0 backdrop-blur bg-slate-100/30 dark:bg-[#242424]/30'>
       <div className='flex items-center pl-4'>
         {/* <Link to='/' className='px-4 py-5'>
           <img
