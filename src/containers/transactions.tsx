@@ -10,10 +10,13 @@ import useTransactionStore from '../app/store/transaction-store';
 import useBudgetStore from '../app/store/budget-store';
 import NavBar from '../components/navbar';
 import { ITransaction } from '../app/@types';
+import Page from '../components/page';
+import { useLocalStorage } from '../app/hooks';
 
 dayjs.extend(calendar);
 
 export default function Transactions() {
+  const {value: newDashboard, loading } = useLocalStorage('expenses-dashboard', false);
   const { year, month } = useParams<{ year: string; month: string }>();
   const { list: transactionList } = useTransactionStore(
     +year,
@@ -32,8 +35,9 @@ export default function Transactions() {
   ] as ITransaction[];
   sortedList.reverse();
   let lastDate: string | null = null;
-  return (
-    <Fragment>
+
+  const content = (
+    <>
       <NavBar
         leftButton={{
           type: "link",
@@ -88,6 +92,18 @@ export default function Transactions() {
           return <Fragment key={index}>{retVal}</Fragment>;
         })}
       </ul>
-    </Fragment>
-  );
+    </>
+  )
+
+  if (loading) return null;
+
+  if (newDashboard) {
+    return (
+      <Page isOpen>
+        {content}
+      </Page>
+    );
+  }
+
+  return content
 }
