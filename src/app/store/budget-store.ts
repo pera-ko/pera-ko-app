@@ -163,7 +163,6 @@ const useBudgetStore = create<IBudgetStoreState>()(persist(
     storage: createJSONStorage(() => IndexedDBStorage),
     migrate: storeMigration.budgetStore,
     version: 1,
-    onRehydrateStorage: () => console.log('budgetstore rehydrate!')
   }
 ))
 

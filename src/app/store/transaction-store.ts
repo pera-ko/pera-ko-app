@@ -96,8 +96,7 @@ const store = create<ITransactionStore>()(persist(
     storage: createJSONStorage(() => IndexedDBStorage),
     migrate: storeMigration.transactionStore,
     version: 1,
-    skipHydration: true,
-    onRehydrateStorage: () => console.log('test')
+    skipHydration: true
   }
 ));
 
@@ -106,8 +105,7 @@ const useTransactionStore = () => {
   
   useEffect(() => {
     store.persist.setOptions({
-      name: `perako-transaction-${year}-${month}`,
-      onRehydrateStorage: () => console.log('test')
+      name: `perako-transaction-${year}-${month}`
     })
   
     store.persist.rehydrate()
