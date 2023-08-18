@@ -7,7 +7,7 @@ const OverviewPie = () => {
   const budgetList = useBudgetStore((state) => state.budget.list);
   const {
     getTotalOfEachBudget
-  } = useTransactionStore(+year, +month)((state) => state);
+  } = useTransactionStore()((state) => state);
   const chartData = getTotalOfEachBudget();
 
   const colors = chartData.map(

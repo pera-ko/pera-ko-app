@@ -1,11 +1,9 @@
-import usePerako from "../contexts/perako-context";
 import { useTransactionStore } from "../store";
 import useAggregateStore from "../store/aggregate-store";
 import useExpensesPaymentStore from "../store/expenses-payment-store";
 
 const useAddTransaction = () => {
-  const { currentMonth, currentYear } = usePerako()
-  const { addTransaction } = useTransactionStore(currentYear, currentMonth)(
+  const { addTransaction } = useTransactionStore()(
     (state) => ({
       addTransaction: state.addTransaction
     })

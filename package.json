@@ -25,7 +25,7 @@
     "react-scripts": "^5.0.1",
     "recharts": "^2.7.3",
     "web-vitals": "^1.1.1",
-    "zustand": "^3.7.2"
+    "zustand": "^4.4.1"
   },
   "scripts": {
     "start": "react-scripts start",

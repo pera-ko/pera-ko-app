@@ -17,6 +17,7 @@ const Dashboard2 : React.FC<PropsWithChildren> = ({ children }) => {
           <RecentExpenses/>
         </div>
       </div>
+       
       <NewTransaction />
     </div>
   )

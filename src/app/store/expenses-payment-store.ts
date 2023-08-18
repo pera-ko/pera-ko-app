@@ -1,5 +1,5 @@
-import create from "zustand";
-import { persist } from "zustand/middleware";
+import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
 import IndexedDBStorage from "../infra/indexedDBPersistence";
 import { ITransactionData } from "../@types";
 
@@ -11,7 +11,7 @@ export interface IExpensesPaymentStore {
   addTransaction: (id: string, budgetId: string, walletId: string, amount: number, remarks?: string) => void;
 }
 
-const useExpensesPaymentStore = create<IExpensesPaymentStore>(persist(
+const useExpensesPaymentStore = create<IExpensesPaymentStore>()(persist(
   (set, get) => ({
     transactions: {},
     totalExpenses: {},
@@ -25,14 +25,14 @@ const useExpensesPaymentStore = create<IExpensesPaymentStore>(persist(
           state.transactions[walletId] = []
         }
         state.transactions[walletId].unshift(newTran)
-
+        return state;
       })
 
     }
   }),
   {
     name: PERSIST_NAME,
-    getStorage: () => IndexedDBStorage,
+    storage: createJSONStorage(() => IndexedDBStorage),
   }
 ))
 

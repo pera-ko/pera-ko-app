@@ -6,7 +6,7 @@ import SelectBudget from './select-budget';
 import { ChevronUpDownIcon } from '@heroicons/react/24/outline';
 import PaymentMethodList from './payment-method-list';
 import { setDefaultWallet, useBudgetStore } from '../app/store';
-import shallow from 'zustand/shallow';
+import { shallow } from 'zustand/shallow';
 
 interface Inputs {
   amount: number;

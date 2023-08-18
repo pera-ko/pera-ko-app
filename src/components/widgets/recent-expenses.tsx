@@ -1,4 +1,4 @@
-import shallow from "zustand/shallow"
+import { shallow } from "zustand/shallow"
 import { useBudgetStore } from "../../app/store"
 import useAggregateStore from "../../app/store/aggregate-store"
 import ExpenseList from "../expense-list"

@@ -7,8 +7,10 @@ const IndexedDBStorage: StateStorage = {
     if (typeof indexedDB === 'undefined') {                                                                       
       return null                                                                                                 
     }                     
-
-    return await get(name) || null
+    
+    const data = await get(name) || null
+    // console.log(data)
+    return data
   },                                                                                                                
   setItem: async (name: string, value: string): Promise<void> => {
     // Exit early on server                                               

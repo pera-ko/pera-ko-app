@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 import calendar from 'dayjs/plugin/calendar';
 import { money } from '../app/utils';
 import BudgetIcon from '../components/budget-icon';
-import shallow from 'zustand/shallow';
+import { shallow } from 'zustand/shallow';
 import useTransactionStore from '../app/store/transaction-store';
 import useBudgetStore from '../app/store/budget-store';
 import NavBar from '../components/navbar';
@@ -18,10 +18,7 @@ dayjs.extend(calendar);
 export default function Transactions() {
   const {value: newDashboard, loading } = useLocalStorage('expenses-dashboard', false);
   const { year, month } = useParams<{ year: string; month: string }>();
-  const { list: transactionList } = useTransactionStore(
-    +year,
-    +month
-  )((state) => state);
+  const { list: transactionList } = useTransactionStore()((state) => state);
   const { budgetList, walletList } = useBudgetStore(
     (state) => ({
       budgetList: state.budget.list,

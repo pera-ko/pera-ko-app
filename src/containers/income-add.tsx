@@ -1,16 +1,12 @@
 import { Dialog } from '@headlessui/react';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { getDefaultWallet, useTransactionStore } from '../app/store';
 import IncomeForm from '../components/income-form';
 
 export default function IncomeAdd() {
-  const { year, month } = useParams<{ year: string; month: string }>();
   const history = useHistory();
-  const addIncome = useTransactionStore(
-    +year,
-    +month
-  )((state) => state).addIncome;
+  const addIncome = useTransactionStore()((state) => state).addIncome;
 
   const defaultWallet = getDefaultWallet();
 

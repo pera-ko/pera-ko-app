@@ -1,16 +1,15 @@
 import WidgetPanel from "../widget-panel";
 import MoneyHeader from "../money-header";
-import { useParams, useRouteMatch } from "react-router";
+import { useRouteMatch } from "react-router";
 import { useTransactionStore } from "../../app/store";
 import { useLocalStorage } from "../../app/hooks";
 import { Link } from "react-router-dom";
 
 function TotalExpenses() {
-  const { year, month } = useParams<{ year: string; month: string }>();
   const appPath = useRouteMatch('/:year/:month');
   const {
     getTotalExpenses,
-  } = useTransactionStore(+year, +month)((state) => state);
+  } = useTransactionStore()((state) => state);
   const { value: mask, setValue: setMask } = useLocalStorage('expenses-dashboard-mask', false)
 
   const totalExpenses = getTotalExpenses();

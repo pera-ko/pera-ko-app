@@ -12,10 +12,7 @@ dayjs.extend(calendar);
 
 export default function Income() {
   const { year, month } = useParams<{ year: string; month: string }>();
-  const incomeList = useTransactionStore(
-    +year,
-    +month
-  )((state) => state.incomeList);
+  const incomeList = useTransactionStore()((state) => state.incomeList);
   const walletList = useBudgetStore((state) => state.wallet.list);
 
   return (

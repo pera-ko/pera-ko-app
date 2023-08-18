@@ -1,6 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react';
-import shallow from 'zustand/shallow';
-import { useHistory, useParams } from 'react-router-dom';
+import { shallow } from 'zustand/shallow';
+import { useHistory } from 'react-router-dom';
 import TransactionForm from '../components/transaction-form';
 import { useLocQuery } from '../app/hooks';
 import toast from 'react-hot-toast';
@@ -13,7 +13,6 @@ import NavBar from '../components/navbar';
 import useAddTransaction from '../app/hooks/use-transaction';
 
 export default function NewTransaction() {
-  const { year, month } = useParams<{ year: string; month: string }>();
   
   const addTransaction = useAddTransaction()
 
@@ -26,15 +25,13 @@ export default function NewTransaction() {
   );
   const history = useHistory();
   const query = useLocQuery();
-  const { getTotalOfBudget } = useTransactionStore(
-    +year,
-    +month
-  )(
-    (state) => ({
-      getTotalOfBudget: state.getTotalOfBudget
-    }),
-    shallow
-  );
+  // const { getTotalOfBudget } = useTransactionStore()(
+  //   (state) => ({
+  //     getTotalOfBudget: state.getTotalOfBudget
+  //   }),
+  //   shallow
+  // );
+  const getTotalOfBudget = useTransactionStore()(state => state.getTotalOfBudget)
   const id = query.get('id');
   const selectedBudget = id ? budgetList.find((b) => b.id === id) : undefined;
   const isNewTransactionOpen = query.get('newtran') === 'open';

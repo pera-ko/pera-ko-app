@@ -3,7 +3,7 @@ import { PencilIcon, ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
 import { Fragment } from 'react';
 import { Route, useHistory, useParams, useRouteMatch } from 'react-router';
 import { Link } from 'react-router-dom';
-import shallow from 'zustand/shallow';
+import { shallow } from 'zustand/shallow';
 import { longMonths } from '../app/constants';
 import { money } from '../app/utils';
 import ModalFull from '../components/modal-full';
@@ -19,7 +19,7 @@ const WalletDetails = () => {
   const history = useHistory();
   const walletList = useBudgetStore((state) => state.wallet.list);
   const { getTotalIncomeOfWallet, getTotalExpensesOfWallet } =
-    useTransactionStore(+year, +month)(
+    useTransactionStore()(
       (state) => ({
         getTotalIncomeOfWallet: state.getTotalIncomeOfWallet,
         getTotalExpensesOfWallet: state.getTotalExpensesOfWallet

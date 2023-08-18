@@ -1,5 +1,5 @@
-import create from "zustand";
-import { persist } from "zustand/middleware";
+import { create } from "zustand";
+import { persist, createJSONStorage, devtools } from "zustand/middleware";
 import IndexedDBStorage from "../infra/indexedDBPersistence";
 import { ITransactionData } from "../@types";
 
@@ -15,38 +15,43 @@ export interface IAggregateStore {
 
 }
 
-const useAggregateStore = create<IAggregateStore>(persist(
-  (set, get) => ({
-    transactions: {
-      last10: []
-    },
-    addTransaction: (id, budgetId, walletId, amount, remarks) => {
-      const tranDate = (new Date()).toJSON()
 
-      const newTran = { id, type: undefined, budgetId, walletId, amount, tranDate, remarks }
-
-      const last10 = [...get().transactions.last10]
-
-      const count = last10.unshift(newTran)
-
-
-      if (count > 10) { // TODO: should also check the dates and not just the count
-        last10.pop()
+const useAggregateStore = create<IAggregateStore>()(
+  devtools(
+    persist((set, get) => ({
+      transactions: {
+        last10: []
+      },
+      addTransaction: (id, budgetId, walletId, amount, remarks) => {
+        const tranDate = (new Date()).toJSON()
+  
+        const newTran = { id, type: undefined, budgetId, walletId, amount, tranDate, remarks }
+        
+        const last10 = [...get().transactions.last10]
+  
+        const count = last10.unshift(newTran)
+  
+  
+        if (count > 10) { // TODO: should also check the dates and not just the count
+          last10.pop()
+        }
+  
+        set(state => {
+          state.transactions.last10 = last10
+          return state;
+        })
+      },
+      getLast10: () => {
+        return get().transactions.last10
       }
+    }),
+    {
+      name: PERSIST_NAME,
+      storage: createJSONStorage(() => IndexedDBStorage),
+      version: 1
+    })
+  )
+)
 
-      set(state => {
-        state.transactions.last10 = last10
-      })
-    },
-    getLast10: () => {
-      return get().transactions.last10
-    }
-  }),
-  {
-    name: PERSIST_NAME,
-    getStorage: () => IndexedDBStorage,
-    version: 1
-  }
-))
 
 export default useAggregateStore
