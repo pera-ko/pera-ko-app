@@ -1,4 +1,4 @@
-import create, { UseStore } from "zustand";
+import create, { UseBoundStore } from "zustand";
 import { persist } from "zustand/middleware";
 import { IIncome, ITransactionData, ITransferTransaction } from "../@types";
 import IndexedDBStorage from "../infra/indexedDBPersistence";
@@ -20,7 +20,7 @@ export interface ITransactionStore {
 
 const transactionStore: {
   [year: number]: {
-    [month: number]: UseStore<ITransactionStore>
+    [month: number]: UseBoundStore<ITransactionStore>
   }
 } = {}
 

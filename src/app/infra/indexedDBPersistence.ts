@@ -1,4 +1,4 @@
-import { get, set } from 'idb-keyval'                                                                             
+import { get, set, del } from 'idb-keyval'                                                                             
 import { StateStorage } from 'zustand/middleware'
                                                                                                                       
 const IndexedDBStorage: StateStorage = {                                                                                                
@@ -15,8 +15,12 @@ const IndexedDBStorage: StateStorage = {
     if (typeof indexedDB === 'undefined') {                                                                         
       return
     }                                                                                                                                                                                          
-    set(name, value)                                                                                                
-  }                                                                                                                 
-}                                                                                                                   
+    set(name, value)
+  },
+  removeItem: async (name: string): Promise<void> => {
+    console.log(name, 'has been deleted')
+    await del(name)
+  },
+}
                                                                                                                       
 export default IndexedDBStorage
