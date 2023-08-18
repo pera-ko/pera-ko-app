@@ -1,5 +1,6 @@
 import { CheckCircleIcon } from "@heroicons/react/24/outline"
 import { IWalletData } from "../app/@types"
+import PaymentMethodIcon from "./payment-method-icon"
 
 type Props = {
   items: Array<IWalletData>
@@ -7,7 +8,6 @@ type Props = {
   onSelect(val: IWalletData): void
 }
 const PaymentMethodList = ({ items, selected, onSelect } : Props) => {
-  
   return (
     <ul className='space-y-2'>
       {items
@@ -27,7 +27,10 @@ const PaymentMethodList = ({ items, selected, onSelect } : Props) => {
                 onSelect(wallet)
               }}
             >
-              {wallet.walletName}
+              <div className="flex space-x-2">
+                <PaymentMethodIcon type={wallet.type}/>
+                <span>{wallet.walletName}</span>
+              </div>
               {wallet.id === selected?.id && <CheckCircleIcon className='w-6 h-6' />}
             </button>
           </li>

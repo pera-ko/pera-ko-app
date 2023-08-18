@@ -1,7 +1,6 @@
 import {
   ArrowLeftIcon,
   ChevronRightIcon,
-  CreditCardIcon
 } from '@heroicons/react/24/outline';
 import React from 'react';
 import { useHistory, useRouteMatch } from 'react-router';
@@ -13,6 +12,7 @@ import { useLocalStorage } from '../app/hooks';
 import useBudgetStore from '../app/store/budget-store';
 import NavBar from '../components/navbar';
 import Page from '../components/page';
+import PaymentMethodIcon from '../components/payment-method-icon';
 
 const Preferences: React.FC = () => {
   const route = useRouteMatch('/:year/:month/preferences');
@@ -67,7 +67,7 @@ const Preferences: React.FC = () => {
                   className='flex items-center justify-between px-5 py-3'
                 >
                   <div className='pr-5 text-2xl'>
-                    <CreditCardIcon className='w-6 h-6' />
+                    <PaymentMethodIcon type={wallet.type}/>
                   </div>
                   <div className='flex-1'>
                     <span className='text-sm font-medium'>

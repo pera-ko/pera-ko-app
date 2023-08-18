@@ -101,7 +101,7 @@ export default function TransactionForm({
       {
         selectPayment ? (
           <div>
-            <div className='mx-2 my-4 text-sm font-medium'>Select Payment Method:</div>
+            <div className='mx-2 my-4 text-sm font-medium text-gray-500'>Select Payment Method:</div>
             <PaymentMethodList
             items={Object.values(walletList)}
             selected={defaultWallet}
