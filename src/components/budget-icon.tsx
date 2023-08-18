@@ -1,13 +1,13 @@
-import { IBudget, IGoal } from '../app/@types';
 import { hexToRGB } from '../app/utils';
 
 interface Props {
-  budget: IBudget | IGoal;
+  color: string
+  icon: string
   size?: 'normal' | 'large';
   className?: string;
 }
 export default function BudgetIcon({
-  budget,
+  icon, color,
   className,
   size = 'normal'
 }: Props) {
@@ -17,14 +17,14 @@ export default function BudgetIcon({
     <div
       className={`${fontSize} my-2 rounded-2xl text-center inline-block ${className}`}
       style={{
-        backgroundColor: budget?.color,
+        backgroundColor: color,
         lineHeight: iconSize,
         width: iconSize,
         height: iconSize,
-        boxShadow: `0px 1px 2px ${hexToRGB(budget.color, 0.5)}`
+        boxShadow: `0px 1px 2px ${hexToRGB(color, 0.5)}`
       }}
     >
-      {budget?.icon}
+      {icon}
     </div>
   );
 }
