@@ -48,7 +48,7 @@ export function BottomNav() {
   return (
     <Fragment>
       <div className='flex justify-center'>
-        <div className='fixed bottom-4 grid grid-cols-3 backdrop-blur bg-slate-100/30 dark:bg-[#242424]/30 shadow rounded-2xl space-x-3 px-1'>
+        <div className='fixed bottom-8 grid grid-cols-3 backdrop-blur bg-slate-100/30 dark:bg-[#242424]/30 shadow rounded-2xl space-x-3 px-1'>
           <Link to='/' className='flex items-center justify-center px-2 py-2 text-center w-15'>
             <HomeIcon className='inline w-6 h-6' />
             {/* <div className='text-xs font-medium'></div> */}
