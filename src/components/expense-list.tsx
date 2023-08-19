@@ -70,7 +70,7 @@ ExpenseList.Item = ({ value, budget, wallet } : ItemProps) => {
   return (
     <li className='flex items-center justify-between'>
       <div className='flex items-center'>
-        <div className="relative">
+        <div className="relative z-[-1]">
           <BudgetIcon className='ml-4 mr-2' color={budget.color} icon={budget.icon} />
           <div className="absolute rounded-full bottom-2 right-1 app-bg">
             {/* <ClockIcon className="w-5 h-5"/> */}
