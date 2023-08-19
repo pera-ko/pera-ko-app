@@ -7,6 +7,7 @@ import { ChevronUpDownIcon } from '@heroicons/react/24/outline';
 import PaymentMethodList from './payment-method-list';
 import { setDefaultWallet, useBudgetStore } from '../app/store';
 import { shallow } from 'zustand/shallow';
+import Dialog from './dialog';
 
 interface Inputs {
   amount: number;
@@ -98,11 +99,27 @@ export default function TransactionForm({
         onChange={(e) => setValue('amount', e.target.valueAsNumber)}
       />
       <InputGroup label='Remarks' {...register('remarks')} />
-      {
-        selectPayment ? (
+      <div className='flex justify-between mt-4'>
+        <button 
+          type='button' 
+          className='py-1.5 text-left flex items-center justify-between' 
+          onClick={() => setSelectPayment(!selectPayment)}>
           <div>
-            <div className='mx-2 my-4 text-sm font-medium text-gray-500'>Select Payment Method:</div>
-            <PaymentMethodList
+            <div className='text-xs font-medium text-gray-500'>Payment Method:</div>
+            <div className='text-sm font-medium'>{defaultWallet.walletName}</div>
+          </div>
+          <ChevronUpDownIcon className='w-6 h-6'/>
+        </button>
+        <button
+          type='submit'
+          className='px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-lg'
+          >
+          Add Transaction
+        </button>
+      </div>
+      {selectPayment ? (
+        <Dialog title='' onClose={() => setSelectPayment(!selectPayment)} showClose={false} position='bottom'>
+          <PaymentMethodList
             items={Object.values(walletList)}
             selected={defaultWallet}
             onSelect={w => {
@@ -110,28 +127,8 @@ export default function TransactionForm({
               setSelectPayment(!selectPayment)
             }}
             />
-          </div>
-        ) : (
-          <div className='flex justify-between mt-4'>
-            <button 
-              type='button' 
-              className='py-1.5 text-left flex items-center justify-between' 
-              onClick={() => setSelectPayment(!selectPayment)}>
-              <div>
-                <div className='text-xs font-medium text-gray-500'>Payment Method:</div>
-                <div className='text-sm font-medium'>{defaultWallet.walletName}</div>
-              </div>
-              <ChevronUpDownIcon className='w-6 h-6'/>
-            </button>
-            <button
-              type='submit'
-              className='px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-lg'
-              >
-              Add Transaction
-            </button>
-          </div>
-        )
-      }
+        </Dialog>
+      ) : null}
     </form>
   );
 }
