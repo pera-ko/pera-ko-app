@@ -51,7 +51,7 @@ const NavBar = ({ leftButton, title, rightButton } : Props) => {
   }
 
   return (
-    <div className='sticky top-0 flex items-center text-lg font-medium app-bg'>
+    <div className='sticky top-0 z-10 flex items-center text-lg font-medium app-bg'>
       {renderButton(leftButton)}
       
       <span className="flex-1">{title}</span>
