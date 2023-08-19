@@ -65,15 +65,15 @@ const Dialog: React.FC<Props> = ({
                 }>
               <HUIDialog.Title
                 as='h3'
-                className='text-lg font-medium leading-6 '
+                className='px-4 mt-4 text-lg font-medium leading-6'
               >
                 {title}
               </HUIDialog.Title>
               <div className='mt-2'>{children}</div>
-              {buttons && !showClose ? (
+              {(buttons || !showClose) ? (
 
               
-              <div className='mt-4 space-x-2 text-right'>
+              <div className='px-4 mt-4 mb-4 space-x-2 text-right'>
                 {buttons?.map((b, index) => (
                   <button
                     key={index}
