@@ -12,6 +12,7 @@ interface Props extends PropsWithChildren {
   buttons?: IDialogButton[];
   isOpen?: boolean;
   showClose?: boolean;
+  position?: "center" | "bottom"
 }
 
 const Dialog: React.FC<Props> = ({
@@ -20,7 +21,8 @@ const Dialog: React.FC<Props> = ({
   onClose,
   buttons,
   isOpen,
-  showClose = true
+  showClose = true,
+  position = "center"
 }) => {
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -57,7 +59,10 @@ const Dialog: React.FC<Props> = ({
             leaveFrom='opacity-100 scale-100'
             leaveTo='opacity-0 scale-95'
           >
-            <div className='inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl dark:bg-zinc-900 rounded-2xl'>
+            <div className={`inline-block max-w-md p-2 mb-2 overflow-hidden 
+                text-left align-middle transition-all transform bg-white 
+                shadow-xl dark:bg-zinc-900 rounded-2xl ${position === 'bottom'? 'fixed inset-x-2 bottom-0' : ''}`
+                }>
               <HUIDialog.Title
                 as='h3'
                 className='text-lg font-medium leading-6 '
@@ -65,7 +70,9 @@ const Dialog: React.FC<Props> = ({
                 {title}
               </HUIDialog.Title>
               <div className='mt-2'>{children}</div>
+              {buttons && !showClose ? (
 
+              
               <div className='mt-4 space-x-2 text-right'>
                 {buttons?.map((b, index) => (
                   <button
@@ -88,6 +95,8 @@ const Dialog: React.FC<Props> = ({
                   </button>
                 )}
               </div>
+              
+              ) : null}
             </div>
           </Transition.Child>
         </div>
