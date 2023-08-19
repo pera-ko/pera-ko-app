@@ -102,33 +102,5 @@ export default function NewTransaction() {
         </div>
       </Dialog>
     </Transition>
-    // <Dialog
-    //   open
-    //   onClose={() => history.goBack()}
-    //   as='div'
-
-    // >
-    //   <Dialog.Overlay className='fixed inset-0 bg-black bg-opacity-75' />
-    //   <div className='fixed inset-x-0 bottom-0 pt-1 bg-white rounded-t-5xl'>
-    //     <div className='sticky top-0 flex items-center font-medium bg-white h- rounded-t-5xl'>
-    //       <button
-    //         className='p-5 outline-none focus:outline-none'
-    //         onClick={() => history.goBack()}
-    //       >
-    //         <ArrowLeftIcon className='w-6 h-6' />
-    //       </button>
-    //       <Dialog.Title>New Transaction</Dialog.Title>
-    //     </div>
-    //     <TransactionForm
-    //       selectedBudget={selectedBudget}
-    //       budgetList={budgetList}
-    //       onSubmit={(value) => {
-    //         addTransaction(value.budgetId, value.amount, value.remarks);
-    //         history.goBack();
-    //         toast.success(`${money(value.amount)} added to transaction`);
-    //       }}
-    //     />
-    //   </div>
-    // </Dialog>
   );
 }
