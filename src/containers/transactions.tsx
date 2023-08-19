@@ -12,6 +12,7 @@ import NavBar from '../components/navbar';
 import { ITransaction } from '../app/@types';
 import Page from '../components/page';
 import { useLocalStorage } from '../app/hooks';
+import OverviewPie from '../components/widgets/charts/overview-pie';
 
 dayjs.extend(calendar);
 
@@ -43,6 +44,7 @@ export default function Transactions() {
         }}
         title='Expenses'
         />
+      <OverviewPie/>
       <ul>
         {sortedList.map((t, index) => {
           var retVal: React.ReactElement[] = [];
