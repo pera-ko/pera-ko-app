@@ -89,12 +89,14 @@ const WalletEditor = () => {
       title={route ? 'Add Payment Method' : 'Update Payment Method'}
       buttons={dialogButtons}
     >
-      <WalletForm
-        id='wallet-form'
-        defaultValue={defaultValue}
-        onSubmit={handleSubmit}
-        isDefault={defaultValue?.id === "default"}
-      />
+      <div className='px-4'>
+        <WalletForm
+          id='wallet-form'
+          defaultValue={defaultValue}
+          onSubmit={handleSubmit}
+          isDefault={defaultValue?.id === "default"}
+          />
+      </div>
     </Dialog>
   );
 };
