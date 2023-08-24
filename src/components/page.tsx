@@ -1,4 +1,5 @@
 import { Portal, Transition } from '@headlessui/react';
+import React from 'react';
 import { Fragment, PropsWithChildren } from 'react';
 
 type Props = {
@@ -6,6 +7,14 @@ type Props = {
 } & PropsWithChildren
 
 const Page = ({ isOpen, children } : Props) => {
+  React.useEffect(() => {
+    if (isOpen) {
+      document.body.classList.add('disable-scroll')
+    } else {
+      document.body.classList.remove('disable-scroll')
+    }
+  }, [isOpen])
+
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Portal>

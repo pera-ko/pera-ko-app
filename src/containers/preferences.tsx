@@ -19,7 +19,6 @@ const Preferences: React.FC = () => {
   const history = useHistory();
   const budgetList = useBudgetStore((state) => state.budget.list);
   const walletList = useBudgetStore((state) => state.wallet.list);
-  const defaultWallet = useBudgetStore((state) => state.wallet.selected);
   const {value: newDashboard, setValue: setNewDashboard } = useLocalStorage('expenses-dashboard', false);
   const {value: enableQuickTran, setValue: setQuickTran } = useLocalStorage('quick-tran-enabled', true);
   const isOpen = route ? true : false;

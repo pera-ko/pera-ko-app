@@ -62,3 +62,7 @@ h1 {
     background-color: #f3f4f6;
   }
 }
+
+body.disable-scroll {
+  overflow: hidden;
+}
