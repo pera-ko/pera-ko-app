@@ -36,7 +36,7 @@ const defaultWalletList: {
 } = {
   "default": {
     id: "default",
-    walletName: "Cash on Hand",
+    walletName: "Cash",
     type: "cash"
   }
 }

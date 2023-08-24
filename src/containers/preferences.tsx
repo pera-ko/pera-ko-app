@@ -19,6 +19,7 @@ const Preferences: React.FC = () => {
   const history = useHistory();
   const budgetList = useBudgetStore((state) => state.budget.list);
   const walletList = useBudgetStore((state) => state.wallet.list);
+  const defaultWallet = useBudgetStore((state) => state.wallet.selected);
   const {value: newDashboard, setValue: setNewDashboard } = useLocalStorage('expenses-dashboard', false);
   const {value: enableQuickTran, setValue: setQuickTran } = useLocalStorage('quick-tran-enabled', true);
   const isOpen = route ? true : false;
@@ -61,21 +62,37 @@ const Preferences: React.FC = () => {
           .filter((w) => !w.isDeleted)
           .map((wallet) => {
             return (
-              <li key={wallet.id} >
-                <Link
-                  to={`${route?.url}/wallet/${wallet.id}/edit`}
-                  className='flex items-center justify-between px-5 py-3'
-                >
-                  <div className='pr-5 text-2xl'>
-                    <PaymentMethodIcon type={wallet.type}/>
+              <li key={wallet.id}>
+                {wallet.id !== "default" ? (
+                  <Link
+                    to={`${route?.url}/wallet/${wallet.id}/edit`}
+                    className='flex items-center justify-between px-5 py-3'
+                    >
+                    <div className='pr-5 text-2xl'>
+                      <PaymentMethodIcon type={wallet.type}/>
+                    </div>
+                    <div className='flex-1'>
+                      <span className='text-sm font-medium'>
+                        {wallet.walletName}
+                      </span>
+                    </div>
+                    <ChevronRightIcon className='block w-6 h-6' />
+                  </Link>
+                ) : (
+                  <div
+                    className='flex items-center justify-between px-5 py-3'
+                    >
+                    <div className='pr-5 text-2xl'>
+                      <PaymentMethodIcon type={wallet.type}/>
+                    </div>
+                    <div className='flex-1'>
+                      <span className='text-sm font-medium'>
+                        {wallet.walletName}
+                      </span>
+                    </div>
+                    
                   </div>
-                  <div className='flex-1'>
-                    <span className='text-sm font-medium'>
-                      {wallet.walletName}
-                    </span>
-                  </div>
-                  <ChevronRightIcon className='block w-6 h-6' />
-                </Link>
+                )}
               </li>
             );
           })}
