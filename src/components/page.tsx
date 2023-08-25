@@ -13,6 +13,10 @@ const Page = ({ isOpen, children } : Props) => {
     } else {
       document.body.classList.remove('disable-scroll')
     }
+
+    return () => {
+      document.body.classList.remove('disable-scroll')
+    }
   }, [isOpen])
 
   return (
