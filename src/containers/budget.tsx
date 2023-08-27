@@ -18,16 +18,17 @@ const Budget: React.FC = () => {
   const { year, month } = useParams<{ year: string; month: string }>();
   const location = useLocation();
   const history = useHistory();
-  const query = useLocQuery();
+  const { set, search } = useLocQuery<{ newtran: string, id : string, view: 'grid' | 'quickadd' }>();
   const [selectedItems, setSelectedItems] = useState<IBudgetGoalData[]>([]);
   const addTransaction = useAddTransaction()
   const selectedWalletId = useBudgetStore((state) => state.wallet.selected);
   const {value: enableQuickTran } = useLocalStorage('quick-tran-enabled', true);
-  const isQuickAdd = query.get('view') === 'quickadd';
+  const isQuickAdd = search['view'] === 'quickadd';
 
   const handleViewChange = (mode: 'grid' | 'quickadd') => {
-    query.set('view', mode);
-    history.push(`${location.pathname}?${query.toString()}`);
+
+    set({ view: mode });
+    
   };
   let listItems = getEffectiveBudget(+year, +month).filter(b => !b.isHidden);
 
@@ -43,9 +44,13 @@ const Budget: React.FC = () => {
   };
 
   const handleBudgetGridItemClick = (id: string) => {
-    query.set('newtran', 'open');
-    query.set('id', id);
-    history.push(`${location.pathname}?${query.toString()}`);
+    // query.set('newtran', 'open');
+    // query.set('id', id);
+    set({
+      newtran : 'open',
+      id
+    })
+    // history.push(`${location.pathname}?${query.toString()}`);
   };
 
   if (isQuickAdd) {

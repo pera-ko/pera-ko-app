@@ -11,11 +11,11 @@ const useAddTransaction = () => {
   const addPaymentTransaction = useExpensesPaymentStore(state => state.addTransaction)
   const { addAggregateTransaction } = useAggregateStore(state => ({ addAggregateTransaction: state.addTransaction }))
 
-  return (budgetId: string, walletId: string, amount: number, remarks?: string) => {
+  return (budgetId: string, walletId: string, amount: number, remarks?: string, labels?: string[]) => {
     const id = crypto.randomUUID()
-    addTransaction(id, budgetId, walletId, amount, remarks)
-    addAggregateTransaction(id, budgetId, walletId, amount, remarks);
-    addPaymentTransaction(id, budgetId, walletId, amount, remarks);
+    addTransaction(id, budgetId, walletId, amount, remarks, labels)
+    addAggregateTransaction(id, budgetId, walletId, amount, remarks, labels);
+    addPaymentTransaction(id, budgetId, walletId, amount, remarks, labels);
   }
 }
 

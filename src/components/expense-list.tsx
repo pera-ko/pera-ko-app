@@ -4,17 +4,19 @@ import calendar from 'dayjs/plugin/calendar';
 import BudgetIcon from "./budget-icon";
 import { Fragment } from "react";
 import { money } from "../app/utils";
+import { TagIcon } from "@heroicons/react/20/solid";
+import { useBudgetStore } from "../app/store";
 
 dayjs.extend(calendar);
 
-type Props = {
+type ExpenseListProps = {
   items: ITransaction[]
   budgetList: (IGoalData | IBudgetData)[]
   walletList: Record<string, IWallet>
   showHeader?: boolean
 }
 
-const ExpenseList = ({ items, budgetList, walletList, showHeader } : Props) => {
+export const ExpenseList = ({ items, budgetList, walletList, showHeader } : ExpenseListProps) => {
   
   let lastDate: string | null = null;
 
@@ -82,8 +84,11 @@ ExpenseList.Item = ({ value, budget, wallet } : ItemProps) => {
           <div className='text-sm font-medium'>
             {budget?.budgetName}
           </div>
-          <div className='text-xs'>
-            {wallet.walletName}
+          <div className='flex items-center space-x-1 text-xs'>
+            {value.labels && value.labels.length > 0 ? (
+              <span className="text-white bg-gray-500 dark:text-[#242424] rounded w-4"><TagIcon className=""/></span>
+            ) : null}
+            <span className="font-medium text-gray-500">{wallet.walletName}</span>
           </div>
         </div>
       </div>
@@ -95,4 +100,19 @@ ExpenseList.Item = ({ value, budget, wallet } : ItemProps) => {
   )
 }
 
-export default ExpenseList
+type ExpenseListConnectedProps = Pick<ExpenseListProps, "items" | "showHeader">
+
+const ExpenseListConnected = (props : ExpenseListConnectedProps) => {
+  const budgetList = useBudgetStore(state => state.budget.list)
+  const walletList = useBudgetStore(state => state.wallet.list)
+
+  return (
+    <ExpenseList
+      budgetList={budgetList}
+      walletList={walletList}
+      {...props}
+      />
+  )
+}
+
+export default ExpenseListConnected

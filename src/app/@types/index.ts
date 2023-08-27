@@ -47,6 +47,7 @@ export interface ITransaction {
   walletId: string;
   amount: number;
   tranDate: string;
+  labels?: string[];
   remarks?: string;
 }
 export interface ITransferTransaction {

@@ -1,7 +1,5 @@
 import {
   Link,
-  useHistory,
-  useLocation,
   useParams
 } from 'react-router-dom';
 import {
@@ -39,12 +37,9 @@ const App: React.FC<PropsWithChildren> = ({ children }) => {
 
 export function BottomNav() {
   const { year, month } = useParams<{ year: string; month: string }>();
-  const location = useLocation();
-  const history = useHistory();
-  const query = useLocQuery();
+  const query = useLocQuery<{ newtran : 'open' | 'false' }>();
   const handleNewClick = () => {
-    query.set('newtran', 'open');
-    history.push(`${location.pathname}?${query.toString()}`);
+    query.set({ newtran: 'open'});
   };
   return (
     <Fragment>

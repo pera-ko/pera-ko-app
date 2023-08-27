@@ -8,6 +8,7 @@ import PaymentMethodList from './payment-method-list';
 import { setDefaultWallet, useBudgetStore } from '../app/store';
 import { shallow } from 'zustand/shallow';
 import Dialog from './dialog';
+import LabelPicker from './label-picker';
 
 interface Inputs {
   amount: number;
@@ -17,7 +18,7 @@ interface Inputs {
 interface Props {
   selectedBudget?: IBudgetGoalData;
   budgetList: (IBudgetGoalData & { totTranAmt: number })[];
-  onSubmit?(value: Inputs & { budgetId: string }): void;
+  onSubmit?(value: Inputs & { budgetId: string, labels: string[] }): void;
 }
 
 export default function TransactionForm({
@@ -38,6 +39,7 @@ export default function TransactionForm({
   );
   const defaultWallet = walletList[selectedWalletId];
   const [selectPayment, setSelectPayment] = useState(false)
+  const [labels, setLabels] = useState<string[]>([])
   const {
     register,
     handleSubmit,
@@ -55,11 +57,15 @@ export default function TransactionForm({
   }, [register, selectedBudget]);
 
   const handleFormSubmit: SubmitHandler<Inputs> = (data) => {
-    if (onSubmit && budget)
-      onSubmit({
+    if (onSubmit && budget) {
+      const submitData = {
         ...data,
-        budgetId: budget.id
-      });
+        budgetId: budget.id,
+        labels
+      }
+      console.log(submitData)
+      onSubmit(submitData);
+    }
   };
 
   let defaultAmount: number | undefined;
@@ -99,6 +105,12 @@ export default function TransactionForm({
         onChange={(e) => setValue('amount', e.target.valueAsNumber)}
       />
       <InputGroup label='Remarks' {...register('remarks')} />
+      <div className='mt-4'>
+        <LabelPicker
+          onChange={setLabels}
+          selected={labels}
+          />
+      </div>
       <div className='flex justify-between mt-4'>
         <button 
           type='button' 

@@ -1,11 +1,28 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
-import { IIncome, ITransactionData, ITransferTransaction } from "../@types";
+import { IIncome, ITransaction, ITransactionData, ITransferTransaction } from "../@types";
 import IndexedDBStorage from "../infra/indexedDBPersistence";
 import storeMigration from "./migration";
 import { useEffect } from "react";
 import usePerako from "../contexts/perako-context";
 import { keys } from "idb-keyval";
+
+export const sumPerCategory = (items: ITransaction[]) => {
+  let retval: { name: string, value: number }[] = [];
+  
+  items.forEach(tran => {
+    if (tran.type === undefined) {
+      var g = retval.find(x => x.name === tran.budgetId)
+      if (!g) {
+        retval.push({ name: tran.budgetId, value: tran.amount })
+      } else {
+        g.value += tran.amount;
+      }
+    }
+  })
+
+  return retval
+}
 
 export interface ITransactionStore {
   incomeList: IIncome[];
@@ -16,7 +33,7 @@ export interface ITransactionStore {
   getTotalExpensesOfWallet: (walletId: string) => number;
   getTotalOfEachBudget: () => { name: string, value: number }[];
   getTotalOfBudget: (budgetId: string) => number;
-  addTransaction: (id: string, budgetId: string, walletId: string, amount: number, remarks?: string) => void;
+  addTransaction: (id: string, budgetId: string, walletId: string, amount: number, remarks?: string, labels?: string[]) => void;
   addIncome: (walletId: string, amount: number, remarks?: string) => void;
   addTransfer: (walletFromId: string, walletToId: string, amount: number, remarks?: string) => void;
 }
@@ -39,28 +56,15 @@ const createTranStore = (dbName: string) => {
         }
       }).reduce((x, y) => x + y.amount, 0),
       getTotalOfEachBudget: () => {
-        let retval: { name: string, value: number }[] = [];
-  
-        get().list.forEach(tran => {
-          if (tran.type === undefined) {
-            var g = retval.find(x => x.name === tran.budgetId)
-            if (!g) {
-              retval.push({ name: tran.budgetId, value: tran.amount })
-            } else {
-              g.value += tran.amount;
-            }
-          }
-        })
-  
-        return retval;
+        return sumPerCategory(get().list.filter(t => t.type === undefined) as ITransaction[])
       },
       getTotalOfBudget: (budgetId: string) => {
         return get().list.filter(t => t.type === undefined && t.budgetId === budgetId).reduce((tot, t) => tot + t.amount, 0)
       },
-      addTransaction: (id: string, budgetId: string, walletId: string, amount: number, remarks?: string) => {
+      addTransaction: (id: string, budgetId: string, walletId: string, amount: number, remarks?: string, labels = []) => {
         const tranDate = (new Date()).toJSON()
         set(state => {
-          state.list.push({ id, type: undefined, budgetId, walletId, amount, tranDate, remarks })
+          state.list.push({ id, type: undefined, budgetId, walletId, amount, tranDate, remarks, labels })
           return state;
         })
       },

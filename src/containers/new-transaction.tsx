@@ -24,17 +24,11 @@ export default function NewTransaction() {
     shallow
   );
   const history = useHistory();
-  const query = useLocQuery();
-  // const { getTotalOfBudget } = useTransactionStore()(
-  //   (state) => ({
-  //     getTotalOfBudget: state.getTotalOfBudget
-  //   }),
-  //   shallow
-  // );
+  const { search } = useLocQuery();
   const getTotalOfBudget = useTransactionStore()(state => state.getTotalOfBudget)
-  const id = query.get('id');
+  const id = search['id'];
   const selectedBudget = id ? budgetList.find((b) => b.id === id) : undefined;
-  const isNewTransactionOpen = query.get('newtran') === 'open';
+  const isNewTransactionOpen = search['newtran'] === 'open';
 
   const budgetListWithAmt = budgetList.map((b) => {
     return {
@@ -91,7 +85,8 @@ export default function NewTransaction() {
                     value.budgetId,
                     selectedWalletId,
                     value.amount,
-                    value.remarks
+                    value.remarks,
+                    value.labels
                   );
                   history.goBack();
                   toast.success(`${money(value.amount)} added to transaction`);
