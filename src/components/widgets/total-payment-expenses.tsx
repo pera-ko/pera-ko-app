@@ -10,7 +10,7 @@ function TotalPaymentExpenses() {
   const appPath = useRouteMatch('/:year/:month');
   const {
     getTotalExpenses,
-  } = useTransactionStore()((state) => state);
+  } = useTransactionStore((state) => state);
   const { value: mask, setValue: setMask } = useLocalStorage('expenses-dashboard-mask', false)
 
   const totalExpenses = getTotalExpenses();

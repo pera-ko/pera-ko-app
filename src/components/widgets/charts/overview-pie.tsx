@@ -46,7 +46,7 @@ const OverviewPieConnected = () => {
   const budgetList = useBudgetStore((state) => state.budget.list);
   const {
     getTotalOfEachBudget
-  } = useTransactionStore()((state) => state);
+  } = useTransactionStore((state) => state);
   const chartData = getTotalOfEachBudget();
 
   const colors = chartData.map(

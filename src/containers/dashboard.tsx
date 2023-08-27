@@ -28,7 +28,7 @@ const Dashboard: React.FC<PropsWithChildren> = ({ children }) => {
     getGrandTotalIncome,
     getTotalIncomeOfWallet,
     getTotalOfEachBudget
-  } = useTransactionStore()((state) => state);
+  } = useTransactionStore((state) => state);
 
   const defaultWallet = walletList[selectedWalletId];
   const totalIncome = getGrandTotalIncome();

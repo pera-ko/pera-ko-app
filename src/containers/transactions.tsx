@@ -20,7 +20,7 @@ export default function Transactions() {
   const labels = useLabelStore(state => state.list)
   const {value: newDashboard, loading } = useLocalStorage('expenses-dashboard', false);
   const { year, month } = useParams<{ year: string; month: string }>();
-  const { list: transactionList } = useTransactionStore()((state) => state);
+  const { list: transactionList } = useTransactionStore((state) => state);
   const [label, setLabel] = React.useState<string>("All")
   const { set, search } = useLocQuery<{ labelPicker: 'open' | 'closed'}>();
   const history = useHistory();

@@ -25,7 +25,7 @@ export default function NewTransaction() {
   );
   const history = useHistory();
   const { search } = useLocQuery();
-  const getTotalOfBudget = useTransactionStore()(state => state.getTotalOfBudget)
+  const getTotalOfBudget = useTransactionStore(state => state.getTotalOfBudget)
   const id = search['id'];
   const selectedBudget = id ? budgetList.find((b) => b.id === id) : undefined;
   const isNewTransactionOpen = search['newtran'] === 'open';

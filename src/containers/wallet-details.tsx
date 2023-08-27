@@ -19,7 +19,7 @@ const WalletDetails = () => {
   const history = useHistory();
   const walletList = useBudgetStore((state) => state.wallet.list);
   const { getTotalIncomeOfWallet, getTotalExpensesOfWallet } =
-    useTransactionStore()(
+    useTransactionStore(
       (state) => ({
         getTotalIncomeOfWallet: state.getTotalIncomeOfWallet,
         getTotalExpensesOfWallet: state.getTotalExpensesOfWallet

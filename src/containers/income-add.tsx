@@ -6,7 +6,7 @@ import IncomeForm from '../components/income-form';
 
 export default function IncomeAdd() {
   const history = useHistory();
-  const addIncome = useTransactionStore()((state) => state).addIncome;
+  const addIncome = useTransactionStore((state) => state).addIncome;
 
   const defaultWallet = getDefaultWallet();
 

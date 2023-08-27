@@ -3,7 +3,7 @@ import useAggregateStore from "../store/aggregate-store";
 import useExpensesPaymentStore from "../store/expenses-payment-store";
 
 const useAddTransaction = () => {
-  const { addTransaction } = useTransactionStore()(
+  const { addTransaction } = useTransactionStore(
     (state) => ({
       addTransaction: state.addTransaction
     })

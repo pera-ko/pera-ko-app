@@ -27,7 +27,7 @@ const WalletTransfer = () => {
     formState: { errors }
   } = useForm<Inputs>();
   const walletList = useBudgetStore((state) => state.wallet.list);
-  const addTransfer = useTransactionStore()((state) => state.addTransfer);
+  const addTransfer = useTransactionStore((state) => state.addTransfer);
 
   const handleClose = () => history.goBack();
   const handleFormSubmit: SubmitHandler<Inputs> = (value) => {
