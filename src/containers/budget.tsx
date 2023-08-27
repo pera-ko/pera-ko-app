@@ -16,8 +16,6 @@ import useAddTransaction from '../app/hooks/use-transaction';
 
 const Budget: React.FC = () => {
   const { year, month } = useParams<{ year: string; month: string }>();
-  const location = useLocation();
-  const history = useHistory();
   const { set, search } = useLocQuery<{ newtran: string, id : string, view: 'grid' | 'quickadd' }>();
   const [selectedItems, setSelectedItems] = useState<IBudgetGoalData[]>([]);
   const addTransaction = useAddTransaction()
@@ -44,13 +42,10 @@ const Budget: React.FC = () => {
   };
 
   const handleBudgetGridItemClick = (id: string) => {
-    // query.set('newtran', 'open');
-    // query.set('id', id);
     set({
       newtran : 'open',
       id
     })
-    // history.push(`${location.pathname}?${query.toString()}`);
   };
 
   if (isQuickAdd) {
