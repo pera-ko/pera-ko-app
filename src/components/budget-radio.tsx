@@ -1,7 +1,7 @@
 import { RadioGroup } from '@headlessui/react';
 import React, { Fragment } from 'react';
 
-interface BudgetRadioProps {
+type BudgetRadioProps = {
   type: 'budget' | 'goal';
   onChange(value: 'budget' | 'goal'): void;
 }

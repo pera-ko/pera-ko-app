@@ -7,7 +7,7 @@ interface IDeletable {
   deleteDate?: string
 }
 
-export interface IBudget {
+export type IBudget = {
   type: "budget";
   budgetName: string;
   amount: number;
@@ -16,7 +16,7 @@ export interface IBudget {
   isHidden?: boolean;
 }
 
-export interface IGoal {
+export type IGoal = {
   type: "goal";
   budgetName: string;
   amount: number;
@@ -28,12 +28,12 @@ export interface IGoal {
   isHidden?: boolean;
 }
 
-export interface IWallet {
+export type IWallet = {
   walletName: string
   type: "credit-card" | "e-wallet" | "cash"
 }
 
-export interface IIncome {
+export type IIncome = {
   type: undefined | 'transfer'
   walletId: string;
   amount: number;
@@ -41,7 +41,7 @@ export interface IIncome {
   tranDate: string;
 }
 
-export interface ITransaction {
+export type ITransaction = {
   type: undefined;
   budgetId: string;
   walletId: string;
@@ -50,7 +50,7 @@ export interface ITransaction {
   labels?: string[];
   remarks?: string;
 }
-export interface ITransferTransaction {
+export type ITransferTransaction = {
   type: 'transfer';
   walletFromId: string;
   walletToId: string;

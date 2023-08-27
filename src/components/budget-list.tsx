@@ -7,12 +7,12 @@ const BudgetListComponent: React.FC<PropsWithChildren> = ({ children }) => {
   return <ul>{children}</ul>;
 };
 
-interface ItemProps extends PropsWithChildren {
+type ItemProps = {
   value: IBudget | IGoal;
   showAmount?: boolean;
   onClick?(value: IBudget | IGoal): void;
   className?: string;
-}
+} & PropsWithChildren
 const BudgetListItem: React.FC<ItemProps> = ({
   className,
   value,

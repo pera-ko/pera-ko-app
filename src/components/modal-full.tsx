@@ -2,11 +2,11 @@ import { Dialog, Transition } from '@headlessui/react';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import { Fragment, PropsWithChildren } from 'react';
 
-interface Props extends PropsWithChildren {
+type Props = {
   isOpen?: boolean;
   title: string;
   onClose(): void;
-}
+} & PropsWithChildren
 
 const ModalFull: React.FC<Props> = ({ isOpen, children, title, onClose }) => {
   return (

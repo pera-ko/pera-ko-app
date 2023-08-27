@@ -6,7 +6,7 @@ import { ITransactionData } from "../@types";
 const PERSIST_NAME = 'expenses_payment'
 
 // All transaction list should be ordered by tran date in descending order
-export interface IExpensesPaymentStore {
+export type IExpensesPaymentStore = {
   transactions: Record<string, ITransactionData[]>;
   addTransaction: (id: string, budgetId: string, walletId: string, amount: number, remarks?: string, labels?: string[]) => void;
 }

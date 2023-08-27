@@ -2,7 +2,7 @@ import React from 'react';
 import { InputHTMLAttributes } from 'react';
 import { FieldError } from 'react-hook-form';
 
-interface Props extends InputHTMLAttributes<HTMLInputElement> {
+type Props = {
   label: string;
   error?: FieldError;
   contentLabel?: {
@@ -10,7 +10,7 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
     content: string;
   };
   inputClassName?: string;
-}
+} & InputHTMLAttributes<HTMLInputElement>
 
 function InputGroupInner(
   { label, error, className, contentLabel, inputClassName, ...rest }: Props,

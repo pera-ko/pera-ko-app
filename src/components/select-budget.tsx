@@ -6,7 +6,7 @@ import { IBudgetGoalData } from '../app/@types';
 import { formatCurrency, hexToRGB, money } from '../app/utils';
 import BudgetIcon from './budget-icon';
 
-interface Props {
+type Props = {
   value?: IBudgetGoalData;
   items: IBudgetGoalData[];
   onChange(value: IBudgetGoalData): void;

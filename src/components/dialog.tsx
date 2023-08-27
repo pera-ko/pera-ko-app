@@ -1,19 +1,19 @@
 import { Dialog as HUIDialog, Transition } from '@headlessui/react';
 import { Fragment, PropsWithChildren } from 'react';
 
-export interface IDialogButton extends React.HTMLProps<HTMLButtonElement> {
+export type IDialogButton = {
   text: string;
   type: 'submit' | 'button' | undefined;
-}
+} & React.HTMLProps<HTMLButtonElement>
 
-interface Props extends PropsWithChildren {
+type Props = {
   title: string;
   onClose(): void;
   buttons?: IDialogButton[];
   isOpen?: boolean;
   showClose?: boolean;
   position?: "center" | "bottom"
-}
+} & PropsWithChildren
 
 const Dialog: React.FC<Props> = ({
   children,

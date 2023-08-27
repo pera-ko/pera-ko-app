@@ -36,11 +36,12 @@ const BudgetGridComponent: React.FC<PropsWithChildren> = ({ children }) => {
   );
 };
 
-interface ItemProps extends PropsWithChildren {
+type ItemProps = {
   value: IBudget | IGoal;
   showAmount?: boolean;
   onClick?(value: IBudget | IGoal): void;
-}
+} & PropsWithChildren
+
 const BudgetGridItem: React.FC<ItemProps> = ({ value, children, onClick }) => {
   const handleItemClick = (item: IBudget | IGoal) => {
     if (onClick) onClick(item);

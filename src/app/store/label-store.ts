@@ -8,7 +8,7 @@ export const defaultLabels = [
   "Emergency", "Fast Food"
 ]
 
-export interface ILabelStore {
+export type ILabelStore = {
   list: string[]
   createLabel: (val: string) => string
 }

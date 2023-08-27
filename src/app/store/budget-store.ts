@@ -9,7 +9,7 @@ import storeMigration from "./migration";
 
 dayjs.extend(isBetween)
 
-export interface IBudgetStoreState {
+export type IBudgetStoreState = {
   wallet: {
     list: {
       [id: string]: IWalletData

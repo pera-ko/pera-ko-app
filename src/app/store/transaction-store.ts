@@ -21,7 +21,7 @@ export const sumPerCategory = (items: ITransaction[]) => {
   return retval
 }
 
-export interface ITransactionStore {
+export type ITransactionStore = {
   incomeList: IIncome[];
   list: (ITransactionData | ITransferTransaction)[];
   getGrandTotalIncome: () => number;

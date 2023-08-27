@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { IWalletData } from '../app/@types';
 import Dialog from './dialog';
 
-interface Props {
+type Props = {
   value?: IWalletData;
   items: IWalletData[];
   onChange(value: IWalletData): void;

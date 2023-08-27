@@ -6,7 +6,7 @@ import { ITransactionData } from "../@types";
 const PERSIST_NAME = 'aggregate'
 
 // All transactions should be ordered by tran date in descending order
-export interface IAggregateStore {
+export type IAggregateStore = {
   transactions: {
     last10: ITransactionData[]
   },

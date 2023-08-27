@@ -2,7 +2,7 @@ import { CheckIcon } from '@heroicons/react/24/outline';
 import { IBudgetGoalData } from '../app/@types';
 import BudgetList from './budget-list';
 
-interface Props {
+type Props = {
   items: IBudgetGoalData[];
   selectedItems: IBudgetGoalData[];
   onSelectedItemsChange(items: IBudgetGoalData[]): void;

@@ -3,12 +3,12 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import InputGroup from './input-group';
 import { RadioGroup } from '@headlessui/react';
 
-interface Inputs {
+type Inputs = {
   type: "credit-card" | "e-wallet" | "cash";
   walletName: string;
 }
 
-interface Props {
+type Props = {
   id?: string;
   defaultValue?: Inputs;
   onSubmit?(value: { walletName: string }): void;

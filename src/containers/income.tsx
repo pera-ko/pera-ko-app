@@ -53,7 +53,7 @@ function IncomeHeader({ date }: { date: string }) {
   );
 }
 
-interface IncomeItemProps {
+type IncomeItemProps = {
   amount: number;
   text: string;
   remarks?: string;

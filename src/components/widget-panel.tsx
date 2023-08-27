@@ -1,11 +1,11 @@
 import { PropsWithChildren, ReactNode} from "react";
 
-interface WidgetPanelProps extends PropsWithChildren {
+type WidgetPanelProps = {
   title: string;
   hideTitle?: boolean;
   topRightElement?: ReactNode;
   sticky?: boolean
-}
+} & PropsWithChildren
 
 function WidgetPanel({
   title,

@@ -10,12 +10,12 @@ import { shallow } from 'zustand/shallow';
 import Dialog from './dialog';
 import LabelPicker from './label-picker';
 
-interface Inputs {
+type Inputs = {
   amount: number;
   remarks?: string;
 }
 
-interface Props {
+type Props = {
   selectedBudget?: IBudgetGoalData;
   budgetList: (IBudgetGoalData & { totTranAmt: number })[];
   onSubmit?(value: Inputs & { budgetId: string, labels: string[] }): void;

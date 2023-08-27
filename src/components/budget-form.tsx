@@ -9,7 +9,7 @@ import { IBudget, IGoal } from '../app/@types';
 import dayjs from 'dayjs';
 import OptionSwitch from './option-switch';
 
-interface Inputs {
+type Inputs = {
   type: 'goal' | 'budget';
   budgetName: string;
   amount: number;
@@ -21,7 +21,7 @@ interface Inputs {
   isHidden?: boolean;
 }
 
-interface BudgetFormProps {
+type BudgetFormProps = {
   defaultValue?: Inputs;
   onSubmit?(value: IBudget | IGoal): void;
   submitText?: string;

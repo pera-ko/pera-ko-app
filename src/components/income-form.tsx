@@ -1,12 +1,12 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import InputGroup from './input-group';
 
-interface Inputs {
+type Inputs = {
   amount: number;
   remarks?: string;
 }
 
-interface Props {
+type Props = {
   onSubmit?(value: Inputs): void;
 }
 
@@ -38,16 +38,16 @@ export default function IncomeForm({ onSubmit }: Props) {
         })}
       />
       <InputGroup label='Remarks' {...register('remarks')} />
-      {/* <div className='text-right my-4'>
+      {/* <div className='my-4 text-right'>
         <button
           type='button'
-          className='border border-indigo-500 py-1 px-2 rounded-full text-sm font-medium mr-2'
+          className='px-2 py-1 mr-2 text-sm font-medium border border-indigo-500 rounded-full'
         >
           PHP 50,000.00
         </button>
         <button
           type='button'
-          className='border border-indigo-500 py-1 px-2 rounded-full text-sm font-medium'
+          className='px-2 py-1 text-sm font-medium border border-indigo-500 rounded-full'
         >
           PHP 1,250.00
         </button>
@@ -55,7 +55,7 @@ export default function IncomeForm({ onSubmit }: Props) {
       <div className='h-8'></div>
       <button
         type='submit'
-        className='bg-indigo-500 rounded-lg py-3 w-full text-sm font-medium text-white'
+        className='w-full py-3 text-sm font-medium text-white bg-indigo-500 rounded-lg'
       >
         Add Income
       </button>

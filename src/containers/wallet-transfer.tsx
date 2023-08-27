@@ -12,7 +12,7 @@ import InputGroup from '../components/input-group';
 import useBudgetStore from '../app/store/budget-store';
 import useTransactionStore from '../app/store/transaction-store';
 
-interface Inputs {
+type Inputs = {
   amount: number;
   remarks?: string;
 }
