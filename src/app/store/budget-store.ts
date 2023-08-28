@@ -98,17 +98,20 @@ const useBudgetStore = create<IBudgetStoreState>()(persist(
         })
       },
       undoDeleteWallet: wallet => {
-        set(state => {
-          state.wallet.list = {
-            ...state.wallet.list,
-            [wallet.id]: {
-              ...wallet,
-              isDeleted: undefined,
-              deleteDate: undefined
+        set(state => ({
+          ...state,
+          wallet: {
+            ...state.wallet,
+            list: {
+              ...state.wallet.list,
+              [wallet.id]: {
+                ...wallet,
+                isDeleted: undefined,
+                deleteDate: undefined
+              }
             }
           }
-          return state;
-        })
+        }))
       }
     },
     budget: {
