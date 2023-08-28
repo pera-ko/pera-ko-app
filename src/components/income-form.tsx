@@ -23,7 +23,7 @@ export default function IncomeForm({ onSubmit }: Props) {
 
   return (
     <form
-      className='px-5 mb-5 text-gray-800'
+      className='px-5 mb-5'
       onSubmit={handleSubmit(handleFormSubmit)}
     >
       <InputGroup
@@ -38,24 +38,10 @@ export default function IncomeForm({ onSubmit }: Props) {
         })}
       />
       <InputGroup label='Remarks' {...register('remarks')} />
-      {/* <div className='my-4 text-right'>
-        <button
-          type='button'
-          className='px-2 py-1 mr-2 text-sm font-medium border border-indigo-500 rounded-full'
-        >
-          PHP 50,000.00
-        </button>
-        <button
-          type='button'
-          className='px-2 py-1 text-sm font-medium border border-indigo-500 rounded-full'
-        >
-          PHP 1,250.00
-        </button>
-      </div> */}
       <div className='h-8'></div>
       <button
         type='submit'
-        className='w-full py-3 text-sm font-medium text-white bg-indigo-500 rounded-lg'
+        className='w-full py-3 text-sm font-medium text-white bg-indigo-600 rounded-lg'
       >
         Add Income
       </button>
