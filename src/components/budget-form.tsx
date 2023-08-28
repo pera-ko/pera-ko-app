@@ -193,11 +193,11 @@ const BudgetForm: React.FC<BudgetFormProps> = ({
               >
                 <RadioGroup.Option
                   value='monthly'
-                  className={({ active, checked }) => `
-                    ${checked ? 'bg-indigo-100 text-indigo-500' : ''} 
-                    ${active ? 'ring-2 ring-offset-indigo-300 text-red-500' : ''
+                  className={({ active, checked }) => ` 
+                    ${checked ? 'bg-indigo-600 text-white' : ''} 
+                    ${active ? 'ring-2 ring-offset-indigo-300' : ''
                     } 
-                    px-2 py-3 border rounded-l-md outline-none focus:outline-none text-gray-600 
+                    px-2 py-3 border border-indigo-600 rounded-l-md outline-none focus:outline-none 
                     `}
                 >
                   <RadioGroup.Label>Monthly</RadioGroup.Label>
@@ -205,10 +205,10 @@ const BudgetForm: React.FC<BudgetFormProps> = ({
                 <RadioGroup.Option
                   value='semi-monthly'
                   className={({ active, checked }) => `
-                    ${checked ? 'bg-indigo-100 text-indigo-500' : ''} 
-                    ${active ? 'ring-2 ring-offset-indigo-300 text-red-500' : ''
+                    ${checked ? 'bg-indigo-600 text-white' : ''} 
+                    ${active ? 'ring-2 ring-offset-indigo-300' : ''
                     } 
-                    px-2 py-3 border rounded-r-md outline-none focus:outline-none text-gray-600 
+                    px-2 py-3 border border-indigo-600 rounded-r-md outline-none focus:outline-none 
                     `}
                 >
                   <RadioGroup.Label>Semi-monthly</RadioGroup.Label>
