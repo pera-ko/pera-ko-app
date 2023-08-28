@@ -48,7 +48,12 @@ export default function TransactionForm({
   } = useForm<Inputs>();
   useEffect(() => {
     register('amount', {
-      required: 'Amount is required.'
+      required: 'Amount is required.',
+      value: selectedBudget?.type === 'goal' 
+              ? selectedBudget.installmentType === 'monthly' 
+                ? selectedBudget.amount
+                : selectedBudget.amount / 2
+              : 0
     });
     if (selectedBudget && amountInputRef.current) {
       amountInputRef.current.focus();
