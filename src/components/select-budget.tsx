@@ -87,7 +87,7 @@ export default function SelectBudget({
               </span>
             </Fragment>
           )}
-          <span className='absolute inset-y-0 right-0 flex items-center pr-1 pointer-events-none'>
+          <span className='absolute inset-y-0 right-0 flex items-center pointer-events-none'>
             <ChevronUpDownIcon
               className='w-6 h-6'
               aria-hidden='true'
