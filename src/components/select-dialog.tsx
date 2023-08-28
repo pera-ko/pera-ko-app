@@ -2,6 +2,7 @@ import { Dialog } from "@headlessui/react"
 import { ArrowLeftIcon, MagnifyingGlassIcon, PlusIcon } from "@heroicons/react/24/outline"
 import React, { PropsWithChildren } from "react"
 import NavBar from "./navbar"
+import CheckIcon from "./circle-check-icon"
 
 type SelectDialogProps<T> = {
   title: string
@@ -33,6 +34,7 @@ function SelectDialog<T>({
   const renderSelect = (lbl: T) => (
     <div className="flex items-center justify-between">
       <span>{renderItem(lbl)}</span>
+      {lbl === selected ? <CheckIcon className="w-5 h-5"/> : null}
     </div>
   )
 
