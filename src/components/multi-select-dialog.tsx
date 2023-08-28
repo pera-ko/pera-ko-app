@@ -1,6 +1,6 @@
 import { Dialog } from "@headlessui/react"
 import { MinusCircleIcon, PlusCircleIcon } from "@heroicons/react/20/solid"
-import { ArrowLeftIcon, BackspaceIcon, CheckIcon, MagnifyingGlassIcon, PlusIcon } from "@heroicons/react/24/outline"
+import { ArrowLeftIcon, CheckIcon, MagnifyingGlassIcon, PlusIcon, XCircleIcon } from "@heroicons/react/24/outline"
 import React, { PropsWithChildren } from "react"
 import NavBar from "./navbar"
 
@@ -63,7 +63,7 @@ function MultiSelectDialog<T>({
           title={title}
           rightButton={{
             type: 'button',
-            icon: BackspaceIcon,
+            icon: XCircleIcon,
             onClick: () => onConfirm([])
           }}
           />
