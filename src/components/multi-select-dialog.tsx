@@ -1,6 +1,6 @@
 import { Dialog } from "@headlessui/react"
 import { MinusCircleIcon, PlusCircleIcon } from "@heroicons/react/20/solid"
-import { ArrowLeftIcon, CheckIcon, MagnifyingGlassIcon, PlusIcon } from "@heroicons/react/24/outline"
+import { ArrowLeftIcon, BackspaceIcon, CheckIcon, MagnifyingGlassIcon, PlusIcon } from "@heroicons/react/24/outline"
 import React, { PropsWithChildren } from "react"
 import NavBar from "./navbar"
 
@@ -61,7 +61,11 @@ function MultiSelectDialog<T>({
             onClick: onClose
           }}
           title={title}
-          
+          rightButton={{
+            type: 'button',
+            icon: BackspaceIcon,
+            onClick: () => onConfirm([])
+          }}
           />
         <label className="sticky flex items-center px-2 shadow app-bg top-16">
           <MagnifyingGlassIcon className="w-6 h-6 mx-3"/>
