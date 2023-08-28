@@ -75,7 +75,7 @@ export default function NewTransaction() {
                   icon: ArrowLeftIcon,
                   onClick: () => history.goBack()
                 }}
-                title='New Transaction'
+                title='Add Expense'
                 />
               <TransactionForm
                 selectedBudget={selectedBudget}
