@@ -52,7 +52,7 @@ function MultiSelectDialog<T>({
       <Dialog as="div"
         open={isOpen} 
         onClose={onClose} 
-        className="fixed inset-0 z-10 overflow-y-auto app-bg dark:bg-black"
+        className="fixed inset-0 z-10 pb-20 overflow-y-auto app-bg dark:bg-black"
         >
         <NavBar
           leftButton={{
@@ -61,11 +61,7 @@ function MultiSelectDialog<T>({
             onClick: onClose
           }}
           title={title}
-          rightButton={{
-            type: "button",
-            icon: CheckIcon,
-            onClick: () => onConfirm(tmpSelected)
-          }}
+          
           />
         <label className="sticky flex items-center px-2 shadow app-bg top-16">
           <MagnifyingGlassIcon className="w-6 h-6 mx-3"/>
@@ -132,6 +128,15 @@ function MultiSelectDialog<T>({
             Create "<span className="font-medium">{query}</span>"
           </button>
         ) : null }
+        {tmpSelected.length > 0 ? (
+          <div className="fixed inset-x-0 bottom-0 flex justify-end px-8 py-8 text-sm font-medium">
+            <button className="flex items-center px-4 py-3 text-white bg-indigo-600 rounded-full shadow-md"
+              onClick={() => onConfirm(tmpSelected)}
+            >
+              <CheckIcon className="w-6 h-6 mr-2"/> Confirm
+            </button>
+          </div>
+        ) : null}
       </Dialog>
     )
   )
