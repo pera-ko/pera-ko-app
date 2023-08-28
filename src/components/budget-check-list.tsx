@@ -3,7 +3,7 @@ import { IBudgetGoalData } from '../app/@types';
 import BudgetList from './budget-list';
 import { twMerge } from 'tailwind-merge'
 
-type Props = {
+type BudgetCheckListProps = {
   items: IBudgetGoalData[];
   selectedItems: IBudgetGoalData[];
   onSelectedItemsChange(items: IBudgetGoalData[]): void;
@@ -12,7 +12,7 @@ export default function BudgetCheckList({
   items,
   selectedItems,
   onSelectedItemsChange
-}: Props) {
+}: BudgetCheckListProps) {
 
   const handleItemClick = (item: IBudgetGoalData) => {
     const isSelected = selectedItems.some(
