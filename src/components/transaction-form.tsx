@@ -9,6 +9,8 @@ import { setDefaultWallet, useBudgetStore } from '../app/store';
 import { shallow } from 'zustand/shallow';
 import Dialog from './dialog';
 import LabelPicker from './label-picker';
+// import Chip from './chip';
+// import { CalendarIcon } from '@heroicons/react/20/solid';
 
 type Inputs = {
   amount: number;
@@ -87,6 +89,7 @@ export default function TransactionForm({
     var budgetX = budgetList.find((b) => b.id === budgetId);
     return budgetX ? { value: budgetX.totTranAmt } : { value: 0 };
   };
+  
   return (
     <form
       className='px-5 mb-5'
@@ -109,8 +112,9 @@ export default function TransactionForm({
         ref={amountInputRef}
         onChange={(e) => setValue('amount', e.target.valueAsNumber)}
       />
-      <InputGroup label='Remarks' {...register('remarks')} />
-      <div className='mt-4'>
+      <InputGroup label='Description' {...register('remarks')} />
+      <div className='flex mt-4 space-x-2'>
+        {/* <Chip leftElement={<CalendarIcon className='w-5 h-5'/>}>Today</Chip> */}
         <LabelPicker
           onChange={setLabels}
           selected={labels}
@@ -131,7 +135,7 @@ export default function TransactionForm({
           type='submit'
           className='px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-lg'
           >
-          Add Transaction
+          Add Expense
         </button>
       </div>
       {selectPayment ? (
