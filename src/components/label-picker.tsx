@@ -3,6 +3,7 @@ import { useLocQuery } from "../app/hooks"
 import { useHistory } from "react-router"
 import useLabelStore from "../app/store/label-store"
 import MultiSelectDialog from "./multi-select-dialog"
+import Chip from "./chip"
 
 type LabelPickerProps = {
   items: string[]
@@ -29,39 +30,32 @@ export function LabelPicker({ items, selected, onChange, allowCreation, onCreate
   const renderItem = (lbl: string) => (
     <span>{lbl}</span>
   )
-  
-  let buttonClassNames = "flex items-center px-2 py-1 text-sm rounded-full border "
 
-  if (selected.length === 0) {
-    buttonClassNames += "bg-gray-500/10 border-gray-500/30"
-  } else {
-    buttonClassNames += "bg-indigo-500/25 border-transparent"
-  }
-  
-  const button = (
-    <button 
-      type='button'
+  const button = selected.length === 0 ? (
+    <Chip 
       onClick={handleOpen}
-      className={buttonClassNames}
+      leftElement={<TagIcon className="w-5 h-5"/>}
+    >
+      Label
+    </Chip>
+  ) : selected.length === 1 ? (
+    <Chip
+      onClick={handleOpen}
+      leftElement={<TagIcon className="w-5 h-5"/>}
+      rightElement={<ChevronDownIcon className="w-5 h-5"/>}
+      active
       >
-      {selected.length === 0 ? (
-        <>
-          <TagIcon className='w-5 h-5 mr-1'/> Label
-        </>
-      ) : selected.length === 1 ? (
-        <>
-          <TagIcon className='w-5 h-5 mr-1'/>
-            {selected[0]}
-          <ChevronDownIcon className='w-5 h-5'/>
-        </>
-      ) : (
-        <>
-          <span className='w-5 h-5 mr-1 rounded-full bg-white/25'>{selected.length}</span>
-            Labels
-          <ChevronDownIcon className='w-5 h-5'/>
-        </>
-      )}
-    </button>
+      {selected[0]}
+    </Chip>
+  ) : (
+    <Chip
+      onClick={handleOpen} 
+      leftElement={<span className='w-5 h-5 rounded-full bg-white/25'>{selected.length}</span>}
+      rightElement={<ChevronDownIcon className="w-5 h-5"/>}
+      active
+      >
+      Labels
+    </Chip>
   )
 
   return (
