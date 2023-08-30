@@ -1,7 +1,7 @@
 import { Dialog } from "@headlessui/react"
 import { MinusCircleIcon, PlusCircleIcon } from "@heroicons/react/20/solid"
-import { ArrowLeftIcon, CheckIcon, MagnifyingGlassIcon, PlusIcon, XCircleIcon } from "@heroicons/react/24/outline"
-import React, { PropsWithChildren } from "react"
+import { ArrowLeftIcon, CheckIcon, MagnifyingGlassIcon, PlusIcon } from "@heroicons/react/24/outline"
+import React, { PropsWithChildren, ReactNode } from "react"
 import NavBar from "./navbar"
 
 type MultiSelectDialogProps<T> = {
@@ -61,11 +61,6 @@ function MultiSelectDialog<T>({
             onClick: onClose
           }}
           title={title}
-          rightButton={{
-            type: 'button',
-            icon: XCircleIcon,
-            onClick: () => onConfirm([])
-          }}
           />
         <label className="sticky flex items-center px-2 shadow app-bg top-16">
           <MagnifyingGlassIcon className="w-6 h-6 mx-3"/>
@@ -76,7 +71,11 @@ function MultiSelectDialog<T>({
         </label>
         {query.length === 0 ? (
           <>
-            <Panel title="Selected">
+            <Panel title="Selected" rightTitleElement={(
+              <button className="text-link" onClick={() => setTmpSelected([])}>
+                Clear
+              </button>
+            )}>
               {tmpSelected.length > 0 ? (
                   <LabelList
                   items={tmpSelected}
@@ -132,25 +131,24 @@ function MultiSelectDialog<T>({
             Create "<span className="font-medium">{query}</span>"
           </button>
         ) : null }
-        {tmpSelected.length > 0 ? (
-          <div className="fixed inset-x-0 bottom-0 flex justify-end px-8 py-8 text-sm font-medium">
-            <button className="flex items-center px-4 py-3 text-white bg-indigo-600 rounded-full shadow-md"
-              onClick={() => onConfirm(tmpSelected)}
-            >
-              <CheckIcon className="w-6 h-6 mr-2"/> Confirm
-            </button>
-          </div>
-        ) : null}
+        <div className="fixed inset-x-0 bottom-0 flex justify-end px-8 py-8 text-sm font-medium">
+          <button className="flex items-center px-4 py-3 text-white bg-indigo-600 rounded-full shadow-md"
+            onClick={() => onConfirm(tmpSelected)}
+          >
+            <CheckIcon className="w-6 h-6 mr-2"/> Confirm
+          </button>
+        </div>
       </Dialog>
     )
   )
 }
 
-const Panel = ({ title, children } : PropsWithChildren<{ title : string }>) => {
+const Panel = ({ title, children, rightTitleElement } : PropsWithChildren<{ title : string, rightTitleElement?: ReactNode }>) => {
   return (
     <div className="py-2 my-2 bg-white shadow dark:app-bg">
-      <div className="py-2 mx-5 mb-2 text-sm font-medium text-gray-500">
-        {title}
+      <div className="flex items-center justify-between py-2 mx-5 mb-2 text-sm font-medium text-gray-500">
+        <span>{title}</span>
+        {rightTitleElement}
       </div>
       {children}
     </div>
