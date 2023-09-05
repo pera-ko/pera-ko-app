@@ -55,7 +55,7 @@ export default function TransactionForm({
               ? selectedBudget.installmentType === 'monthly' 
                 ? selectedBudget.amount
                 : selectedBudget.amount / 2
-              : 0
+              : undefined
     });
     if (selectedBudget && amountInputRef.current) {
       amountInputRef.current.focus();
