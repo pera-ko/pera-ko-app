@@ -2,7 +2,6 @@ import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import IndexedDBStorage from "../infra/indexedDBPersistence";
 import { ITransactionData } from "../@types";
-import { transaction } from "./migration/transaction/migration-1";
 
 const PERSIST_NAME = 'aggregate'
 

@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import calendar from 'dayjs/plugin/calendar';
 import useTransactionStore from '../app/store/transaction-store';
 import NavBar from '../components/navbar';
-import { ITransaction, ITransactionData } from '../app/@types';
+import { ITransactionData } from '../app/@types';
 import Page from '../components/page';
 import { useLocQuery, useLocalStorage } from '../app/hooks';
 import { OverviewPie } from '../components/widgets/charts/overview-pie';
