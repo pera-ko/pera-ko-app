@@ -21,12 +21,14 @@ type Props = {
   selectedBudget?: IBudgetGoalData;
   budgetList: (IBudgetGoalData & { totTranAmt: number })[];
   onSubmit?(value: Inputs & { budgetId: string, labels: string[] }): void;
+  readOnly?: boolean
 }
 
 export default function TransactionForm({
   selectedBudget,
   budgetList,
-  onSubmit
+  onSubmit,
+  readOnly
 }: Props) {
   const amountInputRef = useRef<HTMLInputElement | null>(null);
   const [budget, setBudget] = useState<IBudgetGoalData | undefined>(
@@ -70,7 +72,7 @@ export default function TransactionForm({
         budgetId: budget.id,
         labels
       }
-      console.log(submitData)
+      
       onSubmit(submitData);
     }
   };
@@ -89,6 +91,22 @@ export default function TransactionForm({
     var budgetX = budgetList.find((b) => b.id === budgetId);
     return budgetX ? { value: budgetX.totTranAmt } : { value: 0 };
   };
+
+  const paymentMethodButton = (
+    <button 
+      type='button' 
+      className='py-1.5 text-left flex items-center justify-between' 
+      onClick={() => {
+        if (readOnly) return
+        setSelectPayment(!selectPayment)
+      }}>
+      <div>
+        <div className='text-xs font-medium text-gray-500'>Payment Method:</div>
+        <div className='text-sm font-medium'>{defaultWallet.walletName}</div>
+      </div>
+      {!readOnly ? <ChevronUpDownIcon className='w-6 h-6'/> : null }
+    </button>
+  )
   
   return (
     <form
@@ -100,6 +118,7 @@ export default function TransactionForm({
         value={budget}
         onChange={setBudget}
         progress={getBudgetProgress(budget?.id)}
+        readOnly={readOnly}
       />
       <InputGroup
         inputClassName='text-right'
@@ -111,8 +130,9 @@ export default function TransactionForm({
         contentLabel={{ type: 'text', content: 'PHP' }}
         ref={amountInputRef}
         onChange={(e) => setValue('amount', e.target.valueAsNumber)}
+        readOnly={readOnly}
       />
-      <InputGroup label='Description' {...register('remarks')} />
+      <InputGroup label='Description' {...register('remarks')} readOnly={readOnly}/>
       <div className='flex mt-4 space-x-2'>
         {/* <Chip leftElement={<CalendarIcon className='w-5 h-5'/>}>Today</Chip> */}
         <LabelPicker
@@ -121,16 +141,7 @@ export default function TransactionForm({
           />
       </div>
       <div className='flex justify-between mt-4'>
-        <button 
-          type='button' 
-          className='py-1.5 text-left flex items-center justify-between' 
-          onClick={() => setSelectPayment(!selectPayment)}>
-          <div>
-            <div className='text-xs font-medium text-gray-500'>Payment Method:</div>
-            <div className='text-sm font-medium'>{defaultWallet.walletName}</div>
-          </div>
-          <ChevronUpDownIcon className='w-6 h-6'/>
-        </button>
+        {paymentMethodButton}
         <button
           type='submit'
           className='px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-lg'

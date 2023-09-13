@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import IndexedDBStorage from "../infra/indexedDBPersistence";
 import { ITransactionData } from "../@types";
+import { transaction } from "./migration/transaction/migration-1";
 
 const PERSIST_NAME = 'aggregate'
 
@@ -10,7 +11,8 @@ export type IAggregateStore = {
   transactions: {
     last10: ITransactionData[]
   },
-  addTransaction: (id: string, budgetId: string, walletId: string, amount: number, remarks?: string, labels?: string[]) => void
+  addTransaction: (id: string, budgetId: string, walletId: string, amount: number, remarks?: string, labels?: string[]) => void,
+  updateTransaction: (id: string, transaction: ITransactionData) => void
 }
 
 
@@ -41,6 +43,21 @@ const useAggregateStore = create<IAggregateStore>()(
         }
       }))
       
+    },
+    updateTransaction: (id, transaction) => {
+
+      const last10 = get().transactions.last10.map(tran => {
+        if (tran.id === id) return transaction
+        return tran;
+      })
+
+      set(state => ({
+        ...state,
+        transactions: {
+          ...state.transactions,
+          last10
+        }
+      }))
     }
   }),
   {

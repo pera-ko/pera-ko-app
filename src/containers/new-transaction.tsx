@@ -10,7 +10,7 @@ import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import useBudgetStore from '../app/store/budget-store';
 import useTransactionStore from '../app/store/transaction-store';
 import NavBar from '../components/navbar';
-import useAddTransaction from '../app/hooks/use-transaction';
+import useAddTransaction from '../app/hooks/use-add-transaction';
 
 export default function NewTransaction() {
   
@@ -24,11 +24,11 @@ export default function NewTransaction() {
     shallow
   );
   const history = useHistory();
-  const { search } = useLocQuery();
+  const { search: { newtran, catId } } = useLocQuery<{ newtran: 'open' | 'closed', catId: string }>();
   const getTotalOfBudget = useTransactionStore(state => state.getTotalOfBudget)
-  const id = search['id'];
-  const selectedBudget = id ? budgetList.find((b) => b.id === id) : undefined;
-  const isNewTransactionOpen = search['newtran'] === 'open';
+  // const id = search['catId'];
+  const selectedBudget = catId ? budgetList.find((b) => b.id === catId) : undefined;
+  const isNewTransactionOpen = newtran === 'open';
 
   const budgetListWithAmt = budgetList.map((b) => {
     return {

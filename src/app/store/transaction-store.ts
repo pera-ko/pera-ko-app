@@ -31,6 +31,7 @@ export type ITransactionStore = {
   getTotalOfEachBudget: () => { name: string, value: number }[];
   getTotalOfBudget: (budgetId: string) => number;
   addTransaction: (id: string, budgetId: string, walletId: string, amount: number, remarks?: string, labels?: string[]) => void;
+  updateTransaction: (id: string, tranData: ITransactionData) => void;
   addIncome: (walletId: string, amount: number, remarks?: string) => void;
   addTransfer: (walletFromId: string, walletToId: string, amount: number, remarks?: string) => void;
 }
@@ -63,6 +64,17 @@ const useTransactionStore = create<ITransactionStore>()(persist(
         state.list.push({ id, type: undefined, budgetId, walletId, amount, tranDate, remarks, labels })
         return state;
       })
+    },
+    updateTransaction: (id: string, tranData: ITransactionData) => {
+      set(state => ({
+        ...state,
+        list: state.list.map(item => {
+          if (item.type === undefined && item.id === id) {
+            return tranData
+          }
+          return item
+        })
+      }))
     },
     addIncome: (walletId: string, amount: number, remarks?: string) => {
       const tranDate = (new Date()).toJSON()

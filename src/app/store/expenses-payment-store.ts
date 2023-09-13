@@ -9,6 +9,7 @@ const PERSIST_NAME = 'expenses_payment'
 export type IExpensesPaymentStore = {
   transactions: Record<string, ITransactionData[]>;
   addTransaction: (id: string, budgetId: string, walletId: string, amount: number, remarks?: string, labels?: string[]) => void;
+  updateTransaction: (id: string, tranData: ITransactionData) => void;
 }
 
 const useExpensesPaymentStore = create<IExpensesPaymentStore>()(persist(
@@ -27,7 +28,42 @@ const useExpensesPaymentStore = create<IExpensesPaymentStore>()(persist(
         state.transactions[walletId].unshift(newTran)
         return state;
       })
+    },
+    updateTransaction: (id, tranData) => {
+      let newTransactionListForWallet: ITransactionData[] = []
 
+      if (get().transactions[tranData.walletId]) {
+        const currentTransactions = get().transactions[tranData.walletId];
+        const tranEntity = currentTransactions.find(tran => tran.id === id)
+
+        // if the transaction date is the same, just replace the value of the item in the list
+        // if not the same, then remove and insert the transaction to the list following the tran date order
+        if (tranEntity?.tranDate.toString() === tranData.tranDate.toString()) {
+          newTransactionListForWallet = currentTransactions.map(tran => {
+            if (tran.id === id) return tranData
+            return tran
+          })
+        } else {
+          let inserted = false
+          for (const tran of currentTransactions.filter(tran => tran.id !== id)) {
+            if (!inserted && tranData.tranDate > tran.tranDate) {
+              newTransactionListForWallet.push(tranData)
+              inserted = true
+            }
+            newTransactionListForWallet.push(tran)
+          }
+        }
+      }
+      
+      set(state => {
+        if (!state.transactions[tranData.walletId]) {
+          state.transactions[tranData.walletId] = []
+        }
+
+        state.transactions[tranData.walletId] = newTransactionListForWallet
+        
+        return state;
+      })
     }
   }),
   {

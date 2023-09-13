@@ -1,22 +1,30 @@
 import dayjs from "dayjs";
-import { IBudget, IBudgetData, IGoal, IGoalData, ITransaction, IWallet } from "../app/@types";
+import { IBudget, IBudgetData, IGoal, IGoalData, ITransactionData, IWallet } from "../app/@types";
 import calendar from 'dayjs/plugin/calendar';
 import BudgetIcon from "./budget-icon";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { money } from "../app/utils";
 import { TagIcon } from "@heroicons/react/20/solid";
 import { useBudgetStore } from "../app/store";
+import ContextMenu from "./context-menu";
+import { WalletIcon } from "@heroicons/react/24/outline";
+import ViewExpense from "../containers/view-expense";
+import Dialog from "./dialog";
+import PaymentMethodList from "./payment-method-list";
+import useUpdateTransaction from "../app/hooks/use-update-transaction";
+import toast from "react-hot-toast";
 
 dayjs.extend(calendar);
 
 type ExpenseListProps = {
-  items: ITransaction[]
+  items: ITransactionData[]
   budgetList: (IGoalData | IBudgetData)[]
   walletList: Record<string, IWallet>
   showHeader?: boolean
+  onItemClick?: (item: ITransactionData) => void
 }
 
-export const ExpenseList = ({ items, budgetList, walletList, showHeader } : ExpenseListProps) => {
+export const ExpenseList = ({ items, budgetList, walletList, showHeader, onItemClick } : ExpenseListProps) => {
   
   let lastDate: string | null = null;
 
@@ -53,6 +61,7 @@ export const ExpenseList = ({ items, budgetList, walletList, showHeader } : Expe
             value={t}
             budget={budget}
             wallet={walletList[t.walletId]}
+            onClick={onItemClick}
             />
         );
 
@@ -63,14 +72,16 @@ export const ExpenseList = ({ items, budgetList, walletList, showHeader } : Expe
 }
 
 type ItemProps = {
-  value: ITransaction
+  value: ITransactionData
   budget: IBudget | IGoal
   wallet: IWallet
+  onClick?: (item: ITransactionData) => void
 }
 
-ExpenseList.Item = ({ value, budget, wallet } : ItemProps) => {
-  return (
-    <li className='flex items-center justify-between'>
+ExpenseList.Item = ({ value, budget, wallet, onClick } : ItemProps) => {
+
+  const content = (
+    <>
       <div className='flex items-center'>
         <div className="relative z-[-1]">
           <BudgetIcon className='ml-4 mr-2' color={budget.color} icon={budget.icon} />
@@ -96,6 +107,16 @@ ExpenseList.Item = ({ value, budget, wallet } : ItemProps) => {
         <div className='text-sm font-medium'>{money(value.amount)}</div>
         <div className='text-xs text-gray-500'>{value.remarks}</div>
       </div>
+    </>
+  )
+
+  return (
+    <li className={onClick ? '' : 'flex items-center justify-between'}>
+      {onClick ? (
+        <button className='flex items-center justify-between w-full' onClick={() => onClick(value)}>
+          {content}
+        </button>
+      ) : content}
     </li>
   )
 }
@@ -105,13 +126,54 @@ type ExpenseListConnectedProps = Pick<ExpenseListProps, "items" | "showHeader">
 const ExpenseListConnected = (props : ExpenseListConnectedProps) => {
   const budgetList = useBudgetStore(state => state.budget.list)
   const walletList = useBudgetStore(state => state.wallet.list)
+  const [showContext, setShowContext] = useState(false)
+  const [selectedItem, setSelectedItem] = useState<ITransactionData | undefined>()
+  const [selectPayment, setSelectPayment] = useState(false)
+  const updateTransaction = useUpdateTransaction()
 
   return (
-    <ExpenseList
-      budgetList={budgetList}
-      walletList={walletList}
-      {...props}
-      />
+    <>
+      <ExpenseList
+        budgetList={budgetList}
+        walletList={walletList}
+        onItemClick={(item) => {
+          setSelectedItem(item)
+          setShowContext(true)
+        }}
+        {...props}
+        />
+      <ViewExpense/>
+      <ContextMenu 
+        open={showContext}
+        onClose={() => setShowContext(false)}
+        items={[{
+          icon: WalletIcon,
+          label: 'Change Payment Method',
+          onClick: () => {
+            setShowContext(false)
+            setSelectPayment(true)
+          }
+        }]}
+        />
+      <Dialog isOpen={selectPayment} title='' onClose={() => setSelectPayment(!selectPayment)} showClose={false} position='bottom'>
+        <PaymentMethodList
+          items={Object.values(walletList)}
+          selected={selectedItem ? walletList[selectedItem.walletId] : undefined}
+          onSelect={w => {
+            if (selectedItem) {
+              updateTransaction(selectedItem.id, {
+                ...selectedItem,
+                walletId: w.id
+              })
+              setSelectPayment(false)
+              setSelectedItem(undefined)
+              toast.success(`Expense payment method updated`);
+            }
+          }}
+          />
+      </Dialog>
+      
+    </>
   )
 }
 

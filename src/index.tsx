@@ -23,7 +23,6 @@ const DefaultRoute = () => {
   const dateNow = new Date();
   const year = dateNow.getFullYear();
   const month = dateNow.getMonth() + 1;
-  console.log('redirecting...');
   return <Redirect path='/' to={`/${year}/${month}`} />;
 };
 

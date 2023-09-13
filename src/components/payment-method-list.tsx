@@ -4,7 +4,7 @@ import PaymentMethodIcon from "./payment-method-icon"
 
 type Props = {
   items: Array<IWalletData>
-  selected: IWalletData
+  selected?: IWalletData
   onSelect(val: IWalletData): void
 }
 const PaymentMethodList = ({ items, selected, onSelect } : Props) => {

@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import calendar from 'dayjs/plugin/calendar';
 import useTransactionStore from '../app/store/transaction-store';
 import NavBar from '../components/navbar';
-import { ITransaction } from '../app/@types';
+import { ITransaction, ITransactionData } from '../app/@types';
 import Page from '../components/page';
 import { useLocQuery, useLocalStorage } from '../app/hooks';
 import { OverviewPie } from '../components/widgets/charts/overview-pie';
@@ -30,14 +30,14 @@ export default function Transactions() {
     set({ labelPicker: 'open' });
   }
 
-  let sortedList: ITransaction[] = []
+  let sortedList: ITransactionData[] = []
 
   if (label === "All") {
     sortedList = [
       ...transactionList.filter((t) => t.type === undefined)
-    ] as ITransaction[];
+    ] as ITransactionData[];
   } else {
-    sortedList = transactionList.filter(t => t.type === undefined && t.labels?.includes(label)) as ITransaction[]
+    sortedList = transactionList.filter(t => t.type === undefined && t.labels?.includes(label)) as ITransactionData[]
   }
   
   sortedList.reverse();

@@ -12,11 +12,11 @@ import {
 } from '../app/store';
 import { money } from '../app/utils';
 import toast from 'react-hot-toast';
-import useAddTransaction from '../app/hooks/use-transaction';
+import useAddTransaction from '../app/hooks/use-add-transaction';
 
 const Budget: React.FC = () => {
   const { year, month } = useParams<{ year: string; month: string }>();
-  const { set, search } = useLocQuery<{ newtran: string, id : string, view: 'grid' | 'quickadd' }>();
+  const { set, search } = useLocQuery<{ newtran: string, catId : string, view: 'grid' | 'quickadd' }>();
   const [selectedItems, setSelectedItems] = useState<IBudgetGoalData[]>([]);
   const addTransaction = useAddTransaction()
   const selectedWalletId = useBudgetStore((state) => state.wallet.selected);
@@ -41,10 +41,10 @@ const Budget: React.FC = () => {
     toast.success(`Total of ${money(total)} has been added`);
   };
 
-  const handleBudgetGridItemClick = (id: string) => {
+  const handleBudgetGridItemClick = (catId: string) => {
     set({
       newtran : 'open',
-      id
+      catId
     })
   };
 
