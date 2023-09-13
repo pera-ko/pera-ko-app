@@ -91,7 +91,7 @@ ExpenseList.Item = ({ value, budget, wallet, onClick } : ItemProps) => {
           </div>
         </div>
         
-        <div>
+        <div className="text-left">
           <div className='text-sm font-medium'>
             {budget?.budgetName}
           </div>
