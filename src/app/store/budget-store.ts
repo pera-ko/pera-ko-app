@@ -52,10 +52,13 @@ const useBudgetStore = create<IBudgetStoreState>()(persist(
         return list[selected]
       },
       setDefaultWallet: (wallet) => {
-        set(state => {
-          state.wallet.selected = wallet.id
-          return state
-        })
+        set(state => ({
+          ...state,
+          wallet: {
+            ...state.wallet,
+            selected: wallet.id
+          }
+        }))
       },
       createWallet: (name, type) => {
         const newId = nanoid();
