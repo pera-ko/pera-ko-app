@@ -107,7 +107,7 @@ const TransactionsContextMenu = ({ items } : { items: ITransactionData[] }) => {
   const walletList = useBudgetStore(state => state.wallet.list)
   
   const handleExportToCSV = () => {
-    let csvContent = "data:text/csv;charset=utf-8," 
+    let csvContent = "" 
 
     const header = [
       "Date",
