@@ -22,7 +22,7 @@ export const longMonths = [
   'June',
   'July',
   'August',
-  'Septempber',
+  'September',
   'October',
   'November',
   'December'

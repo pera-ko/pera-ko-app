@@ -146,7 +146,8 @@ const TransactionsContextMenu = ({ items } : { items: ITransactionData[] }) => {
 
     const encodedUri = encodeURI(header + totalHeader + csvContent)
     
-    const fileName = `${longMonths[currentMonth]} ${currentYear}.csv`;
+    const fileName = `${longMonths[currentMonth - 1]} ${currentYear}.csv`;
+
     const link = document.createElement("a");
     link.setAttribute("href", "data:text/csv;charset=utf-8,\uFEFF" + encodedUri);
     link.setAttribute("download", fileName);
