@@ -133,13 +133,15 @@ const TransactionsContextMenu = ({ items } : { items: ITransactionData[] }) => {
         payment.walletName,
         item.labels?.join(", ")
       ]
-      console.log(lineItem)
+      
       csvContent += lineItem.map(li => '"' + li?.replaceAll('"', '""') + '"').join(",") + "\n"
     })
 
     const encodedUri = encodeURI(csvContent)
-
-    window.open(encodedUri)
+    const link = document.createElement("a");
+    link.setAttribute("href", "data:text/csv;charset=utf-8,\uFEFF" + encodedUri);
+    link.setAttribute("download","report.csv");
+    link.click();
   }
   
   return (
