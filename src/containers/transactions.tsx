@@ -1,4 +1,4 @@
-import { ArrowLeftIcon } from '@heroicons/react/24/outline';
+import { ArrowDownTrayIcon, ArrowLeftIcon, EllipsisVerticalIcon } from '@heroicons/react/24/outline';
 import { useHistory, useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
 import calendar from 'dayjs/plugin/calendar';
@@ -13,6 +13,9 @@ import React from 'react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import SelectDialog from '../components/select-dialog';
 import useLabelStore from '../app/store/label-store';
+import { ContextMenuRoute } from '../components/context-menu';
+import { useBudgetStore } from '../app/store';
+import { money } from '../app/utils';
 
 dayjs.extend(calendar);
 
@@ -51,6 +54,11 @@ export default function Transactions() {
           link: `/${year}/${month}`
         }}
         title='Expenses'
+        rightButton={{
+          type: 'link',
+          icon: EllipsisVerticalIcon,
+          link: `/${year}/${month}/expenses/context`
+        }}
         />
       <OverviewPie 
         items={sortedList} 
@@ -77,6 +85,7 @@ export default function Transactions() {
         searchPredicate={(q, lbl) => (lbl ?? "").toLowerCase().indexOf(q.trim()) !== -1}
         title='Label'
         />
+      <TransactionsContextMenu items={sortedList}/>
     </>
   )
 
@@ -91,4 +100,56 @@ export default function Transactions() {
   }
 
   return content
+}
+
+const TransactionsContextMenu = ({ items } : { items: ITransactionData[] }) => {
+  const budgetList = useBudgetStore(state => state.budget.list)
+  const walletList = useBudgetStore(state => state.wallet.list)
+  
+  const handleExportToCSV = () => {
+    let csvContent = "data:text/csv;charset=utf-8," 
+
+    const header = [
+      "Date",
+      "Amount",
+      "Description",
+      "Category",
+      "Payment",
+      "Labels"
+    ]
+
+    csvContent += header.map(li => "\"" + li + "\"").join(",") + "\n"
+
+    items.forEach(item => {
+      const budget = budgetList.find((b) => b.id === item.budgetId);
+      const payment = walletList[item.walletId]
+
+      const lineItem = [
+        dayjs(item.tranDate).format('DD/MM/YYYY'),
+        //item.id,
+        money(item.amount),
+        item.remarks,
+        budget?.budgetName,
+        payment.walletName,
+        item.labels?.join(", ")
+      ]
+      console.log(lineItem)
+      csvContent += lineItem.map(li => '"' + li?.replaceAll('"', '""') + '"').join(",") + "\n"
+    })
+
+    const encodedUri = encodeURI(csvContent)
+
+    window.open(encodedUri)
+  }
+  
+  return (
+    <ContextMenuRoute
+      path='/:year/:month/expenses/context'
+      items={[{
+        icon: ArrowDownTrayIcon,
+        label: 'Export to CSV',
+        onClick: handleExportToCSV
+      }]}
+      />
+  )
 }
