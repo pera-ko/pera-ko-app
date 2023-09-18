@@ -15,7 +15,6 @@ import SelectDialog from '../components/select-dialog';
 import useLabelStore from '../app/store/label-store';
 import { ContextMenuRoute } from '../components/context-menu';
 import { useBudgetStore } from '../app/store';
-import { money } from '../app/utils';
 
 dayjs.extend(calendar);
 
@@ -108,8 +107,9 @@ const TransactionsContextMenu = ({ items } : { items: ITransactionData[] }) => {
   
   const handleExportToCSV = () => {
     let csvContent = "" 
+    let totalAmount = 0;
 
-    const header = [
+    const headers = [
       "Date",
       "Amount",
       "Description",
@@ -117,8 +117,6 @@ const TransactionsContextMenu = ({ items } : { items: ITransactionData[] }) => {
       "Payment",
       "Labels"
     ]
-
-    csvContent += header.map(li => "\"" + li + "\"").join(",") + "\n"
 
     items.forEach(item => {
       const budget = budgetList.find((b) => b.id === item.budgetId);
@@ -131,13 +129,20 @@ const TransactionsContextMenu = ({ items } : { items: ITransactionData[] }) => {
         item.remarks,
         budget?.budgetName,
         payment.walletName,
-        item.labels?.join(", ")
+        item.labels ? item.labels?.join(", ") : ""
       ]
+
+      totalAmount += item.amount
       
       csvContent += lineItem.map(li => '"' + li?.replaceAll('"', '""') + '"').join(",") + "\n"
     })
+    const header = headers.map(li => "\"" + li + "\"").join(",") + "\n";
 
-    const encodedUri = encodeURI(csvContent)
+    // eslint-disable-next-line
+    const totalHeader = `Grand Total,${totalAmount}` + '\n';
+
+    const encodedUri = encodeURI(header + totalHeader + csvContent)
+    
     const link = document.createElement("a");
     link.setAttribute("href", "data:text/csv;charset=utf-8,\uFEFF" + encodedUri);
     link.setAttribute("download","report.csv");
