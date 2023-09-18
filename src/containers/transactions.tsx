@@ -127,7 +127,7 @@ const TransactionsContextMenu = ({ items } : { items: ITransactionData[] }) => {
       const lineItem = [
         dayjs(item.tranDate).format('DD/MM/YYYY'),
         //item.id,
-        money(item.amount),
+        item.amount.toString(),
         item.remarks,
         budget?.budgetName,
         payment.walletName,
