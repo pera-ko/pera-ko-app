@@ -15,6 +15,8 @@ import SelectDialog from '../components/select-dialog';
 import useLabelStore from '../app/store/label-store';
 import { ContextMenuRoute } from '../components/context-menu';
 import { useBudgetStore } from '../app/store';
+import { longMonths } from '../app/constants';
+import usePerako from '../app/contexts/perako-context';
 
 dayjs.extend(calendar);
 
@@ -102,6 +104,7 @@ export default function Transactions() {
 }
 
 const TransactionsContextMenu = ({ items } : { items: ITransactionData[] }) => {
+  const { currentMonth, currentYear } = usePerako()
   const budgetList = useBudgetStore(state => state.budget.list)
   const walletList = useBudgetStore(state => state.wallet.list)
   
@@ -143,9 +146,10 @@ const TransactionsContextMenu = ({ items } : { items: ITransactionData[] }) => {
 
     const encodedUri = encodeURI(header + totalHeader + csvContent)
     
+    const fileName = `${longMonths[currentMonth]} ${currentYear}.csv`;
     const link = document.createElement("a");
     link.setAttribute("href", "data:text/csv;charset=utf-8,\uFEFF" + encodedUri);
-    link.setAttribute("download","report.csv");
+    link.setAttribute("download", fileName);
     link.click();
   }
   
