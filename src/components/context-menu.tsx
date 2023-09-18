@@ -2,6 +2,7 @@ import { Dialog, Portal, Transition } from "@headlessui/react"
 import { ArrowLeftIcon } from "@heroicons/react/24/outline"
 import React from "react"
 import { Fragment } from "react"
+import { useHistory, useRouteMatch } from "react-router"
 
 type ContextMenuProps = {
   title?: string
@@ -87,6 +88,26 @@ const ContextMenu = ({ open, title, onClose, items } : ContextMenuProps) => {
         </div>
       </Portal>
     </Transition>
+  )
+}
+
+type ContextMenuRouteProps = {
+  path: string;
+} & Omit<ContextMenuProps, 'open' | 'onClose'>
+
+export const ContextMenuRoute = ({ path, ...props }: ContextMenuRouteProps) => {
+  const history = useHistory()
+  const route = useRouteMatch(path);
+  const isOpen = route ? true : false;
+
+  const handleBack = () => history.goBack()
+  
+  return (
+    <ContextMenu 
+      open={isOpen}
+      onClose={handleBack}
+      {...props}
+      />
   )
 }
 
