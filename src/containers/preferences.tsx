@@ -11,7 +11,7 @@ import StickyHeader from '../components/sticky-header';
 import { useLocalStorage } from '../app/hooks';
 import useBudgetStore from '../app/store/budget-store';
 import NavBar from '../components/navbar';
-import Page from '../components/page';
+import Page from '../shared/components/page';
 import PaymentMethodIcon from '../components/payment-method-icon';
 
 const Preferences: React.FC = () => {
