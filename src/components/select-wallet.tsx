@@ -2,7 +2,7 @@ import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { CheckIcon } from '@heroicons/react/24/solid';
 import { useState } from 'react';
 import { IWalletData } from '../app/@types';
-import Dialog from './dialog';
+import Dialog from '../shared/components/dialog';
 
 type Props = {
   value?: IWalletData;

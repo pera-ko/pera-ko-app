@@ -7,7 +7,7 @@ import { ChevronUpDownIcon } from '@heroicons/react/24/outline';
 import PaymentMethodList from './payment-method-list';
 import { setDefaultWallet, useBudgetStore } from '../app/store';
 import { shallow } from 'zustand/shallow';
-import Dialog from './dialog';
+import Dialog from '../shared/components/dialog';
 import LabelPicker from '../shared/components/label-picker';
 // import Chip from './chip';
 // import { CalendarIcon } from '@heroicons/react/20/solid';

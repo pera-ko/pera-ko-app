@@ -9,7 +9,7 @@ import { useBudgetStore } from "../app/store";
 import ContextMenu from "./context-menu";
 import { WalletIcon } from "@heroicons/react/24/outline";
 import ViewExpense from "../containers/view-expense";
-import Dialog from "./dialog";
+import Dialog from "../shared/components/dialog";
 import PaymentMethodList from "./payment-method-list";
 import useUpdateTransaction from "../app/hooks/use-update-transaction";
 import toast from "react-hot-toast";
