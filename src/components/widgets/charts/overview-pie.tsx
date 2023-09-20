@@ -1,6 +1,6 @@
 import { Cell, Pie, PieChart } from "recharts"
 import { sumPerCategory, useBudgetStore, useTransactionStore } from "../../../app/store";
-import WidgetPanel from "../../widget-panel";
+import WidgetPanel from "../../../shared/components/widget-panel";
 import { ITransaction } from "../../../app/@types";
 import { ReactNode } from "react";
 

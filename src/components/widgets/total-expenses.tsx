@@ -1,4 +1,4 @@
-import WidgetPanel from "../widget-panel";
+import WidgetPanel from "../../shared/components/widget-panel";
 import MoneyHeader from "../money-header";
 import { useRouteMatch } from "react-router";
 import { useTransactionStore } from "../../app/store";

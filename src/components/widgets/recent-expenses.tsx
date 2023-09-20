@@ -1,6 +1,6 @@
 import useAggregateStore from "../../app/store/aggregate-store"
 import ExpenseList from "../expense-list"
-import WidgetPanel from "../widget-panel"
+import WidgetPanel from "../../shared/components/widget-panel"
 
 const RecentExpenses = () => {
   const last10 = useAggregateStore(state => state.transactions.last10)
