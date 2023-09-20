@@ -11,7 +11,7 @@ import { OverviewPie } from '../components/widgets/charts/overview-pie';
 import ExpenseList from '../components/expense-list';
 import React from 'react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
-import SelectDialog from '../components/select-dialog';
+import SelectDialog from '../shared/components/select-dialog';
 import useLabelStore from '../app/store/label-store';
 import { ContextMenuRoute } from '../components/context-menu';
 import { useBudgetStore } from '../app/store';
