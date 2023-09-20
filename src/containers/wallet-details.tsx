@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { shallow } from 'zustand/shallow';
 import { longMonths } from '../app/constants';
 import { money } from '../app/utils';
-import ModalFull from '../components/modal-full';
+import ModalFull from '../shared/components/modal-full';
 import WalletTransfer from './wallet-transfer';
 import useBudgetStore from '../app/store/budget-store';
 import useTransactionStore from '../app/store/transaction-store';
