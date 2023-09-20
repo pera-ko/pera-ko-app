@@ -7,7 +7,7 @@ import { useHistory, useRouteMatch } from 'react-router';
 import { Link } from 'react-router-dom';
 import BudgetList from '../components/budget-list';
 import OptionSwitch from '../components/option-switch';
-import StickyHeader from '../components/sticky-header';
+import StickyHeader from '../shared/components/sticky-header';
 import { useLocalStorage } from '../app/hooks';
 import useBudgetStore from '../app/store/budget-store';
 import NavBar from '../components/navbar';
