@@ -8,7 +8,7 @@ import PaymentMethodList from './payment-method-list';
 import { setDefaultWallet, useBudgetStore } from '../app/store';
 import { shallow } from 'zustand/shallow';
 import Dialog from './dialog';
-import LabelPicker from './label-picker';
+import LabelPicker from '../shared/components/label-picker';
 // import Chip from './chip';
 // import { CalendarIcon } from '@heroicons/react/20/solid';
 
