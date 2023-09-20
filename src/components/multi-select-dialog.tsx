@@ -2,7 +2,7 @@ import { Dialog } from "@headlessui/react"
 import { MinusCircleIcon, PlusCircleIcon } from "@heroicons/react/20/solid"
 import { ArrowLeftIcon, CheckIcon, MagnifyingGlassIcon, PlusIcon } from "@heroicons/react/24/outline"
 import React, { PropsWithChildren, ReactNode } from "react"
-import NavBar from "./navbar"
+import NavBar from "../shared/components/navbar"
 
 type MultiSelectDialogProps<T> = {
   title: string

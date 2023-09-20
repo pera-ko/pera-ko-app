@@ -9,7 +9,7 @@ import { Fragment } from 'react';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import useBudgetStore from '../app/store/budget-store';
 import useTransactionStore from '../app/store/transaction-store';
-import NavBar from '../components/navbar';
+import NavBar from '../shared/components/navbar';
 import useAddTransaction from '../app/hooks/use-add-transaction';
 
 export default function NewTransaction() {

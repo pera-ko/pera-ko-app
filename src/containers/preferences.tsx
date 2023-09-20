@@ -10,7 +10,7 @@ import OptionSwitch from '../shared/components/option-switch';
 import StickyHeader from '../shared/components/sticky-header';
 import { useLocalStorage } from '../app/hooks';
 import useBudgetStore from '../app/store/budget-store';
-import NavBar from '../components/navbar';
+import NavBar from '../shared/components/navbar';
 import Page from '../shared/components/page';
 import PaymentMethodIcon from '../components/payment-method-icon';
 

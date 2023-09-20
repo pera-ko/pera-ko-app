@@ -9,7 +9,7 @@ import {
   updateBudget,
   useBudgetStore
 } from '../app/store';
-import NavBar from '../components/navbar';
+import NavBar from '../shared/components/navbar';
 
 export default function BudgetNew() {
   const route = useRouteMatch('/:year/:month/preferences/newbudget');
