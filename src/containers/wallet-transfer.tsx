@@ -8,7 +8,7 @@ import { Fragment, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useHistory, useParams } from 'react-router';
 import { IWalletData } from '../app/@types';
-import InputGroup from '../components/input-group';
+import InputGroup from '../shared/components/input-group';
 import useBudgetStore from '../app/store/budget-store';
 import useTransactionStore from '../app/store/transaction-store';
 

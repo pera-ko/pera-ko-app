@@ -3,7 +3,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { HexColorPicker } from 'react-colorful';
 import BudgetRadio from './budget-radio';
-import InputGroup from './input-group';
+import InputGroup from '../shared/components/input-group';
 import { default as EmojiPicker, EmojiStyle } from 'emoji-picker-react';
 import { IBudget, IGoal } from '../app/@types';
 import dayjs from 'dayjs';
