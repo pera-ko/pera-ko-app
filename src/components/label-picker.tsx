@@ -3,7 +3,7 @@ import { useLocQuery } from "../app/hooks"
 import { useHistory } from "react-router"
 import useLabelStore from "../app/store/label-store"
 import MultiSelectDialog from "./multi-select-dialog"
-import Chip from "./chip"
+import Chip from "../shared/components/chip"
 
 type LabelPickerProps = {
   items: string[]
