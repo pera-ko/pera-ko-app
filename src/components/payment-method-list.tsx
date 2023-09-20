@@ -1,5 +1,5 @@
 import { IWalletData } from "../app/@types"
-import CheckIcon from "./circle-check-icon"
+import CheckIcon from "../shared/components/circle-check-icon"
 import PaymentMethodIcon from "./payment-method-icon"
 
 type Props = {

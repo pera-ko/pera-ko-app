@@ -2,7 +2,7 @@ import { Dialog } from "@headlessui/react"
 import { ArrowLeftIcon, MagnifyingGlassIcon, PlusIcon } from "@heroicons/react/24/outline"
 import React, { PropsWithChildren } from "react"
 import NavBar from "./navbar"
-import CheckIcon from "../../components/circle-check-icon"
+import CheckIcon from "./circle-check-icon"
 
 type SelectDialogProps<T> = {
   title: string
