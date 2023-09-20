@@ -1,6 +1,6 @@
 import { PropsWithChildren } from "react"
 import TotalExpenses from "../components/widgets/total-expenses"
-import AppBar from "../components/appbar"
+import AppBar from "../shared/components/appbar"
 import NewTransaction from "./new-transaction"
 // import TotalPaymentExpenses from "../components/widgets/total-payment-expenses"
 import RecentExpenses from "../components/widgets/recent-expenses"

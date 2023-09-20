@@ -1,7 +1,7 @@
 import { useRouteMatch } from "react-router";
 import { setDefaultWallet, useBudgetStore, useTransactionStore } from "../app/store";
 import { shallow } from "zustand/shallow";
-import AppBar from "../components/appbar";
+import AppBar from "../shared/components/appbar";
 import { Cell, Pie, PieChart } from "recharts";
 import SelectWallet from "../components/select-wallet";
 import { money } from "../app/utils";
