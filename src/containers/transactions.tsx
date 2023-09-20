@@ -13,7 +13,7 @@ import React from 'react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import SelectDialog from '../shared/components/select-dialog';
 import useLabelStore from '../app/store/label-store';
-import { ContextMenuRoute } from '../components/context-menu';
+import { ContextMenuRoute } from '../shared/components/context-menu';
 import { useBudgetStore } from '../app/store';
 import { longMonths } from '../app/constants';
 import usePerako from '../app/contexts/perako-context';

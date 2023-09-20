@@ -6,7 +6,7 @@ import { Fragment, useState } from "react";
 import { money } from "../app/utils";
 import { TagIcon } from "@heroicons/react/20/solid";
 import { useBudgetStore } from "../app/store";
-import ContextMenu from "./context-menu";
+import ContextMenu from "../shared/components/context-menu";
 import { WalletIcon } from "@heroicons/react/24/outline";
 import ViewExpense from "../containers/view-expense";
 import Dialog from "../shared/components/dialog";
