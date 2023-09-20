@@ -1,5 +1,5 @@
 import WidgetPanel from "../../shared/components/widget-panel";
-import MoneyHeader from "../money-header";
+import MoneyHeader from "../../shared/components/money-header";
 import { useRouteMatch } from "react-router";
 import { useTransactionStore } from "../../app/store";
 import { useLocalStorage } from "../../app/hooks";
