@@ -4,7 +4,7 @@ import { IBudgetGoalData } from '../app/@types';
 import InputGroup from '../shared/components/input-group';
 import SelectBudget from './select-budget';
 import { ChevronUpDownIcon } from '@heroicons/react/24/outline';
-import PaymentMethodList from './payment-method-list';
+import PaymentMethodList from '../features/expenses/components/payment-method-list';
 import { setDefaultWallet, useBudgetStore } from '../app/store';
 import { shallow } from 'zustand/shallow';
 import Dialog from '../shared/components/dialog';
