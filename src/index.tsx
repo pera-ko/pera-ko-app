@@ -11,7 +11,7 @@ import {
 } from 'react-router-dom';
 import Transactions from './containers/transactions';
 import Budget from './containers/budget';
-import Income from './containers/income';
+import Income from './features/income/pages/income';
 import IncomeAdd from './containers/income-add';
 import Preferences from './containers/preferences';
 import BudgetNew from './containers/budget-new';
