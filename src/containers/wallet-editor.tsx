@@ -7,7 +7,7 @@ import {
   updateWallet
 } from '../app/store';
 import Dialog, { IDialogButton } from '../shared/components/dialog';
-import WalletForm from '../features/expenses/components/wallet-form';
+import PaymentMethodForm from '../features/expenses/components/payment-method-form';
 import useBudgetStore from '../app/store/budget-store';
 
 const WalletEditor = () => {
@@ -90,7 +90,7 @@ const WalletEditor = () => {
       buttons={dialogButtons}
     >
       <div className='px-4'>
-        <WalletForm
+        <PaymentMethodForm
           id='wallet-form'
           defaultValue={defaultValue}
           onSubmit={handleSubmit}

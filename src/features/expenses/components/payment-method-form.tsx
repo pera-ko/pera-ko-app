@@ -15,7 +15,7 @@ type Props = {
   isDefault: boolean
 }
 
-const WalletForm = ({ id, defaultValue, onSubmit, isDefault }: Props) => {
+const PaymentMethodForm = ({ id, defaultValue, onSubmit, isDefault }: Props) => {
   const walletNameInputRef = useRef<HTMLInputElement | null>(null);
   const {
     register,
@@ -94,4 +94,4 @@ const WalletForm = ({ id, defaultValue, onSubmit, isDefault }: Props) => {
   );
 };
 
-export default WalletForm;
+export default PaymentMethodForm;
