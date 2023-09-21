@@ -1,5 +1,5 @@
 import useAggregateStore from "../../app/store/aggregate-store"
-import ExpenseList from "../expense-list"
+import ExpenseList from "../../features/expenses/components/expense-list"
 import WidgetPanel from "../../shared/components/widget-panel"
 
 const RecentExpenses = () => {

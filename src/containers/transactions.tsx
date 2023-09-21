@@ -8,7 +8,7 @@ import { ITransactionData } from '../app/@types';
 import Page from '../shared/components/page';
 import { useLocQuery, useLocalStorage } from '../app/hooks';
 import { OverviewPie } from '../components/widgets/charts/overview-pie';
-import ExpenseList from '../components/expense-list';
+import ExpenseList from '../features/expenses/components/expense-list';
 import React from 'react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import SelectDialog from '../shared/components/select-dialog';
