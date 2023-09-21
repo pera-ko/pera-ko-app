@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useRef } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import InputGroup from '../shared/components/input-group';
+import InputGroup from '../../../shared/components/input-group';
 import { RadioGroup } from '@headlessui/react';
 
 type Inputs = {

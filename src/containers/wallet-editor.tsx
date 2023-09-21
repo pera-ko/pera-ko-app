@@ -7,7 +7,7 @@ import {
   updateWallet
 } from '../app/store';
 import Dialog, { IDialogButton } from '../shared/components/dialog';
-import WalletForm from '../components/wallet-form';
+import WalletForm from '../features/expenses/components/wallet-form';
 import useBudgetStore from '../app/store/budget-store';
 
 const WalletEditor = () => {
