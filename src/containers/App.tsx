@@ -8,7 +8,7 @@ import {
 import { useLocQuery, useLocalStorage } from '../app/hooks';
 import { Fragment, PropsWithChildren } from 'react';
 import Dashboard from './dashboard';
-import Dashboard2 from './dashboard2';
+import Dashboard2 from '../features/dashboard/pages/dashboard2';
 import { Cog6ToothIcon, 
   // CurrencyDollarIcon, FlagIcon,
   HomeIcon } from '@heroicons/react/24/solid';
