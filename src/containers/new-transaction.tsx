@@ -1,7 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { shallow } from 'zustand/shallow';
 import { useHistory } from 'react-router-dom';
-import TransactionForm from '../features/expenses/components/transaction-form';
+import ExpenseForm from '../features/expenses/components/expense-form';
 import { useLocQuery } from '../app/hooks';
 import toast from 'react-hot-toast';
 import { money } from '../app/utils';
@@ -77,7 +77,7 @@ export default function NewTransaction() {
                 }}
                 title='New Expense'
                 />
-              <TransactionForm
+              <ExpenseForm
                 selectedBudget={selectedBudget}
                 budgetList={budgetListWithAmt}
                 onSubmit={(value) => {

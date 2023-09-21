@@ -24,7 +24,7 @@ type Props = {
   readOnly?: boolean
 }
 
-export default function TransactionForm({
+export default function ExpenseForm({
   selectedBudget,
   budgetList,
   onSubmit,
