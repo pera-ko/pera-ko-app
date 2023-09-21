@@ -1,6 +1,6 @@
 import { IWalletData } from "../../../app/@types"
 import CheckIcon from "../../../shared/components/circle-check-icon"
-import PaymentMethodIcon from "../../../components/payment-method-icon"
+import PaymentMethodIcon from "./payment-method-icon"
 
 type Props = {
   items: Array<IWalletData>

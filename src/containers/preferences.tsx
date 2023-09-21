@@ -12,7 +12,7 @@ import { useLocalStorage } from '../app/hooks';
 import useBudgetStore from '../app/store/budget-store';
 import NavBar from '../shared/components/navbar';
 import Page from '../shared/components/page';
-import PaymentMethodIcon from '../components/payment-method-icon';
+import PaymentMethodIcon from '../features/expenses/components/payment-method-icon';
 
 const Preferences: React.FC = () => {
   const route = useRouteMatch('/:year/:month/preferences');
