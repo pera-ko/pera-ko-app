@@ -9,7 +9,7 @@ type Props = {
   items: IWalletData[];
   onChange(value: IWalletData): void;
 }
-const SelectWallet = ({ value, items, onChange }: Props) => {
+const PaymentMethodSelect = ({ value, items, onChange }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const handleChange = (wallet: IWalletData) => {
     onChange(wallet);
@@ -56,4 +56,4 @@ const SelectWallet = ({ value, items, onChange }: Props) => {
   );
 };
 
-export default SelectWallet;
+export default PaymentMethodSelect;

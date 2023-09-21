@@ -3,7 +3,7 @@ import { setDefaultWallet, useBudgetStore, useTransactionStore } from "../app/st
 import { shallow } from "zustand/shallow";
 import AppBar from "../shared/components/appbar";
 import { Cell, Pie, PieChart } from "recharts";
-import SelectWallet from "../features/expenses/components/payment-method-select";
+import PaymentMethodSelect from "../features/expenses/components/payment-method-select";
 import { money } from "../app/utils";
 import { Link } from "react-router-dom";
 import { ArrowTrendingDownIcon, ArrowTrendingUpIcon } from "@heroicons/react/24/outline";
@@ -74,7 +74,7 @@ const Dashboard: React.FC<PropsWithChildren> = ({ children }) => {
             </PieChart>
           </div>
           <div className='text-right'>
-            <SelectWallet
+            <PaymentMethodSelect
               value={defaultWallet}
               items={Object.values(walletList)}
               onChange={setDefaultWallet}
