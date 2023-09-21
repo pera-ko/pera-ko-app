@@ -1,5 +1,5 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
-import InputGroup from '../shared/components/input-group';
+import InputGroup from '../../../shared/components/input-group';
 
 type Inputs = {
   amount: number;
