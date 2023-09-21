@@ -1,9 +1,9 @@
 import { Dialog } from '@headlessui/react';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import { useHistory } from 'react-router-dom';
-import { getDefaultWallet, useTransactionStore } from '../app/store';
-import IncomeForm from '../components/income-form';
-import NavBar from '../shared/components/navbar';
+import { getDefaultWallet, useTransactionStore } from '../../../app/store';
+import IncomeForm from '../../../components/income-form';
+import NavBar from '../../../shared/components/navbar';
 
 export default function IncomeAdd() {
   const history = useHistory();
