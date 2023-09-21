@@ -3,7 +3,7 @@ import { setDefaultWallet, useBudgetStore, useTransactionStore } from "../app/st
 import { shallow } from "zustand/shallow";
 import AppBar from "../shared/components/appbar";
 import { Cell, Pie, PieChart } from "recharts";
-import SelectWallet from "../components/select-wallet";
+import SelectWallet from "../features/expenses/components/select-wallet";
 import { money } from "../app/utils";
 import { Link } from "react-router-dom";
 import { ArrowTrendingDownIcon, ArrowTrendingUpIcon } from "@heroicons/react/24/outline";
