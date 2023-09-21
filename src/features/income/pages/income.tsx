@@ -1,5 +1,5 @@
 import { ArrowDownCircleIcon, ArrowLeftIcon } from '@heroicons/react/24/outline';
-import { ReactComponent as WalletPana } from '../assets/svg/Wallet-pana.svg';
+import { ReactComponent as WalletPana } from '../../../assets/svg/Wallet-pana.svg';
 import dayjs from 'dayjs';
 import calendar from 'dayjs/plugin/calendar';
 import { Fragment } from 'react';
