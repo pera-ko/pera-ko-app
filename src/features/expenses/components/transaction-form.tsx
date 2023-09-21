@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { IBudgetGoalData } from '../app/@types';
-import InputGroup from '../shared/components/input-group';
-import SelectBudget from './select-budget';
+import { IBudgetGoalData } from '../../../app/@types';
+import InputGroup from '../../../shared/components/input-group';
+import SelectBudget from '../../../components/select-budget';
 import { ChevronUpDownIcon } from '@heroicons/react/24/outline';
-import PaymentMethodList from '../features/expenses/components/payment-method-list';
-import { setDefaultWallet, useBudgetStore } from '../app/store';
+import PaymentMethodList from './payment-method-list';
+import { setDefaultWallet, useBudgetStore } from '../../../app/store';
 import { shallow } from 'zustand/shallow';
-import Dialog from '../shared/components/dialog';
-import LabelPicker from '../shared/components/label-picker';
+import Dialog from '../../../shared/components/dialog';
+import LabelPicker from '../../../shared/components/label-picker';
 // import Chip from './chip';
 // import { CalendarIcon } from '@heroicons/react/20/solid';
 
