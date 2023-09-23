@@ -1,6 +1,6 @@
 import { CheckIcon } from '@heroicons/react/20/solid';
-import { IBudgetGoalData } from '../shared/@types';
-import BudgetList from './budget-list';
+import { IBudgetGoalData } from '../../../shared/@types';
+import BudgetList from '../../../components/budget-list';
 import { twMerge } from 'tailwind-merge'
 
 type BudgetCheckListProps = {
