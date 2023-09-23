@@ -2,8 +2,8 @@ import WidgetPanel from "../../shared/components/widget-panel";
 import MoneyHeader from "../../shared/components/money-header";
 import { useParams, useRouteMatch } from "react-router";
 import { useTransactionStore } from "../../app/store";
-import { useLocalStorage } from "../../app/hooks";
 import { Link } from "react-router-dom";
+import useLocalStorage from "../../shared/hooks/use-local-storage";
 
 function TotalPaymentExpenses() {
   const { year, month } = useParams<{ year: string; month: string }>();
