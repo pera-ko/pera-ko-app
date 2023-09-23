@@ -5,14 +5,14 @@ import {
 import React from 'react';
 import { useHistory, useRouteMatch } from 'react-router';
 import { Link } from 'react-router-dom';
-import BudgetList from '../components/budget-list';
-import OptionSwitch from '../shared/components/option-switch';
-import StickyHeader from '../shared/components/sticky-header';
-import { useLocalStorage } from '../app/hooks';
-import useBudgetStore from '../app/store/budget-store';
-import NavBar from '../shared/components/navbar';
-import Page from '../shared/components/page';
-import PaymentMethodIcon from '../features/expenses/components/payment-method-icon';
+import BudgetList from '../../../components/budget-list';
+import OptionSwitch from '../../../shared/components/option-switch';
+import StickyHeader from '../../../shared/components/sticky-header';
+import { useLocalStorage } from '../../../app/hooks';
+import useBudgetStore from '../../../app/store/budget-store';
+import NavBar from '../../../shared/components/navbar';
+import Page from '../../../shared/components/page';
+import PaymentMethodIcon from '../../expenses/components/payment-method-icon';
 
 const Preferences: React.FC = () => {
   const route = useRouteMatch('/:year/:month/preferences');

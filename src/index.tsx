@@ -13,7 +13,7 @@ import Transactions from './containers/transactions';
 import Budget from './containers/budget';
 import Income from './features/income/pages/income';
 import IncomeAdd from './features/income/pages/income-add';
-import Preferences from './containers/preferences';
+import Preferences from './features/settings/pages/preferences';
 import BudgetNew from './containers/budget-new';
 import WalletEditor from './containers/wallet-editor';
 import { Toaster } from 'react-hot-toast';
