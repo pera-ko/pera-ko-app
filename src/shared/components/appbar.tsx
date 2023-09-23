@@ -1,7 +1,7 @@
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
-import { shortMonths } from '../../app/constants';
+import { shortMonths } from '../constants';
 
 export default function AppBar() {
   const { year, month } = useParams<{ year: string; month: string }>();

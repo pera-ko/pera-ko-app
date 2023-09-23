@@ -14,7 +14,7 @@ import SelectDialog from '../../../shared/components/select-dialog';
 import useLabelStore from '../../../app/store/label-store';
 import { ContextMenuRoute } from '../../../shared/components/context-menu';
 import { useBudgetStore } from '../../../app/store';
-import { longMonths } from '../../../app/constants';
+import { longMonths } from '../../../shared/constants';
 import usePerako from '../../../shared/hooks/perako-context';
 import useLocalStorage from '../../../shared/hooks/use-local-storage';
 import { useLocQuery } from '../../../shared/hooks/use-loc-query';
