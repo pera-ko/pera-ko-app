@@ -12,13 +12,13 @@ import {
 } from '../app/store';
 import { money } from '../shared/utils';
 import toast from 'react-hot-toast';
-import useAddTransaction from '../features/expenses/hooks/use-add-expense';
+import useAddExpense from '../features/expenses/hooks/use-add-expense';
 
 const Budget: React.FC = () => {
   const { year, month } = useParams<{ year: string; month: string }>();
   const { set, search } = useLocQuery<{ newtran: string, catId : string, view: 'grid' | 'quickadd' }>();
   const [selectedItems, setSelectedItems] = useState<IBudgetGoalData[]>([]);
-  const addTransaction = useAddTransaction()
+  const addTransaction = useAddExpense()
   const selectedWalletId = useBudgetStore((state) => state.wallet.selected);
   const {value: enableQuickTran } = useLocalStorage('quick-tran-enabled', true);
   const isQuickAdd = search['view'] === 'quickadd';

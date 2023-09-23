@@ -2,7 +2,7 @@ import { useTransactionStore } from "../../../app/store";
 import useAggregateStore from "../../../app/store/aggregate-store";
 import useExpensesPaymentStore from "../../../app/store/expenses-payment-store";
 
-const useAddTransaction = () => {
+const useAddExpense = () => {
   const { addTransaction } = useTransactionStore(
     (state) => ({
       addTransaction: state.addTransaction
@@ -19,4 +19,4 @@ const useAddTransaction = () => {
   }
 }
 
-export default useAddTransaction
+export default useAddExpense
