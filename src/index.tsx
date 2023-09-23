@@ -15,7 +15,7 @@ import Income from './features/income/pages/income';
 import IncomeAdd from './features/income/pages/income-add';
 import Preferences from './features/settings/pages';
 import BudgetNew from './containers/budget-new';
-import WalletEditor from './containers/wallet-editor';
+import WalletEditor from './features/settings/pages/wallet-editor';
 import { Toaster } from 'react-hot-toast';
 import { PerakoProvider } from './shared/hooks/perako-context';
 

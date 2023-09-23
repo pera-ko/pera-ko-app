@@ -5,10 +5,10 @@ import {
   deleteWallet,
   undoDeleteWallet,
   updateWallet
-} from '../app/store';
-import Dialog, { IDialogButton } from '../shared/components/dialog';
-import PaymentMethodForm from '../features/expenses/components/payment-method-form';
-import useBudgetStore from '../app/store/budget-store';
+} from '../../../app/store';
+import Dialog, { IDialogButton } from '../../../shared/components/dialog';
+import PaymentMethodForm from '../../expenses/components/payment-method-form';
+import useBudgetStore from '../../../app/store/budget-store';
 
 const WalletEditor = () => {
   const route = useRouteMatch('/:year/:month/preferences/newwallet');
