@@ -11,7 +11,7 @@ import { WalletIcon } from "@heroicons/react/24/outline";
 import ViewExpense from "../pages/view-expense";
 import Dialog from "../../../shared/components/dialog";
 import PaymentMethodList from "./payment-method-list";
-import useUpdateTransaction from "../../../app/hooks/use-update-transaction";
+import useUpdateTransaction from "../hooks/use-update-expense";
 import toast from "react-hot-toast";
 
 dayjs.extend(calendar);

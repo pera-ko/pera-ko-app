@@ -1,7 +1,7 @@
-import { ITransactionData } from "../../shared/@types";
-import { useTransactionStore } from "../store";
-import useAggregateStore from "../store/aggregate-store";
-import useExpensesPaymentStore from "../store/expenses-payment-store";
+import { ITransactionData } from "../../../shared/@types";
+import { useTransactionStore } from "../../../app/store";
+import useAggregateStore from "../../../app/store/aggregate-store";
+import useExpensesPaymentStore from "../../../app/store/expenses-payment-store";
 
 const useUpdateTransaction = () => {
   const { updateTransaction } = useTransactionStore(
