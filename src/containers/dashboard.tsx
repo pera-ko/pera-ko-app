@@ -4,7 +4,7 @@ import { shallow } from "zustand/shallow";
 import AppBar from "../shared/components/appbar";
 import { Cell, Pie, PieChart } from "recharts";
 import PaymentMethodSelect from "../features/expenses/components/payment-method-select";
-import { money } from "../app/utils";
+import { money } from "../shared/utils";
 import { Link } from "react-router-dom";
 import { ArrowTrendingDownIcon, ArrowTrendingUpIcon } from "@heroicons/react/24/outline";
 import NewTransaction from "./new-transaction";

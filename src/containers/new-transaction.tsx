@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import ExpenseForm from '../features/expenses/components/expense-form';
 import { useLocQuery } from '../app/hooks';
 import toast from 'react-hot-toast';
-import { money } from '../app/utils';
+import { money } from '../shared/utils';
 import { Fragment } from 'react';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import useBudgetStore from '../app/store/budget-store';

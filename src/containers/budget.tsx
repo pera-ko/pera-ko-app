@@ -10,7 +10,7 @@ import {
   getEffectiveBudget,
   useBudgetStore
 } from '../app/store';
-import { money } from '../app/utils';
+import { money } from '../shared/utils';
 import toast from 'react-hot-toast';
 import useAddTransaction from '../app/hooks/use-add-transaction';
 

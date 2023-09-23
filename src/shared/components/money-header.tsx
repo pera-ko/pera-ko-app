@@ -1,5 +1,5 @@
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
-import { money } from "../../app/utils";
+import { money } from "../utils";
 
 const MoneyHeader = ({ value, onMask, maskValue }: { value: number, maskValue: boolean, onMask: (val: boolean) => void }) => {
 

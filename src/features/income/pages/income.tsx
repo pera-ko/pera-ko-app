@@ -5,7 +5,7 @@ import calendar from 'dayjs/plugin/calendar';
 import { Fragment } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { IIncome } from '../../../app/@types';
-import { money } from '../../../app/utils';
+import { money } from '../../../shared/utils';
 import { useBudgetStore, useTransactionStore } from '../../../app/store';
 
 dayjs.extend(calendar);

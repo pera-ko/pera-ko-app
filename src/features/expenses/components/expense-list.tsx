@@ -3,7 +3,7 @@ import { IBudget, IBudgetData, IGoal, IGoalData, ITransactionData, IWallet } fro
 import calendar from 'dayjs/plugin/calendar';
 import BudgetIcon from "../../../components/budget-icon";
 import { Fragment, useState } from "react";
-import { money } from "../../../app/utils";
+import { money } from "../../../shared/utils";
 import { TagIcon } from "@heroicons/react/20/solid";
 import { useBudgetStore } from "../../../app/store";
 import ContextMenu from "../../../shared/components/context-menu";

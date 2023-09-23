@@ -5,7 +5,7 @@ import { Route, useHistory, useParams, useRouteMatch } from 'react-router';
 import { Link } from 'react-router-dom';
 import { shallow } from 'zustand/shallow';
 import { longMonths } from '../app/constants';
-import { money } from '../app/utils';
+import { money } from '../shared/utils';
 import ModalFull from '../shared/components/modal-full';
 import WalletTransfer from './wallet-transfer';
 import useBudgetStore from '../app/store/budget-store';
