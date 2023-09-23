@@ -10,7 +10,7 @@ import {
   Switch
 } from 'react-router-dom';
 import Transactions from './features/expenses/pages';
-import Budget from './shared/widgets/budget';
+import Budget from './shared/widgets/budget-grid-list';
 import Income from './features/income/pages/income';
 import IncomeAdd from './features/income/pages/income-add';
 import Preferences from './features/settings/pages';
