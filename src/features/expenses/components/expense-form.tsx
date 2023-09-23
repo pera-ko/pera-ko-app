@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { IBudgetGoalData } from '../../../shared/@types';
 import InputGroup from '../../../shared/components/input-group';
-import SelectBudget from '../../../components/select-budget';
+import SelectBudget from '../../../components/budget-select';
 import { ChevronUpDownIcon } from '@heroicons/react/24/outline';
 import PaymentMethodList from './payment-method-list';
 import { setDefaultWallet, useBudgetStore } from '../../../app/store';
