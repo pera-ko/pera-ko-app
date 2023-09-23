@@ -1,13 +1,13 @@
 import { useRouteMatch } from "react-router";
-import { setDefaultWallet, useBudgetStore, useTransactionStore } from "../app/store";
+import { setDefaultWallet, useBudgetStore, useTransactionStore } from "../../../app/store";
 import { shallow } from "zustand/shallow";
-import AppBar from "../shared/components/appbar";
+import AppBar from "../../../shared/components/appbar";
 import { Cell, Pie, PieChart } from "recharts";
-import PaymentMethodSelect from "../features/expenses/components/payment-method-select";
-import { money } from "../shared/utils";
+import PaymentMethodSelect from "../../expenses/components/payment-method-select";
+import { money } from "../../../shared/utils";
 import { Link } from "react-router-dom";
 import { ArrowTrendingDownIcon, ArrowTrendingUpIcon } from "@heroicons/react/24/outline";
-import NewTransaction from "../features/expenses/pages/new-expense";
+import NewTransaction from "../../expenses/pages/new-expense";
 import { PropsWithChildren } from "react";
 
 const Dashboard: React.FC<PropsWithChildren> = ({ children }) => {

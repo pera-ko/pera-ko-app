@@ -7,7 +7,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { useLocQuery, useLocalStorage } from '../app/hooks';
 import { Fragment, PropsWithChildren } from 'react';
-import Dashboard from './dashboard';
+import Dashboard from '../features/dashboard/pages/dashboard-legacy';
 import Dashboard2 from '../features/dashboard/pages/dashboard';
 import { Cog6ToothIcon, 
   // CurrencyDollarIcon, FlagIcon,
