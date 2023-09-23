@@ -10,7 +10,7 @@ import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import useBudgetStore from '../app/store/budget-store';
 import useTransactionStore from '../app/store/transaction-store';
 import NavBar from '../shared/components/navbar';
-import useAddTransaction from '../features/expenses/hooks/use-add-transaction';
+import useAddTransaction from '../features/expenses/hooks/use-add-expense';
 
 export default function NewTransaction() {
   

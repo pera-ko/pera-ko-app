@@ -12,7 +12,7 @@ import {
 } from '../app/store';
 import { money } from '../shared/utils';
 import toast from 'react-hot-toast';
-import useAddTransaction from '../features/expenses/hooks/use-add-transaction';
+import useAddTransaction from '../features/expenses/hooks/use-add-expense';
 
 const Budget: React.FC = () => {
   const { year, month } = useParams<{ year: string; month: string }>();
