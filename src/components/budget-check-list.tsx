@@ -1,5 +1,5 @@
 import { CheckIcon } from '@heroicons/react/20/solid';
-import { IBudgetGoalData } from '../app/@types';
+import { IBudgetGoalData } from '../shared/@types';
 import BudgetList from './budget-list';
 import { twMerge } from 'tailwind-merge'
 

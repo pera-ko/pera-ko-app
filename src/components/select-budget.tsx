@@ -2,7 +2,7 @@ import { Listbox } from '@headlessui/react';
 import { ChevronUpDownIcon } from '@heroicons/react/24/outline';
 import { ExclamationTriangleIcon } from '@heroicons/react/24/solid';
 import { Fragment } from 'react';
-import { IBudgetGoalData } from '../app/@types';
+import { IBudgetGoalData } from '../shared/@types';
 import { formatCurrency, hexToRGB, money } from '../shared/utils';
 import BudgetIcon from './budget-icon';
 import { twMerge } from 'tailwind-merge';

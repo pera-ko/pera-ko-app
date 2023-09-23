@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import calendar from 'dayjs/plugin/calendar';
 import { Fragment } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { IIncome } from '../../../app/@types';
+import { IIncome } from '../../../shared/@types';
 import { money } from '../../../shared/utils';
 import { useBudgetStore, useTransactionStore } from '../../../app/store';
 

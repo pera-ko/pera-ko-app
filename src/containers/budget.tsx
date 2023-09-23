@@ -1,7 +1,7 @@
 import { ClipboardDocumentCheckIcon, Squares2X2Icon } from '@heroicons/react/24/outline';
 import { Fragment, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { IBudgetGoalData } from '../app/@types';
+import { IBudgetGoalData } from '../shared/@types';
 import { BottomNav } from './App';
 import BudgetCheckList from '../components/budget-check-list';
 import BudgetGrid from '../components/widgets/budget-grid';

@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
-import { IIncome, ITransaction, ITransactionData, ITransferTransaction } from "../@types";
+import { IIncome, ITransaction, ITransactionData, ITransferTransaction } from "../../shared/@types";
 import { IndexedDBStorageYearMonth } from "../infra/indexedDBPersistence";
 import storeMigration from "./migration";
 

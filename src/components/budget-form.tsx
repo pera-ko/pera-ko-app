@@ -5,7 +5,7 @@ import { HexColorPicker } from 'react-colorful';
 import BudgetRadio from './budget-radio';
 import InputGroup from '../shared/components/input-group';
 import { default as EmojiPicker, EmojiStyle } from 'emoji-picker-react';
-import { IBudget, IGoal } from '../app/@types';
+import { IBudget, IGoal } from '../shared/@types';
 import dayjs from 'dayjs';
 import OptionSwitch from '../shared/components/option-switch';
 

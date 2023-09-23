@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import IndexedDBStorage from "../infra/indexedDBPersistence";
-import { ITransactionData } from "../@types";
+import { ITransactionData } from "../../shared/@types";
 
 const PERSIST_NAME = 'expenses_payment'
 

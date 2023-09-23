@@ -4,7 +4,7 @@ import { nanoid } from "nanoid";
 import dayjs from "dayjs";
 import isBetween from 'dayjs/plugin/isBetween'
 import IndexedDBStorage from "../infra/indexedDBPersistence";
-import { IBudget, IBudgetData, IGoal, IGoalData, IWalletData } from "../@types";
+import { IBudget, IBudgetData, IGoal, IGoalData, IWalletData } from "../../shared/@types";
 import storeMigration from "./migration";
 
 dayjs.extend(isBetween)

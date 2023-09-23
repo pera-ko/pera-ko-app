@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from 'react';
-import { IBudget, IGoal } from '../app/@types';
+import { IBudget, IGoal } from '../shared/@types';
 import { money } from '../shared/utils';
 import BudgetIcon from './budget-icon';
 

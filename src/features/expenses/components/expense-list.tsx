@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { IBudget, IBudgetData, IGoal, IGoalData, ITransactionData, IWallet } from "../../../app/@types";
+import { IBudget, IBudgetData, IGoal, IGoalData, ITransactionData, IWallet } from "../../../shared/@types";
 import calendar from 'dayjs/plugin/calendar';
 import BudgetIcon from "../../../components/budget-icon";
 import { Fragment, useState } from "react";

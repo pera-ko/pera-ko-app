@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { IBudgetGoalData } from '../../../app/@types';
+import { IBudgetGoalData } from '../../../shared/@types';
 import InputGroup from '../../../shared/components/input-group';
 import SelectBudget from '../../../components/select-budget';
 import { ChevronUpDownIcon } from '@heroicons/react/24/outline';

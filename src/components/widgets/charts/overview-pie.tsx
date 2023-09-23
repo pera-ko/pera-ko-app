@@ -1,7 +1,7 @@
 import { Cell, Pie, PieChart } from "recharts"
 import { sumPerCategory, useBudgetStore, useTransactionStore } from "../../../app/store";
 import WidgetPanel from "../../../shared/components/widget-panel";
-import { ITransaction } from "../../../app/@types";
+import { ITransaction } from "../../../shared/@types";
 import { ReactNode } from "react";
 
 export const OverviewPie = ({ items, rightElement } : { items: ITransaction[], rightElement: ReactNode }) => {

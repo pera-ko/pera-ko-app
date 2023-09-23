@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import React, { PropsWithChildren } from 'react';
-import { IBudget, IGoal } from '../../app/@types';
+import { IBudget, IGoal } from '../../shared/@types';
 import BudgetIcon from './../budget-icon';
 
 const container = {

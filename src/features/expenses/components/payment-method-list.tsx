@@ -1,4 +1,4 @@
-import { IWalletData } from "../../../app/@types"
+import { IWalletData } from "../../../shared/@types"
 import CheckIcon from "../../../shared/components/circle-check-icon"
 import PaymentMethodIcon from "./payment-method-icon"
 
