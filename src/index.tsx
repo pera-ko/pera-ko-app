@@ -9,7 +9,7 @@ import {
   Route,
   Switch
 } from 'react-router-dom';
-import Transactions from './containers/transactions';
+import Transactions from './features/expenses/pages/transactions';
 import Budget from './containers/budget';
 import Income from './features/income/pages/income';
 import IncomeAdd from './features/income/pages/income-add';
