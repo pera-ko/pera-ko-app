@@ -17,7 +17,7 @@ import Preferences from './features/settings/pages';
 import BudgetNew from './containers/budget-new';
 import WalletEditor from './containers/wallet-editor';
 import { Toaster } from 'react-hot-toast';
-import { PerakoProvider } from './app/contexts/perako-context';
+import { PerakoProvider } from './shared/hooks/perako-context';
 
 const DefaultRoute = () => {
   const dateNow = new Date();

@@ -16,7 +16,7 @@ import useLabelStore from '../../../app/store/label-store';
 import { ContextMenuRoute } from '../../../shared/components/context-menu';
 import { useBudgetStore } from '../../../app/store';
 import { longMonths } from '../../../app/constants';
-import usePerako from '../../../app/contexts/perako-context';
+import usePerako from '../../../shared/hooks/perako-context';
 
 dayjs.extend(calendar);
 

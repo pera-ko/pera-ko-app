@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, useContext, useEffect } from "react";
 import { useLocation, useParams } from 'react-router-dom';
-import { useTransactionStore } from "../store";
+import { useTransactionStore } from "../../app/store";
 import { keys } from "idb-keyval";
 
 type PerakoType = {
