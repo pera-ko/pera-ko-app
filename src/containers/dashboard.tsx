@@ -7,7 +7,7 @@ import PaymentMethodSelect from "../features/expenses/components/payment-method-
 import { money } from "../shared/utils";
 import { Link } from "react-router-dom";
 import { ArrowTrendingDownIcon, ArrowTrendingUpIcon } from "@heroicons/react/24/outline";
-import NewTransaction from "./new-transaction";
+import NewTransaction from "../features/expenses/pages/new-transaction";
 import { PropsWithChildren } from "react";
 
 const Dashboard: React.FC<PropsWithChildren> = ({ children }) => {

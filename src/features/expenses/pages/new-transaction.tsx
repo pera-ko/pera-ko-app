@@ -1,16 +1,16 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { shallow } from 'zustand/shallow';
 import { useHistory } from 'react-router-dom';
-import ExpenseForm from '../features/expenses/components/expense-form';
-import { useLocQuery } from '../app/hooks';
+import ExpenseForm from '../components/expense-form';
+import { useLocQuery } from '../../../app/hooks';
 import toast from 'react-hot-toast';
-import { money } from '../shared/utils';
+import { money } from '../../../shared/utils';
 import { Fragment } from 'react';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
-import useBudgetStore from '../app/store/budget-store';
-import useTransactionStore from '../app/store/transaction-store';
-import NavBar from '../shared/components/navbar';
-import useAddExpense from '../features/expenses/hooks/use-add-expense';
+import useBudgetStore from '../../../app/store/budget-store';
+import useTransactionStore from '../../../app/store/transaction-store';
+import NavBar from '../../../shared/components/navbar';
+import useAddExpense from '../hooks/use-add-expense';
 
 export default function NewTransaction() {
   
