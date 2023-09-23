@@ -1,15 +1,15 @@
 import { Dialog } from '@headlessui/react';
 import { ArrowLeftIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { useHistory, useRouteMatch } from 'react-router';
-import { IBudget, IGoal } from '../shared/@types';
-import BudgetForm from '../components/budget-form';
+import { IBudget, IGoal } from '../../../shared/@types';
+import BudgetForm from '../../../components/budget-form';
 import {
   createBudget,
   deleteBudget,
   updateBudget,
   useBudgetStore
-} from '../app/store';
-import NavBar from '../shared/components/navbar';
+} from '../../../app/store';
+import NavBar from '../../../shared/components/navbar';
 
 export default function BudgetNew() {
   const route = useRouteMatch('/:year/:month/preferences/newbudget');
