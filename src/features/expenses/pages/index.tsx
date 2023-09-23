@@ -6,7 +6,6 @@ import useTransactionStore from '../../../app/store/transaction-store';
 import NavBar from '../../../shared/components/navbar';
 import { ITransactionData } from '../../../shared/@types';
 import Page from '../../../shared/components/page';
-import { useLocQuery } from '../../../app/hooks';
 import { OverviewPie } from '../../../components/widgets/charts/overview-pie';
 import ExpenseList from '../components/expense-list';
 import React from 'react';
@@ -18,6 +17,7 @@ import { useBudgetStore } from '../../../app/store';
 import { longMonths } from '../../../app/constants';
 import usePerako from '../../../shared/hooks/perako-context';
 import useLocalStorage from '../../../shared/hooks/use-local-storage';
+import { useLocQuery } from '../../../shared/hooks/use-loc-query';
 
 dayjs.extend(calendar);
 

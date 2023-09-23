@@ -1,9 +1,9 @@
 import { ChevronDownIcon, TagIcon } from "@heroicons/react/20/solid"
-import { useLocQuery } from "../../app/hooks"
 import { useHistory } from "react-router"
 import useLabelStore from "../../app/store/label-store"
 import MultiSelectDialog from "./multi-select-dialog"
 import Chip from "./chip"
+import { useLocQuery } from "../hooks/use-loc-query"
 
 type LabelPickerProps = {
   items: string[]

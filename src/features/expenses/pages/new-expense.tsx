@@ -2,7 +2,6 @@ import { Dialog, Transition } from '@headlessui/react';
 import { shallow } from 'zustand/shallow';
 import { useHistory } from 'react-router-dom';
 import ExpenseForm from '../components/expense-form';
-import { useLocQuery } from '../../../app/hooks';
 import toast from 'react-hot-toast';
 import { money } from '../../../shared/utils';
 import { Fragment } from 'react';
@@ -11,6 +10,7 @@ import useBudgetStore from '../../../app/store/budget-store';
 import useTransactionStore from '../../../app/store/transaction-store';
 import NavBar from '../../../shared/components/navbar';
 import useAddExpense from '../hooks/use-add-expense';
+import { useLocQuery } from '../../../shared/hooks/use-loc-query';
 
 export default function NewTransaction() {
   

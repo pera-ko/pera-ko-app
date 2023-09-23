@@ -5,7 +5,6 @@ import { IBudgetGoalData } from '../@types';
 import { BottomNav } from '../../containers/App';
 import BudgetCheckList from '../../components/budget-check-list';
 import BudgetGrid from '../../components/widgets/budget-grid';
-import { useLocQuery } from '../../app/hooks';
 import {
   getEffectiveBudget,
   useBudgetStore
@@ -14,6 +13,7 @@ import { money } from '../utils';
 import toast from 'react-hot-toast';
 import useAddExpense from '../../features/expenses/hooks/use-add-expense';
 import useLocalStorage from '../hooks/use-local-storage';
+import { useLocQuery } from '../hooks/use-loc-query';
 
 const Budget: React.FC = () => {
   const { year, month } = useParams<{ year: string; month: string }>();
