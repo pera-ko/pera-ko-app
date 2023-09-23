@@ -7,8 +7,8 @@ import {
 } from '@heroicons/react/24/outline';
 import { useLocQuery, useLocalStorage } from '../app/hooks';
 import { Fragment, PropsWithChildren } from 'react';
-import Dashboard from '../features/dashboard/pages/dashboard-legacy';
-import Dashboard2 from '../features/dashboard/pages/dashboard';
+import DashboardLegacy from '../features/dashboard/pages/dashboard-legacy';
+import Dashboard from '../features/dashboard/pages';
 import { Cog6ToothIcon, 
   // CurrencyDollarIcon, FlagIcon,
   HomeIcon } from '@heroicons/react/24/solid';
@@ -22,16 +22,16 @@ const App: React.FC<PropsWithChildren> = ({ children }) => {
   
   if (newDashboard) {
     return (
-      <Dashboard2>
+      <Dashboard>
         {children}
-      </Dashboard2>
+      </Dashboard>
     )
   }
 
   return (
-    <Dashboard>
+    <DashboardLegacy>
       {children}
-    </Dashboard>
+    </DashboardLegacy>
   )
 };
 
