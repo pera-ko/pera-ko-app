@@ -1,6 +1,6 @@
 {
   "name": "pera-ko",
-  "version": "0.3.0",
+  "version": "0.4.2",
   "private": true,
   "dependencies": {
     "@headlessui/react": "^1.7.5",
@@ -25,7 +25,7 @@
     "react-scripts": "^5.0.1",
     "recharts": "^2.7.3",
     "web-vitals": "^1.1.1",
-    "zustand": "^3.5.2"
+    "zustand": "^4.4.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -61,6 +61,7 @@
     "autoprefixer": "^9.8.8",
     "cssnano": "^5.1.14",
     "postcss": "^8.4.27",
+    "tailwind-merge": "^1.14.0",
     "tailwindcss": "^3.3.3",
     "typescript": "^4.9.5"
   }

@@ -1,30 +1,30 @@
-import create from "zustand";
-import { persist } from "zustand/middleware";
+import { create } from "zustand";
+import { persist, createJSONStorage } from "zustand/middleware";
 import IndexedDBStorage from "../infra/indexedDBPersistence";
-import { ITransactionData } from "../@types";
+import { ITransactionData } from "../../shared/@types";
 
 const PERSIST_NAME = 'aggregate'
 
 // All transactions should be ordered by tran date in descending order
-export interface IAggregateStore {
+export type IAggregateStore = {
   transactions: {
     last10: ITransactionData[]
   },
-  addTransaction: (id: string, budgetId: string, walletId: string, amount: number, remarks?: string) => void,
-  getLast10: () => ITransactionData[]
-
+  addTransaction: (id: string, budgetId: string, walletId: string, amount: number, remarks?: string, labels?: string[]) => void,
+  updateTransaction: (id: string, transaction: ITransactionData) => void
 }
 
-const useAggregateStore = create<IAggregateStore>(persist(
-  (set, get) => ({
+
+const useAggregateStore = create<IAggregateStore>()(
+  persist((set, get) => ({
     transactions: {
       last10: []
     },
-    addTransaction: (id, budgetId, walletId, amount, remarks) => {
+    addTransaction: (id, budgetId, walletId, amount, remarks, labels = []) => {
       const tranDate = (new Date()).toJSON()
 
-      const newTran = { id, type: undefined, budgetId, walletId, amount, tranDate, remarks }
-
+      const newTran = { id, type: undefined, budgetId, walletId, amount, tranDate, remarks, labels }
+      
       const last10 = [...get().transactions.last10]
 
       const count = last10.unshift(newTran)
@@ -34,19 +34,37 @@ const useAggregateStore = create<IAggregateStore>(persist(
         last10.pop()
       }
 
-      set(state => {
-        state.transactions.last10 = last10
-      })
+      set(state => ({
+        ...state,
+        transactions: {
+          ...state.transactions,
+          last10
+        }
+      }))
+      
     },
-    getLast10: () => {
-      return get().transactions.last10
+    updateTransaction: (id, transaction) => {
+
+      const last10 = get().transactions.last10.map(tran => {
+        if (tran.id === id) return transaction
+        return tran;
+      })
+
+      set(state => ({
+        ...state,
+        transactions: {
+          ...state.transactions,
+          last10
+        }
+      }))
     }
   }),
   {
     name: PERSIST_NAME,
-    getStorage: () => IndexedDBStorage,
+    storage: createJSONStorage(() => IndexedDBStorage),
     version: 1
-  }
-))
+  })
+)
+
 
 export default useAggregateStore

@@ -2,23 +2,26 @@ import { Listbox } from '@headlessui/react';
 import { ChevronUpDownIcon } from '@heroicons/react/24/outline';
 import { ExclamationTriangleIcon } from '@heroicons/react/24/solid';
 import { Fragment } from 'react';
-import { IBudgetGoalData } from '../app/@types';
-import { formatCurrency, hexToRGB, money } from '../app/utils';
+import { IBudgetGoalData } from '../shared/@types';
+import { formatCurrency, hexToRGB, money } from '../shared/utils';
 import BudgetIcon from './budget-icon';
+import { twMerge } from 'tailwind-merge';
 
-interface Props {
+type Props = {
   value?: IBudgetGoalData;
   items: IBudgetGoalData[];
   onChange(value: IBudgetGoalData): void;
   progress?: {
     value: number;
   };
+  readOnly?: boolean
 }
 export default function SelectBudget({
   value,
   items,
   onChange,
-  progress
+  progress,
+  readOnly
 }: Props) {
 
   let progressPercent =
@@ -36,7 +39,7 @@ export default function SelectBudget({
             <Fragment>
               <BudgetIcon className='ml-0 mr-2' color={value.color} icon={value.icon} size='large' />
               {progress && progressPercent ? (
-                <div className='flex-1 pr-8'>
+                <div className={twMerge('flex-1', readOnly ? '' : 'pr-8')}>
                   <div className='flex items-center justify-between'>
                     <span className='text-sm font-medium'>
                       {value.budgetName}
@@ -87,12 +90,14 @@ export default function SelectBudget({
               </span>
             </Fragment>
           )}
-          <span className='absolute inset-y-0 right-0 flex items-center pr-1 pointer-events-none'>
-            <ChevronUpDownIcon
-              className='w-6 h-6'
-              aria-hidden='true'
-            />
-          </span>
+          {!readOnly ? (
+            <span className='absolute inset-y-0 right-0 flex items-center pointer-events-none'>
+              <ChevronUpDownIcon
+                className='w-6 h-6'
+                aria-hidden='true'
+              />
+            </span>
+          ) : null}
         </Listbox.Button>
 
         <Listbox.Options

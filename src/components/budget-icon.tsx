@@ -1,6 +1,6 @@
-import { hexToRGB } from '../app/utils';
+import { hexToRGB } from '../shared/utils';
 
-interface Props {
+type Props = {
   color: string
   icon: string
   size?: 'normal' | 'large';

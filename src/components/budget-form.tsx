@@ -3,13 +3,13 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { HexColorPicker } from 'react-colorful';
 import BudgetRadio from './budget-radio';
-import InputGroup from './input-group';
+import InputGroup from '../shared/components/input-group';
 import { default as EmojiPicker, EmojiStyle } from 'emoji-picker-react';
-import { IBudget, IGoal } from '../app/@types';
+import { IBudget, IGoal } from '../shared/@types';
 import dayjs from 'dayjs';
-import OptionSwitch from './option-switch';
+import OptionSwitch from '../shared/components/option-switch';
 
-interface Inputs {
+type Inputs = {
   type: 'goal' | 'budget';
   budgetName: string;
   amount: number;
@@ -21,7 +21,7 @@ interface Inputs {
   isHidden?: boolean;
 }
 
-interface BudgetFormProps {
+type BudgetFormProps = {
   defaultValue?: Inputs;
   onSubmit?(value: IBudget | IGoal): void;
   submitText?: string;
@@ -193,11 +193,11 @@ const BudgetForm: React.FC<BudgetFormProps> = ({
               >
                 <RadioGroup.Option
                   value='monthly'
-                  className={({ active, checked }) => `
-                    ${checked ? 'bg-indigo-100 text-indigo-500' : ''} 
-                    ${active ? 'ring-2 ring-offset-indigo-300 text-red-500' : ''
+                  className={({ active, checked }) => ` 
+                    ${checked ? 'bg-indigo-600 text-white' : ''} 
+                    ${active ? 'ring-2 ring-offset-indigo-300' : ''
                     } 
-                    px-2 py-3 border rounded-l-md outline-none focus:outline-none text-gray-600 
+                    px-2 py-3 border border-indigo-600 rounded-l-md outline-none focus:outline-none 
                     `}
                 >
                   <RadioGroup.Label>Monthly</RadioGroup.Label>
@@ -205,10 +205,10 @@ const BudgetForm: React.FC<BudgetFormProps> = ({
                 <RadioGroup.Option
                   value='semi-monthly'
                   className={({ active, checked }) => `
-                    ${checked ? 'bg-indigo-100 text-indigo-500' : ''} 
-                    ${active ? 'ring-2 ring-offset-indigo-300 text-red-500' : ''
+                    ${checked ? 'bg-indigo-600 text-white' : ''} 
+                    ${active ? 'ring-2 ring-offset-indigo-300' : ''
                     } 
-                    px-2 py-3 border rounded-r-md outline-none focus:outline-none text-gray-600 
+                    px-2 py-3 border border-indigo-600 rounded-r-md outline-none focus:outline-none 
                     `}
                 >
                   <RadioGroup.Label>Semi-monthly</RadioGroup.Label>

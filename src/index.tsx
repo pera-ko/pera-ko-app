@@ -9,21 +9,20 @@ import {
   Route,
   Switch
 } from 'react-router-dom';
-import Transactions from './containers/transactions';
-import Budget from './containers/budget';
-import Income from './containers/income';
-import IncomeAdd from './containers/income-add';
-import Preferences from './containers/preferences';
-import BudgetNew from './containers/budget-new';
-import WalletEditor from './containers/wallet-editor';
+import Transactions from './features/expenses/pages';
+import Budget from './shared/widgets/budget-grid-list';
+import Income from './features/income/pages/income';
+import IncomeAdd from './features/income/pages/income-add';
+import Preferences from './features/settings/pages';
+import BudgetNew from './features/settings/pages/budget-editor';
+import WalletEditor from './features/settings/pages/payment-method-editor';
 import { Toaster } from 'react-hot-toast';
-import { PerakoProvider } from './app/contexts/perako-context';
+import { PerakoProvider } from './shared/hooks/perako-context';
 
 const DefaultRoute = () => {
   const dateNow = new Date();
   const year = dateNow.getFullYear();
   const month = dateNow.getMonth() + 1;
-  console.log('redirecting...');
   return <Redirect path='/' to={`/${year}/${month}`} />;
 };
 

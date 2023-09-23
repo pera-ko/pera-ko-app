@@ -1,15 +1,15 @@
-import create from "zustand";
-import { persist } from "zustand/middleware";
+import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
 import { nanoid } from "nanoid";
 import dayjs from "dayjs";
 import isBetween from 'dayjs/plugin/isBetween'
 import IndexedDBStorage from "../infra/indexedDBPersistence";
-import { IBudget, IBudgetData, IGoal, IGoalData, IWalletData } from "../@types";
+import { IBudget, IBudgetData, IGoal, IGoalData, IWalletData } from "../../shared/@types";
 import storeMigration from "./migration";
 
 dayjs.extend(isBetween)
 
-export interface IBudgetStoreState {
+export type IBudgetStoreState = {
   wallet: {
     list: {
       [id: string]: IWalletData
@@ -36,12 +36,12 @@ const defaultWalletList: {
 } = {
   "default": {
     id: "default",
-    walletName: "Cash on Hand",
+    walletName: "Cash",
     type: "cash"
   }
 }
 
-const useBudgetStore = create<IBudgetStoreState>(persist(
+const useBudgetStore = create<IBudgetStoreState>()(persist(
   (set, get) => ({
     wallet: {
       list: defaultWalletList,
@@ -52,9 +52,13 @@ const useBudgetStore = create<IBudgetStoreState>(persist(
         return list[selected]
       },
       setDefaultWallet: (wallet) => {
-        set(state => {
-          state.wallet.selected = wallet.id
-        })
+        set(state => ({
+          ...state,
+          wallet: {
+            ...state.wallet,
+            selected: wallet.id
+          }
+        }))
       },
       createWallet: (name, type) => {
         const newId = nanoid();
@@ -70,6 +74,8 @@ const useBudgetStore = create<IBudgetStoreState>(persist(
             ...state.wallet.list,
             [newId]: newWallet
           }
+
+          return state;
         })
       },
       updateWallet: (wallet) => {
@@ -78,6 +84,7 @@ const useBudgetStore = create<IBudgetStoreState>(persist(
             ...state.wallet.list,
             [wallet.id]: wallet
           }
+          return state;
         })
       },
       deleteWallet: (wallet) => {
@@ -90,19 +97,24 @@ const useBudgetStore = create<IBudgetStoreState>(persist(
               deleteDate: new Date().toJSON()
             }
           }
+          return state;
         })
       },
       undoDeleteWallet: wallet => {
-        set(state => {
-          state.wallet.list = {
-            ...state.wallet.list,
-            [wallet.id]: {
-              ...wallet,
-              isDeleted: undefined,
-              deleteDate: undefined
+        set(state => ({
+          ...state,
+          wallet: {
+            ...state.wallet,
+            list: {
+              ...state.wallet.list,
+              [wallet.id]: {
+                ...wallet,
+                isDeleted: undefined,
+                deleteDate: undefined
+              }
             }
           }
-        })
+        }))
       }
     },
     budget: {
@@ -130,6 +142,7 @@ const useBudgetStore = create<IBudgetStoreState>(persist(
 
         set(state => {
           state.budget.list.push(newBudget)
+          return state;
         })
       },
       updateBudget: (id, value) => {
@@ -140,20 +153,22 @@ const useBudgetStore = create<IBudgetStoreState>(persist(
         }
         set(state => {
           state.budget.list[budgetIndex] = nextBudget
+          return state;
         })
       },
       deleteBudget: (id) => {
         set(state => {
           state.budget.list = get().budget.list.filter(b => b.id !== id)
+          return state;
         })
       }
     }
   }),
   {
     name: "perako-budget",
-    getStorage: () => IndexedDBStorage,
+    storage: createJSONStorage(() => IndexedDBStorage),
     migrate: storeMigration.budgetStore,
-    version: 1
+    version: 1,
   }
 ))
 
