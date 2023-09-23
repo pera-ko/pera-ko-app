@@ -1,18 +1,18 @@
 import { ClipboardDocumentCheckIcon, Squares2X2Icon } from '@heroicons/react/24/outline';
 import { Fragment, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { IBudgetGoalData } from '../shared/@types';
-import { BottomNav } from './App';
-import BudgetCheckList from '../components/budget-check-list';
-import BudgetGrid from '../components/widgets/budget-grid';
-import { useLocQuery, useLocalStorage } from '../app/hooks';
+import { IBudgetGoalData } from '../@types';
+import { BottomNav } from '../../containers/App';
+import BudgetCheckList from '../../components/budget-check-list';
+import BudgetGrid from '../../components/widgets/budget-grid';
+import { useLocQuery, useLocalStorage } from '../../app/hooks';
 import {
   getEffectiveBudget,
   useBudgetStore
-} from '../app/store';
-import { money } from '../shared/utils';
+} from '../../app/store';
+import { money } from '../utils';
 import toast from 'react-hot-toast';
-import useAddExpense from '../features/expenses/hooks/use-add-expense';
+import useAddExpense from '../../features/expenses/hooks/use-add-expense';
 
 const Budget: React.FC = () => {
   const { year, month } = useParams<{ year: string; month: string }>();
