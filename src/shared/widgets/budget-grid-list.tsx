@@ -3,7 +3,7 @@ import { Fragment, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { IBudgetGoalData } from '../@types';
 import { BottomNav } from '../../containers/App';
-import BudgetCheckList from '../../components/budget-check-list';
+import BudgetCheckList from '../../features/expenses/components/budget-check-list';
 import BudgetGrid from '../../components/widgets/budget-grid';
 import {
   getEffectiveBudget,

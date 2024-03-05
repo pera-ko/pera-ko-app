@@ -2,7 +2,7 @@ import { Dialog } from '@headlessui/react';
 import { ArrowLeftIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { useHistory, useRouteMatch } from 'react-router';
 import { IBudget, IGoal } from '../../../shared/@types';
-import BudgetForm from '../../../components/budget-form';
+import BudgetForm from '../../expenses/components/budget-form';
 import {
   createBudget,
   deleteBudget,
