@@ -25,7 +25,17 @@ const useExpensesPaymentStore = create<IExpensesPaymentStore>()(persist(
         if (!state.transactions[walletId]) {
           state.transactions[walletId] = []
         }
-        state.transactions[walletId].unshift(newTran)
+        
+        // Find the correct position to insert based on tranDate (descending order)
+        let insertIndex = state.transactions[walletId].length
+        for (let i = 0; i < state.transactions[walletId].length; i++) {
+          if (finalTranDate > state.transactions[walletId][i].tranDate) {
+            insertIndex = i
+            break
+          }
+        }
+        
+        state.transactions[walletId].splice(insertIndex, 0, newTran)
         return state;
       })
     },

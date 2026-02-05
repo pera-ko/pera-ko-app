@@ -61,7 +61,18 @@ const useTransactionStore = create<ITransactionStore>()(persist(
     addTransaction: (id: string, budgetId: string, walletId: string, amount: number, remarks?: string, labels = [], tranDate?: string) => {
       const finalTranDate = tranDate || (new Date()).toJSON()
       set(state => {
-        state.list.push({ id, type: undefined, budgetId, walletId, amount, tranDate: finalTranDate, remarks, labels })
+        const newTransaction = { id, type: undefined, budgetId, walletId, amount, tranDate: finalTranDate, remarks, labels }
+        
+        // Find the correct position to insert based on tranDate (descending order)
+        let insertIndex = state.list.length
+        for (let i = 0; i < state.list.length; i++) {
+          if (finalTranDate > state.list[i].tranDate) {
+            insertIndex = i
+            break
+          }
+        }
+        
+        state.list.splice(insertIndex, 0, newTransaction)
         return state;
       })
     },

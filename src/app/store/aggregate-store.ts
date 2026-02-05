@@ -27,10 +27,19 @@ const useAggregateStore = create<IAggregateStore>()(
       
       const last10 = [...get().transactions.last10]
 
-      const count = last10.unshift(newTran)
+      // Find the correct position to insert based on tranDate (descending order)
+      let insertIndex = last10.length
+      for (let i = 0; i < last10.length; i++) {
+        if (finalTranDate > last10[i].tranDate) {
+          insertIndex = i
+          break
+        }
+      }
 
+      last10.splice(insertIndex, 0, newTran)
 
-      if (count > 10) { // TODO: should also check the dates and not just the count
+      // Keep only last 10
+      if (last10.length > 10) {
         last10.pop()
       }
 
