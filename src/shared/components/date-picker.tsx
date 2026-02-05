@@ -1,4 +1,4 @@
-import { ChevronDownIcon, CalendarIcon } from "@heroicons/react/20/solid"
+import { ChevronDownIcon, CalendarIcon, ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid"
 import { useHistory } from "react-router"
 import { useLocQuery } from "../hooks/use-loc-query"
 import Chip from "./chip"
@@ -92,25 +92,25 @@ export function DatePicker({ selected, onChange }: DatePickerProps) {
           showClose={true}
         >
           <div className="p-4 bg-white dark:bg-slate-900 rounded-lg">
-            <div className="flex items-center justify-between mb-4">
-              <button
-                type="button"
-                onClick={handlePrevMonth}
-                className="p-1 hover:bg-gray-200 dark:hover:bg-slate-700 rounded"
-              >
-                ←
-              </button>
-              <h3 className="text-lg font-semibold">
-                {tempDate.format('MMMM YYYY')}
-              </h3>
-              <button
-                type="button"
-                onClick={handleNextMonth}
-                className="p-1 hover:bg-gray-200 dark:hover:bg-slate-700 rounded"
-              >
-                →
-              </button>
-            </div>
+          <div className="flex items-center justify-between mb-4">
+            <button
+              type="button"
+              onClick={handlePrevMonth}
+              className="p-1 hover:bg-gray-200 dark:hover:bg-slate-700 rounded"
+            >
+              <ChevronLeftIcon className="w-5 h-5" />
+            </button>
+            <h3 className="text-lg font-semibold">
+              {tempDate.format('MMMM YYYY')}
+            </h3>
+            <button
+              type="button"
+              onClick={handleNextMonth}
+              className="p-1 hover:bg-gray-200 dark:hover:bg-slate-700 rounded"
+            >
+              <ChevronRightIcon className="w-5 h-5" />
+            </button>
+          </div>
 
             {/* Day headers */}
             <div className="grid grid-cols-7 gap-2 mb-2">
