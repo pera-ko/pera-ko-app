@@ -10,7 +10,7 @@ export type IAggregateStore = {
   transactions: {
     last10: ITransactionData[]
   },
-  addTransaction: (id: string, budgetId: string, walletId: string, amount: number, remarks?: string, labels?: string[]) => void,
+  addTransaction: (id: string, budgetId: string, walletId: string, amount: number, remarks?: string, labels?: string[], tranDate?: string) => void,
   updateTransaction: (id: string, transaction: ITransactionData) => void
 }
 
@@ -20,10 +20,10 @@ const useAggregateStore = create<IAggregateStore>()(
     transactions: {
       last10: []
     },
-    addTransaction: (id, budgetId, walletId, amount, remarks, labels = []) => {
-      const tranDate = (new Date()).toJSON()
+    addTransaction: (id, budgetId, walletId, amount, remarks, labels = [], tranDate) => {
+      const finalTranDate = tranDate || (new Date()).toJSON()
 
-      const newTran = { id, type: undefined, budgetId, walletId, amount, tranDate, remarks, labels }
+      const newTran = { id, type: undefined, budgetId, walletId, amount, tranDate: finalTranDate, remarks, labels }
       
       const last10 = [...get().transactions.last10]
 

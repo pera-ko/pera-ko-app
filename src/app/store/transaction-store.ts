@@ -30,7 +30,7 @@ export type ITransactionStore = {
   getTotalExpensesOfWallet: (walletId: string) => number;
   getTotalOfEachBudget: () => { name: string, value: number }[];
   getTotalOfBudget: (budgetId: string) => number;
-  addTransaction: (id: string, budgetId: string, walletId: string, amount: number, remarks?: string, labels?: string[]) => void;
+  addTransaction: (id: string, budgetId: string, walletId: string, amount: number, remarks?: string, labels?: string[], tranDate?: string) => void;
   updateTransaction: (id: string, tranData: ITransactionData) => void;
   addIncome: (walletId: string, amount: number, remarks?: string) => void;
   addTransfer: (walletFromId: string, walletToId: string, amount: number, remarks?: string) => void;
@@ -58,10 +58,10 @@ const useTransactionStore = create<ITransactionStore>()(persist(
     getTotalOfBudget: (budgetId: string) => {
       return get().list.filter(t => t.type === undefined && t.budgetId === budgetId).reduce((tot, t) => tot + t.amount, 0)
     },
-    addTransaction: (id: string, budgetId: string, walletId: string, amount: number, remarks?: string, labels = []) => {
-      const tranDate = (new Date()).toJSON()
+    addTransaction: (id: string, budgetId: string, walletId: string, amount: number, remarks?: string, labels = [], tranDate?: string) => {
+      const finalTranDate = tranDate || (new Date()).toJSON()
       set(state => {
-        state.list.push({ id, type: undefined, budgetId, walletId, amount, tranDate, remarks, labels })
+        state.list.push({ id, type: undefined, budgetId, walletId, amount, tranDate: finalTranDate, remarks, labels })
         return state;
       })
     },
