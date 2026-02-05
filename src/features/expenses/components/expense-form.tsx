@@ -2,19 +2,19 @@ import { useEffect, useRef, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { IBudgetGoalData } from '../../../shared/@types';
 import InputGroup from '../../../shared/components/input-group';
-import SelectBudget from '../../../components/budget-select';
+import SelectBudget from './budget-select';
 import { ChevronUpDownIcon } from '@heroicons/react/24/outline';
 import PaymentMethodList from './payment-method-list';
 import { setDefaultWallet, useBudgetStore } from '../../../app/store';
 import { shallow } from 'zustand/shallow';
 import Dialog from '../../../shared/components/dialog';
 import LabelPicker from '../../../shared/components/label-picker';
-// import Chip from './chip';
-// import { CalendarIcon } from '@heroicons/react/20/solid';
+import DatePicker from '../../../shared/components/date-picker';
 
 type Inputs = {
   amount: number;
   remarks?: string;
+  date?: Date;
 }
 
 type Props = {
@@ -44,6 +44,7 @@ export default function ExpenseForm({
   const defaultWallet = walletList[selectedWalletId];
   const [selectPayment, setSelectPayment] = useState(false)
   const [labels, setLabels] = useState<string[]>([])
+  const [expenseDate, setExpenseDate] = useState<Date | undefined>(undefined)
   const {
     register,
     handleSubmit,
@@ -70,7 +71,8 @@ export default function ExpenseForm({
       const submitData = {
         ...data,
         budgetId: budget.id,
-        labels
+        labels,
+        date: expenseDate
       }
       
       onSubmit(submitData);
@@ -134,7 +136,10 @@ export default function ExpenseForm({
       />
       <InputGroup label='Description' {...register('remarks')} readOnly={readOnly}/>
       <div className='flex mt-4 space-x-2'>
-        {/* <Chip leftElement={<CalendarIcon className='w-5 h-5'/>}>Today</Chip> */}
+        <DatePicker
+          selected={expenseDate}
+          onChange={setExpenseDate}
+        />
         <LabelPicker
           onChange={setLabels}
           selected={labels}

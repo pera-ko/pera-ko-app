@@ -44,8 +44,6 @@ export default function Transactions() {
   } else {
     sortedList = transactionList.filter(t => t.type === undefined && t.labels?.includes(label)) as ITransactionData[]
   }
-  
-  sortedList.reverse();
 
   const content = (
     <>

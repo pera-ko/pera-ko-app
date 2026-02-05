@@ -5,7 +5,7 @@ import {
 import React from 'react';
 import { useHistory, useRouteMatch } from 'react-router';
 import { Link } from 'react-router-dom';
-import BudgetList from '../../../components/budget-list';
+import BudgetList from '../../expenses/components/budget-list';
 import OptionSwitch from '../../../shared/components/option-switch';
 import StickyHeader from '../../../shared/components/sticky-header';
 import useBudgetStore from '../../../app/store/budget-store';

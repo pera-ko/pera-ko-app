@@ -10,7 +10,7 @@ export type IAggregateStore = {
   transactions: {
     last10: ITransactionData[]
   },
-  addTransaction: (id: string, budgetId: string, walletId: string, amount: number, remarks?: string, labels?: string[]) => void,
+  addTransaction: (id: string, budgetId: string, walletId: string, amount: number, remarks?: string, labels?: string[], tranDate?: string) => void,
   updateTransaction: (id: string, transaction: ITransactionData) => void
 }
 
@@ -20,17 +20,26 @@ const useAggregateStore = create<IAggregateStore>()(
     transactions: {
       last10: []
     },
-    addTransaction: (id, budgetId, walletId, amount, remarks, labels = []) => {
-      const tranDate = (new Date()).toJSON()
+    addTransaction: (id, budgetId, walletId, amount, remarks, labels = [], tranDate) => {
+      const finalTranDate = tranDate || (new Date()).toJSON()
 
-      const newTran = { id, type: undefined, budgetId, walletId, amount, tranDate, remarks, labels }
+      const newTran = { id, type: undefined, budgetId, walletId, amount, tranDate: finalTranDate, remarks, labels }
       
       const last10 = [...get().transactions.last10]
 
-      const count = last10.unshift(newTran)
+      // Find the correct position to insert based on tranDate (descending order)
+      let insertIndex = last10.length
+      for (let i = 0; i < last10.length; i++) {
+        if (finalTranDate > last10[i].tranDate) {
+          insertIndex = i
+          break
+        }
+      }
 
+      last10.splice(insertIndex, 0, newTran)
 
-      if (count > 10) { // TODO: should also check the dates and not just the count
+      // Keep only last 10
+      if (last10.length > 10) {
         last10.pop()
       }
 

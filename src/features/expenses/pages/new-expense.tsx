@@ -86,7 +86,8 @@ export default function NewTransaction() {
                     selectedWalletId,
                     value.amount,
                     value.remarks,
-                    value.labels
+                    value.labels,
+                    value.date
                   );
                   history.goBack();
                   toast.success(`${money(value.amount)} added to transaction`);
