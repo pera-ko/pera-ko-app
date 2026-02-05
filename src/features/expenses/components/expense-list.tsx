@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import { IBudget, IBudgetData, IGoal, IGoalData, ITransactionData, IWallet } from "../../../shared/@types";
 import calendar from 'dayjs/plugin/calendar';
-import BudgetIcon from "../../../components/budget-icon";
+import BudgetIcon from "./budget-icon";
 import { Fragment, useState } from "react";
 import { money } from "../../../shared/utils";
 import { TagIcon } from "@heroicons/react/20/solid";

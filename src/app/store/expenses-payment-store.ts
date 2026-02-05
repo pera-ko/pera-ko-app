@@ -8,7 +8,7 @@ const PERSIST_NAME = 'expenses_payment'
 // All transaction list should be ordered by tran date in descending order
 export type IExpensesPaymentStore = {
   transactions: Record<string, ITransactionData[]>;
-  addTransaction: (id: string, budgetId: string, walletId: string, amount: number, remarks?: string, labels?: string[]) => void;
+  addTransaction: (id: string, budgetId: string, walletId: string, amount: number, remarks?: string, labels?: string[], tranDate?: string) => void;
   updateTransaction: (id: string, tranData: ITransactionData) => void;
 }
 
@@ -16,16 +16,26 @@ const useExpensesPaymentStore = create<IExpensesPaymentStore>()(persist(
   (set, get) => ({
     transactions: {},
     totalExpenses: {},
-    addTransaction: (id, budgetId, walletId, amount, remarks, labels = []) => {
-      const tranDate = (new Date()).toJSON()
+    addTransaction: (id, budgetId, walletId, amount, remarks, labels = [], tranDate) => {
+      const finalTranDate = tranDate || (new Date()).toJSON()
 
       set(state => {
-        const newTran = { id, type: undefined, budgetId, walletId, amount, tranDate, remarks, labels }
+        const newTran = { id, type: undefined, budgetId, walletId, amount, tranDate: finalTranDate, remarks, labels }
 
         if (!state.transactions[walletId]) {
           state.transactions[walletId] = []
         }
-        state.transactions[walletId].unshift(newTran)
+        
+        // Find the correct position to insert based on tranDate (descending order)
+        let insertIndex = state.transactions[walletId].length
+        for (let i = 0; i < state.transactions[walletId].length; i++) {
+          if (finalTranDate > state.transactions[walletId][i].tranDate) {
+            insertIndex = i
+            break
+          }
+        }
+        
+        state.transactions[walletId].splice(insertIndex, 0, newTran)
         return state;
       })
     },

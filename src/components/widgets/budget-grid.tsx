@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import React, { PropsWithChildren } from 'react';
 import { IBudget, IGoal } from '../../shared/@types';
-import BudgetIcon from './../budget-icon';
+import BudgetIcon from '../../features/expenses/components/budget-icon';
 
 const container = {
   hidden: { opacity: 1, scale: 0 },
