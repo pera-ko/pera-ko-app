@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from 'react';
-import { IBudget, IGoal } from '../shared/@types';
-import { money } from '../shared/utils';
+import { IBudget, IGoal } from '../../../shared/@types';
+import { money } from '../../../shared/utils';
 import BudgetIcon from './budget-icon';
 
 const BudgetListComponent: React.FC<PropsWithChildren> = ({ children }) => {

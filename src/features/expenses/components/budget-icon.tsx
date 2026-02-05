@@ -1,4 +1,4 @@
-import { hexToRGB } from '../shared/utils';
+import { hexToRGB } from '../../../shared/utils';
 
 type Props = {
   color: string

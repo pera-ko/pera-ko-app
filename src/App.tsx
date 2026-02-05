@@ -6,13 +6,13 @@ import {
   PlusIcon,
 } from '@heroicons/react/24/outline';
 import { Fragment, PropsWithChildren } from 'react';
-import DashboardLegacy from '../features/dashboard/pages/dashboard-legacy';
-import Dashboard from '../features/dashboard/pages';
+import DashboardLegacy from './features/dashboard/pages/dashboard-legacy';
+import Dashboard from './features/dashboard/pages';
 import { Cog6ToothIcon, 
   // CurrencyDollarIcon, FlagIcon,
   HomeIcon } from '@heroicons/react/24/solid';
-import useLocalStorage from '../shared/hooks/use-local-storage';
-import { useLocQuery } from '../shared/hooks/use-loc-query';
+import useLocalStorage from './shared/hooks/use-local-storage';
+import { useLocQuery } from './shared/hooks/use-loc-query';
 
 const App: React.FC<PropsWithChildren> = ({ children }) => {
   const {value: newDashboard, loading } = useLocalStorage('expenses-dashboard', false);
