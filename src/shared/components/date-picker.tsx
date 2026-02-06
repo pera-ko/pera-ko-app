@@ -4,11 +4,15 @@ import { useLocQuery } from "../hooks/use-loc-query"
 import Chip from "./chip"
 import Dialog from "./dialog"
 import dayjs, { Dayjs } from "dayjs"
-import { useState } from "react"
+import { useState, useRef } from "react"
 
 type DatePickerProps = {
   selected?: Date;
   onChange: (date: Date) => void;
+}
+
+const isMobile = () => {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 }
 
 export function DatePicker({ selected, onChange }: DatePickerProps) {
@@ -16,13 +20,28 @@ export function DatePicker({ selected, onChange }: DatePickerProps) {
   const history = useHistory();
   const isOpen = search['datePicker'] === 'open';
   const [tempDate, setTempDate] = useState<Dayjs>(selected ? dayjs(selected) : dayjs());
+  const nativeInputRef = useRef<HTMLInputElement>(null);
 
   const today = dayjs();
   const isToday = selected ? dayjs(selected).isSame(today, 'day') : true;
 
   const handleOpen = () => {
     setTempDate(selected ? dayjs(selected) : dayjs());
-    set({ datePicker: 'open' });
+    
+    // Use native date picker on mobile
+    if (isMobile() && nativeInputRef.current) {
+      nativeInputRef.current.click();
+    } else {
+      set({ datePicker: 'open' });
+    }
+  }
+
+  const handleNativeDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const dateValue = e.target.value;
+    if (dateValue) {
+      const newDate = dayjs(dateValue).toDate();
+      onChange(newDate);
+    }
   }
 
   const handleConfirm = () => {
@@ -84,8 +103,15 @@ export function DatePicker({ selected, onChange }: DatePickerProps) {
 
   return (
     <>
+      <input
+        ref={nativeInputRef}
+        type="date"
+        value={selected ? dayjs(selected).format('YYYY-MM-DD') : ''}
+        onChange={handleNativeDateChange}
+        style={{ display: 'none' }}
+      />
       {button}
-      {isOpen && (
+      {isOpen && !isMobile() && (
         <Dialog 
           title="Select Date" 
           onClose={handleClose}
