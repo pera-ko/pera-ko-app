@@ -12,10 +12,11 @@ type Props = {
   };
   inputClassName?: string;
   readOnly?: boolean
+  action?: React.ReactNode;
 } & InputHTMLAttributes<HTMLInputElement>
 
 function InputGroupInner(
-  { label, error, className, contentLabel, inputClassName, readOnly, ...rest }: Props,
+  { label, error, className, contentLabel, inputClassName, readOnly, action, ...rest }: Props,
   ref: React.ForwardedRef<HTMLInputElement>
 ) {
   return (
@@ -42,6 +43,7 @@ function InputGroupInner(
           readOnly={readOnly}
           {...rest}
         />
+        {action && <div className='ml-2'>{action}</div>}
       </div>
       {error && <span className='text-xs text-red-700'>{error?.message}</span>}
     </label>
