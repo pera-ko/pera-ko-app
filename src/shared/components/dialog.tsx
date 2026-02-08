@@ -7,7 +7,7 @@ export type IDialogButton = {
 } & React.HTMLProps<HTMLButtonElement>
 
 type Props = {
-  title: string;
+  title?: string;
   onClose(): void;
   buttons?: IDialogButton[];
   isOpen?: boolean;
@@ -63,12 +63,15 @@ const Dialog: React.FC<Props> = ({
                 text-left align-middle transition-all transform bg-white 
                 shadow-xl dark:bg-zinc-900 rounded-2xl ${position === 'bottom'? 'fixed inset-x-2 bottom-0' : 'w-full'}`
                 }>
-              <HUIDialog.Title
-                as='h3'
-                className='px-4 mt-4 text-lg font-medium leading-6'
-              >
-                {title}
-              </HUIDialog.Title>
+              {title && (
+                <HUIDialog.Title
+                  as='h3'
+                  className='px-4 mt-4 text-lg font-medium leading-6'
+                >
+                  {title}
+                </HUIDialog.Title>
+                )}
+              
               <div className='mt-2'>{children}</div>
               {(buttons || !showClose) ? (
 
