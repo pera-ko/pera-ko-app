@@ -11,29 +11,18 @@ type DatePickerProps = {
   onChange: (date: Date) => void;
 }
 
-const isMobile = () => {
-  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-}
-
 export function DatePicker({ selected, onChange }: DatePickerProps) {
   const { set, search } = useLocQuery<{ datePicker: 'open' | 'closed' }>();
   const history = useHistory();
   const isOpen = search['datePicker'] === 'open';
   const [tempDate, setTempDate] = useState<Dayjs>(selected ? dayjs(selected) : dayjs());
-  const nativeInputRef = useRef<HTMLInputElement>(null);
 
   const today = dayjs();
   const isToday = selected ? dayjs(selected).isSame(today, 'day') : true;
 
   const handleOpen = () => {
     setTempDate(selected ? dayjs(selected) : dayjs());
-    
-    // Use native date picker on mobile
-    if (isMobile() && nativeInputRef.current) {
-      nativeInputRef.current.click();
-    } else {
-      set({ datePicker: 'open' });
-    }
+    set({ datePicker: 'open' });
   }
 
   const handleNativeDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -103,15 +92,8 @@ export function DatePicker({ selected, onChange }: DatePickerProps) {
 
   return (
     <>
-      <input
-        ref={nativeInputRef}
-        type="date"
-        value={selected ? dayjs(selected).format('YYYY-MM-DD') : ''}
-        onChange={handleNativeDateChange}
-        style={{ display: 'none' }}
-      />
       {button}
-      {isOpen && !isMobile() && (
+      {isOpen && (
         <Dialog 
           title="Select Date" 
           onClose={handleClose}
