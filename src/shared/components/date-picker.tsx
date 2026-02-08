@@ -95,11 +95,10 @@ export function DatePicker({ selected, onChange }: DatePickerProps) {
       {button}
       {isOpen && (
         <Dialog 
-          title="Select Date" 
           onClose={handleClose}
           showClose={true}
         >
-          <div className="p-4 bg-white dark:bg-slate-900 rounded-lg">
+          <div className="p-4 rounded-lg">
           <div className="flex items-center justify-between mb-4">
             <button
               type="button"
