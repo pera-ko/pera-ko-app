@@ -1,5 +1,4 @@
 import { ArrowDownCircleIcon, ArrowLeftIcon } from '@heroicons/react/24/outline';
-import { ReactComponent as WalletPana } from '../../../assets/svg/Wallet-pana.svg';
 import dayjs from 'dayjs';
 import calendar from 'dayjs/plugin/calendar';
 import { Fragment } from 'react';
@@ -38,7 +37,6 @@ export default function Income() {
         </>
       ) : (
         <div className='text-center'>
-          <WalletPana className='m-auto h-44'/>
           <div className='mb-5 -mt-3 font-medium'>No Income yet</div>
           <AddIncomeButton to={`/${year}/${month}/income/new`} />
         </div>
